@@ -736,7 +736,7 @@
   .theme-toggle:hover { border-color: var(--red); color: var(--red); }
 
   /* dark mode extra tweaks */
-  body.dark body::before { opacity: 0.15; }
+  body.dark::before { opacity: 0.15; }
   body.dark .tg-banner { background: rgba(201,86,74,0.08); }
   body.dark .btn-auth.primary { background: var(--red); color: #1a1410; }
   body.dark .btn-plain.filled { background: var(--red); color: #1a1410; }
@@ -1037,6 +1037,7 @@
     <div class="footer-links">
       <a href="https://ficbook.net/authors/6404725" target="_blank">Фикбук</a>
       <a href="https://t.me/tarabarshinachina" target="_blank">Telegram</a>
+      <a href="/cdn-cgi/l/email-protection#dfb9b6adbabdbeacbaf2bebbb2b6b1acbbb4f2b9bdaca9bc9facb6abbaf2b9e6eae6e9f1b6beb2f1b8acbaada9b6bcbabebcbcb0aab1abf1bcb0b2">Написать</a>
       <a onclick="showSection('blog')">Блог</a>
       <a onclick="showSection('about')">О проекте</a>
     </div>
@@ -1241,11 +1242,13 @@
   </div>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script>
 const ADMIN_UID = 'bJBT7Z3ZXPe6WvOfD1CHSzlzAMu2';
+const ADMIN_EMAIL_CONTACT = 'firebase-adminsdk-fbsvc@site-f9596.iam.gserviceaccount.com';
+
 firebase.initializeApp({
   apiKey:"AIzaSyCrTxC9fH8fTveNUD3seO00hnC2GB6x-Fs",
   authDomain:"site-f9596.firebaseapp.com",
@@ -1253,7 +1256,7 @@ firebase.initializeApp({
   projectId:"site-f9596",
   storageBucket:"site-f9596.firebasestorage.app",
   messagingSenderId:"332162115765",
-  appId:"1:332162115765:web:9041e6f255d17391ac36fc"
+  appId:"1:332162115765:web:52848c4b97e7259fac36fc"
 });
 const db=firebase.database(), auth=firebase.auth();
 
@@ -1268,6 +1271,7 @@ function showMsg(el,txt,type){if(!el)return;el.innerHTML='<div class="msg '+type
 
 // ── КЭШИ И СОСТОЯНИЕ ───────────────────────
 let _siteListener=null;
+let _commentsListener=null;
 let _loadingHidden=false;
 
 // Настройки ридера (fontSize, lineHeight)
@@ -1277,8 +1281,14 @@ let readerSettings={...readerDefaults};
 function getData(k,d){return(k in _cache)?_cache[k]:d;}
 function setData(k,v){
   _cache[k]=v;
-  const pub=['books','chapters','blog_posts','home_quote','home_desc','about_p1','about_p2'];
+  const pub=['books','home_quote','home_desc','about_p1','about_p2','books_seeded','blog_seeded','blog_posts'];
   if(pub.includes(k)) db.ref('site/'+k).set(v).catch(e=>console.warn('setData site:',k,e));
+  // Главы пишем ОТДЕЛЬНО по каждой книге чтобы не затирать другие
+  if(k==='chapters'){
+    Object.entries(v).forEach(([bookId,chs])=>{
+      db.ref('site/chapters/'+bookId).set(chs).catch(e=>console.warn('setData chapters:',bookId,e));
+    });
+  }
   if(k==='comments') db.ref('comments').set(v).catch(e=>console.warn('setData comments:',e));
   if(k.startsWith('saved_')&&currentUser) db.ref('users/'+currentUser.uid+'/saved').set(v).catch(()=>{});
 }
@@ -1288,8 +1298,13 @@ function hideLoading(){
   if(_loadingHidden)return;
   _loadingHidden=true;
   const s=document.getElementById('loading-screen');
-  if(s){s.classList.add('hidden');setTimeout(()=>{if(s.parentNode)s.remove();},700);}
+  if(s){
+    s.classList.add('hidden');
+    setTimeout(()=>{if(s.parentNode)s.remove();},700);
+  }
 }
+// Гарантируем скрытие загрузчика через 10 сек максимум
+setTimeout(hideLoading,10000);
 
 // ── ТЕМА ───────────────────────────────────
 function toggleTheme(){
@@ -1311,29 +1326,47 @@ function closeBurger(){
 // ── FIREBASE DATA ──────────────────────────
 function loadSiteData(){
   if(_siteListener){db.ref('site').off('value',_siteListener);_siteListener=null;}
-  // Фоллбек: если Firebase не ответил за 6 сек — показываем что есть
-  const fallback=setTimeout(()=>{
-    if(!_loadingHidden){renderWorksGrid();renderBlogPosts();applyTexts();hideLoading();}
-  },6000);
+  if(_commentsListener){db.ref('comments').off('value',_commentsListener);_commentsListener=null;}
+
+  // Показываем скелетон вместо блокирующего экрана
+  const grid=document.getElementById('works-grid');
+  if(grid) grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Загрузка...</div>';
+
+  // Таймаут 8 сек
+  const fallback=setTimeout(()=>{hideLoading();renderWorksGrid();renderBlogPosts();applyTexts();},8000);
+
   _siteListener=db.ref('site').on('value',snap=>{
     clearTimeout(fallback);
-    if(!snap.exists()){
-      initData();
-      renderWorksGrid();renderBlogPosts();applyTexts();
-      hideLoading();
-      return;
+    if(snap.exists()){
+      const val=snap.val();
+      Object.keys(val).forEach(k=>{_cache[k]=val[k];});
     }
-    const val=snap.val();
-    Object.keys(val).forEach(k=>{_cache[k]=val[k];});
-    if(!val.books_seeded)initData();
+    if(!getData('books_seeded',false))initData();
     renderWorksGrid();renderBlogPosts();applyTexts();
     hideLoading();
     if(document.getElementById('page-admin').classList.contains('active')){
       renderAdminChapters();renderAdminBooks();renderAdminBlogList();renderAdminComments();
     }
+    if(document.getElementById('page-book').classList.contains('active')&&currentBookId!==null){
+      renderChaptersList(currentBookId);
+    }
     if(document.getElementById('page-chapter').classList.contains('active')&&currentBookId!==null){
       const ch=(getData('chapters',{})[currentBookId]||[])[currentChapIdx];
       if(ch)renderComments(currentBookId,ch.id);
+    }
+  });
+
+  // Живая подписка на комментарии отдельно
+  _commentsListener=db.ref('comments').on('value',cs=>{
+    if(cs.exists())_cache['comments']=cs.val();
+    else _cache['comments']={};
+    if(document.getElementById('page-chapter').classList.contains('active')&&currentBookId!==null){
+      const ch=(getData('chapters',{})[currentBookId]||[])[currentChapIdx];
+      if(ch)renderComments(currentBookId,ch.id);
+    }
+    if(document.getElementById('page-admin').classList.contains('active')&&
+       document.getElementById('admin-pane-comments').classList.contains('active')){
+      renderAdminComments();
     }
   });
 }
@@ -1362,7 +1395,8 @@ function doRegister(){
   if(!nick||!email||!pass){showMsg(msg,'Заполните все поля.','error');return;}
   if(pass.length<6){showMsg(msg,'Пароль — минимум 6 символов.','error');return;}
   auth.createUserWithEmailAndPassword(email,pass)
-    .then(cred=>db.ref('users/'+cred.user.uid).set({nickname:nick,email,role:'user',avatar:null,banned:false}))
+    .then(cred=>db.ref('users/'+cred.user.uid).set({nickname:nick,email,role:'user',avatar:null,banned:false})
+      .catch(e=>console.warn('users write failed:',e)))
     .catch(e=>{
       const t=e.code==='auth/email-already-in-use'?'Email уже зарегистрирован.':'Ошибка: '+e.message;
       showMsg(msg,t,'error');
@@ -1378,38 +1412,24 @@ auth.onAuthStateChanged(fbUser=>{
     function loadUser(attempt){
       db.ref('users/'+fbUser.uid).once('value',snap=>{
         const p=snap.val();
-        if(!p&&attempt<3){setTimeout(()=>loadUser(attempt+1),600);return;}
+        if(!p&&attempt<3){setTimeout(()=>loadUser(attempt+1),800);return;}
         if(p&&p.banned){auth.signOut();alert('Ваш аккаунт заблокирован.');return;}
         currentUser={uid:fbUser.uid,email:fbUser.email,
           nickname:p?p.nickname:fbUser.email,
           role:fbUser.uid===ADMIN_UID?'admin':(p?p.role:'user'),
           avatar:p?p.avatar:null,banned:false};
         if(p&&p.saved)_cache['saved_'+currentUser.uid]=p.saved;
-        // Загружаем прогресс чтения
         if(p&&p.readProgress)_cache['readProgress']=p.readProgress;
-        // Загружаем комментарии
-        db.ref('comments').once('value',cs=>{
-          if(cs.exists())_cache['comments']=cs.val();
-          closeAuthModal();renderNav();showAdminBars(currentUser.role==='admin');
-          renderWorksGrid();renderBlogPosts();
-          // Живая подписка на комментарии
-          db.ref('comments').on('value',cs2=>{
-            if(cs2.exists())_cache['comments']=cs2.val();
-            if(document.getElementById('page-chapter').classList.contains('active')&&currentBookId!==null){
-              const ch=(getData('chapters',{})[currentBookId]||[])[currentChapIdx];
-              if(ch)renderComments(currentBookId,ch.id);
-            }
-          });
-        });
+        closeAuthModal();
+        renderNav();
+        showAdminBars(currentUser.role==='admin');
+        renderWorksGrid();renderBlogPosts();
       });
     }
     loadUser(0);
   } else {
     currentUser=null;renderNav();showAdminBars(false);
-    db.ref('comments').once('value',cs=>{
-      if(cs.exists())_cache['comments']=cs.val();
-      renderWorksGrid();renderBlogPosts();
-    });
+    renderWorksGrid();renderBlogPosts();
   }
 });
 
@@ -1464,7 +1484,12 @@ function saveProfile(){
     .catch(e=>showMsg(msg,'Ошибка: '+e.message,'error'));
   if(pass){
     if(pass.length<6){showMsg(msg,'Минимум 6 символов.','error');return;}
-    auth.currentUser.updatePassword(pass).then(save).catch(e=>showMsg(msg,'Ошибка: '+e.message,'error'));
+    auth.currentUser.updatePassword(pass).then(save).catch(e=>{
+      const t=e.code==='auth/requires-recent-login'
+        ?'Для смены пароля выйдите и войдите снова (требуется повторная авторизация).'
+        :'Ошибка: '+e.message;
+      showMsg(msg,t,'error');
+    });
   } else save();
 }
 
@@ -1534,15 +1559,14 @@ function openBookDetail(bookId,noScroll){
   document.getElementById('book-detail-header').innerHTML=
     '<div class="section-tag">Произведение</div><h2>'+esc(b.title)+'</h2>'+
     '<p style="color:var(--muted);font-style:italic">'+esc(b.author)+'</p>'+
-    (isAdmin?'<button class="btn-plain" style="margin-top:10px" onclick="showPage(\'admin\');initAdminPage();switchAdminTab(\'chapters\')">+ Добавить главу</button>':'');
+    '<button class="btn-plain" style="margin-top:10px" onclick="showPage(\'main\');showSection(\'works\')">← Назад к переводам</button>'+
+    (isAdmin?'<button class="btn-plain" style="margin-top:10px;margin-left:8px" onclick="showPage(\'admin\');initAdminPage();switchAdminTab(\'chapters\')">+ Добавить главу</button>':'');
   renderChaptersList(bookId);
-  if(noScroll){
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.getElementById('page-book').classList.add('active');
-    closeBurger();
-  } else {
-    showPage('book');
-  }
+  // Всегда просто переключаем страницу без прокрутки вверх если noScroll
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-book').classList.add('active');
+  closeBurger();
+  if(!noScroll) window.scrollTo(0,0);
 }
 
 function renderChaptersList(bookId){
@@ -1634,10 +1658,21 @@ function openChapter(bookId,chapIdx){
 
   document.getElementById('chapter-content').innerHTML=
     ch.text.split('\n\n').map(p=>{
-      p=esc(p);
-      // Рендерим [img:URL]
-      p=p.replace(/\[img:([^\]]+)\]/g,'</p><img src="$1" style="max-width:100%;display:block;margin:16px auto"><p>');
-      return '<p>'+p+'</p>';
+      // Сначала извлекаем [img:URL] до эскейпинга
+      const imgRe=/\[img:([^\]]+)\]/g;
+      const imgs=[];
+      let imgP=p;
+      let m;
+      while((m=imgRe.exec(p))!==null) imgs.push(m[1]);
+      // Эскейпим текст
+      imgP=esc(imgP);
+      // Восстанавливаем картинки
+      let ii=0;
+      imgP=imgP.replace(/\[img:[^\]]+\]/g,()=>{
+        const url=imgs[ii++]||'';
+        return '</p><img src="'+esc(url)+'" style="max-width:100%;display:block;margin:16px auto"><p>';
+      });
+      return '<p>'+imgP+'</p>';
     }).join('');
 
   applyReaderSettings();
@@ -1918,9 +1953,11 @@ function adminDeleteChapter(bookId,chapId){
   if(currentBookId===bookId)renderChaptersList(bookId);
 }
 function renderAdminChapters(){
-  const bid=parseInt(document.getElementById('admin-chapter-book').value);
-  const chs=(getData('chapters',{}))[bid]||[];
+  const sel=document.getElementById('admin-chapter-book');
   const list=document.getElementById('admin-chapters-list');
+  if(!sel||!list)return;
+  const bid=parseInt(sel.value);
+  const chs=(getData('chapters',{}))[bid]||[];
   if(!chs.length){list.innerHTML='<p style="color:var(--muted);margin-top:8px">Глав ещё нет.</p>';return;}
   list.innerHTML=chs.map(ch=>
     '<div class="ch-row"><span class="ch-row-title">'+esc(ch.title)+'</span>'+
@@ -2063,10 +2100,12 @@ function renderAdminComments(){
   });
 }
 function adminDelComment(key,cid){
-  const all=getData('comments',{});
+  const all=_cache['comments']||{};
   if(!all[key])return;
   all[key]=all[key].filter(c=>c.id!==cid);
-  setData('comments',all);renderAdminComments();
+  db.ref('comments/'+key).set(all[key]).catch(e=>console.warn('adminDelComment:',e));
+  _cache['comments']=all;
+  renderAdminComments();
 }
 
 // USERS ADMIN

@@ -1,0 +1,3438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://telegram.org https://*.googleapis.com https://*.gstatic.com https://*.firebaseapp.com https://*.firebasedatabase.app https://firebasestorage.googleapis.com https://cdn.jsdelivr.net https://www.gstatic.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://*.supabase.co https://*.supabase.in; img-src * data: blob:; font-src * data:; connect-src *;">
+<script src="https://telegram.org/js/telegram-web-app.js" onerror="console.log('Not in Telegram, skipping')" async></script>
+<title>Китайская тарабарщина — любительские переводы</title>
+<!-- Шрифты — неблокирующие, страница не ждёт их загрузки -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"></noscript>
+<style>
+  :root {
+    --ink: #1a0f0a;
+    --parchment: #f5ead6;
+    --parchment-dark: #e8d5b0;
+    --red: #8b1a1a;
+    --gold: #c49a2a;
+    --gold-light: #e8c96a;
+    --muted: #6b5a40;
+    --divider: rgba(139,26,26,0.25);
+    --success: #2a6b3a;
+    --card-bg: rgba(255,255,255,0.35);
+    --form-bg: rgba(245,234,214,0.85);
+    --modal-bg: var(--parchment);
+    --aside-bg: rgba(255,255,255,0.3);
+    --saved-card-bg: rgba(245,234,214,0.5);
+    --comment-admin-bg: rgba(245,234,214,0.4);
+  }
+
+  body.dark {
+    --ink: #e8d8c0;
+    --parchment: #1a1410;
+    --parchment-dark: #241c14;
+    --red: #c9564a;
+    --gold: #d4a832;
+    --gold-light: #e8c96a;
+    --muted: #9b8a70;
+    --divider: rgba(201,86,74,0.25);
+    --success: #4a9b5a;
+    --card-bg: rgba(0,0,0,0.25);
+    --form-bg: rgba(30,22,14,0.85);
+    --modal-bg: #221a12;
+    --aside-bg: rgba(0,0,0,0.2);
+    --saved-card-bg: rgba(30,22,14,0.6);
+    --comment-admin-bg: rgba(30,22,14,0.5);
+  }
+
+  /* ══ ТЕМА: СЕПИЯ ══ */
+  body.sepia {
+    --ink: #2c1a0e;
+    --parchment: #f0e6d0;
+    --parchment-dark: #dfd0b0;
+    --red: #7a3b1e;
+    --gold: #b8860b;
+    --gold-light: #d4a532;
+    --muted: #7a5c3a;
+    --divider: rgba(122,59,30,0.25);
+    --success: #3a6b2a;
+    --card-bg: rgba(210,180,140,0.3);
+    --form-bg: rgba(240,230,208,0.9);
+    --modal-bg: #f0e6d0;
+    --aside-bg: rgba(210,180,140,0.25);
+    --saved-card-bg: rgba(240,230,208,0.6);
+    --comment-admin-bg: rgba(240,230,208,0.5);
+  }
+
+  /* ══ ТЕМА: СЕРАЯ ══ */
+  body.gray {
+    --ink: #1e1e1e;
+    --parchment: #f2f2f2;
+    --parchment-dark: #e0e0e0;
+    --red: #8b1a1a;
+    --gold: #b89a2a;
+    --gold-light: #d4b84a;
+    --muted: #666666;
+    --divider: rgba(100,100,100,0.25);
+    --success: #2a6b3a;
+    --card-bg: rgba(255,255,255,0.5);
+    --form-bg: rgba(242,242,242,0.9);
+    --modal-bg: #f2f2f2;
+    --aside-bg: rgba(255,255,255,0.4);
+    --saved-card-bg: rgba(242,242,242,0.6);
+    --comment-admin-bg: rgba(242,242,242,0.5);
+  }
+
+  /* ══ ТЕМА: НОЧНАЯ СИНЯЯ ══ */
+  body.night {
+    --ink: #c8d8e8;
+    --parchment: #0f1520;
+    --parchment-dark: #172030;
+    --red: #5b8dd9;
+    --gold: #7ab8d4;
+    --gold-light: #9acce4;
+    --muted: #7090a8;
+    --divider: rgba(91,141,217,0.25);
+    --success: #4a9b7a;
+    --card-bg: rgba(0,10,30,0.3);
+    --form-bg: rgba(15,25,40,0.9);
+    --modal-bg: #131e2e;
+    --aside-bg: rgba(0,10,30,0.25);
+    --saved-card-bg: rgba(15,25,40,0.6);
+    --comment-admin-bg: rgba(15,25,40,0.5);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--parchment);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.8;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 12px;
+    border: 1px solid var(--divider);
+    pointer-events: none;
+    z-index: 200;
+  }
+
+  /* ══ HEADER ══ */
+  header {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 40px 40px;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    animation: fadeDown 1s ease both;
+  }
+
+  .logo-icon { flex-shrink: 0; filter: drop-shadow(0 2px 8px rgba(139,26,26,0.2)); }
+  .logo-wrap img {
+    width: 90px; height: 90px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(139,26,26,0.3));
+  }
+
+  .brand-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    text-shadow: 1px 1px 0 rgba(196,154,42,0.3);
+  }
+
+  .brand-text p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .ornament { color: var(--gold); letter-spacing: 0.5em; margin-top: 24px; font-size: 1rem; }
+
+  /* ══ NAV ══ */
+  nav {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    border-bottom: 1px solid var(--divider);
+    animation: fadeDown 1s 0.2s ease both;
+  }
+
+  .nav-main { display: flex; }
+
+  nav a, .nav-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--muted);
+    font-family: 'EB Garamond', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 18px 28px;
+    transition: color 0.3s, background 0.3s;
+    border-right: 1px solid var(--divider);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .nav-main a:first-child { border-left: 1px solid var(--divider); }
+  nav a:hover, .nav-link:hover { color: var(--red); background: rgba(139,26,26,0.05); }
+  nav a.active, .nav-link.active { color: var(--red); }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px;
+  }
+
+  .btn-auth {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 7px 18px;
+    border: 1px solid var(--divider);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+
+  .btn-auth:hover { color: var(--red); border-color: var(--red); background: rgba(139,26,26,0.04); }
+  .btn-auth.primary { background: var(--red); color: var(--parchment); border-color: var(--red); }
+  .btn-auth.primary:hover { background: #6b1010; }
+  .btn-auth.gold-btn { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+  .btn-auth.gold-btn:hover { background: #a8822a; }
+
+  .user-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 5px 12px 5px 5px;
+    border: 1px solid var(--divider);
+    transition: border-color 0.3s;
+  }
+
+  .user-chip:hover { border-color: var(--red); }
+
+  .user-avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--parchment);
+    font-size: 0.8rem;
+    font-weight: bold;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .user-chip-name { font-size: 0.8rem; color: var(--ink); }
+
+  /* ══ PAGES ══ */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ══ SECTIONS ══ */
+  .section {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 40px;
+  }
+
+  .section + .section { border-top: 1px solid var(--divider); }
+
+  .section-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-tag::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.4;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--red);
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+
+  h2 em { font-style: italic; color: var(--ink); }
+
+  p { color: var(--ink); margin-bottom: 16px; font-size: 1.05rem; }
+
+  /* ══ HERO ══ */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hero-text { animation: fadeLeft 1s 0.3s ease both; }
+  .hero-visual { animation: fadeRight 1s 0.3s ease both; }
+
+  .hero-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--red);
+    line-height: 1.4;
+    margin-bottom: 24px;
+    padding-left: 20px;
+    border-left: 3px solid var(--gold);
+  }
+
+  .chinese-chars {
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--red);
+    opacity: 0.15;
+    text-align: center;
+    letter-spacing: 0.1em;
+    user-select: none;
+  }
+
+  /* ══ WORKS GRID ══ */
+  .works-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .work-card {
+    background: var(--card-bg);
+    border: 1px solid var(--divider);
+    padding: 24px;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+
+  .work-card::before {
+    content: '';
+    position: absolute;
+    top: 6px; left: 6px; right: -6px; bottom: -6px;
+    border: 1px solid var(--gold);
+    opacity: 0.2;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .work-card:hover { transform: translate(-2px,-2px); box-shadow: 4px 4px 0 rgba(139,26,26,0.1); }
+  .work-card:hover::before { opacity: 0.5; }
+
+  .work-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border: 1px solid var(--red);
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .work-genre { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .work-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--red); margin-bottom: 6px; line-height: 1.3; }
+  .work-author { font-size: 0.9rem; color: var(--muted); font-style: italic; margin-bottom: 6px; }
+  .work-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.55; margin: 0; }
+
+  /* admin edit pencil on card */
+  .card-edit-btn {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: none;
+    border: none;
+    font-size: 0.85rem;
+    color: var(--gold);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 2;
+  }
+
+  .work-card:hover .card-edit-btn { opacity: 1; }
+
+  /* ══ BLOG ══ */
+  .blog-posts { margin-top: 32px; }
+
+  .blog-post {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--divider);
+    align-items: start;
+    position: relative;
+  }
+
+  .blog-post:first-child { border-top: 1px solid var(--divider); }
+
+  .blog-date { text-align: center; font-family: 'Playfair Display', serif; }
+  .blog-date .day { font-size: 2rem; font-weight: 700; color: var(--red); line-height: 1; }
+  .blog-date .month { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+
+  .blog-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--red); margin-bottom: 8px; line-height: 1.3; }
+  .blog-excerpt { font-size: 0.95rem; color: var(--muted); margin: 0; line-height: 1.65; }
+
+  .blog-post-actions {
+    position: absolute;
+    top: 28px; right: 0;
+    display: flex; gap: 6px;
+    opacity: 0; transition: opacity 0.2s;
+  }
+
+  .blog-post:hover .blog-post-actions { opacity: 1; }
+
+  /* ══ ABOUT ══ */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .about-aside {
+    background: var(--aside-bg);
+    border: 1px solid var(--divider);
+    padding: 24px;
+  }
+
+  .aside-title { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .tag { font-size: 0.8rem; padding: 4px 12px; border: 1px solid var(--divider); color: var(--muted); letter-spacing: 0.05em; }
+
+  /* ══ BTN ══ */
+  .btn {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 13px 32px;
+    border: 1px solid var(--red);
+    color: var(--red);
+    text-decoration: none;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: background 0.3s, color 0.3s;
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+  }
+
+  .btn::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; right: -4px;
+    width: 100%; height: 100%;
+    border: 1px solid var(--gold);
+    opacity: 0.4;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .btn:hover { background: var(--red); color: var(--parchment); }
+  .btn:hover::after { opacity: 0.7; }
+
+  .btn-plain {
+    display: inline-block;
+    padding: 10px 24px;
+    border: 1px solid var(--red);
+    color: var(--red);
+    font-family: 'EB Garamond', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+
+  .btn-plain:hover { background: var(--red); color: var(--parchment); }
+  .btn-plain.filled { background: var(--red); color: var(--parchment); }
+  .btn-plain.filled:hover { background: #6b1010; }
+  .btn-plain.gold { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+  .btn-plain.gold:hover { background: #a8822a; }
+
+  /* ══ FOOTER ══ */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--divider);
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  footer p { font-size: 0.85rem; color: var(--muted); margin: 0; }
+
+  .footer-links { display: flex; gap: 24px; }
+
+  .footer-links a {
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+
+  .footer-links a:hover { color: var(--red); }
+
+  /* ══ MODAL ══ */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26,15,10,0.72);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    padding: 20px;
+  }
+
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+
+  .modal-box {
+    background: var(--modal-bg);
+    border: 1px solid var(--divider);
+    max-width: 600px;
+    width: 100%;
+    padding: 40px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalIn 0.3s ease;
+  }
+
+  .modal-box.wide { max-width: 820px; }
+
+  @keyframes modalIn {
+    from { transform: translateY(18px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 14px; right: 16px;
+    background: none; border: none;
+    font-size: 1.2rem; color: var(--muted); cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--red); }
+
+  .modal-badge { display: inline-block; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 3px 10px; border: 1px solid var(--red); color: var(--red); margin-bottom: 12px; }
+  .modal-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--red); margin-bottom: 6px; line-height: 1.25; }
+  .modal-author { font-style: italic; color: var(--muted); font-size: 1rem; margin-bottom: 8px; }
+  .modal-meta { font-size: 0.82rem; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 14px; }
+  .modal-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .modal-tag { font-size: 0.72rem; padding: 3px 10px; border: 1px solid var(--divider); color: var(--muted); }
+  .modal-desc { font-size: 0.98rem; color: var(--ink); line-height: 1.75; margin-bottom: 16px; }
+  .modal-tg { font-size: 0.88rem; color: var(--muted); margin-bottom: 20px; }
+  .modal-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 0; }
+
+  /* ══ FORMS ══ */
+  .form-group { margin-bottom: 18px; }
+
+  .form-group label {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 7px;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    background: var(--form-bg);
+    border: 1px solid var(--divider);
+    padding: 11px 14px;
+    font-family: 'EB Garamond', serif;
+    font-size: 1rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.3s;
+    resize: vertical;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus { border-color: var(--red); }
+
+  .form-group textarea { min-height: 120px; }
+
+  .remember-row { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .remember-row input[type="checkbox"] { width: auto; accent-color: var(--red); cursor: pointer; }
+  .remember-row label { font-size: 0.9rem; color: var(--muted); cursor: pointer; }
+
+  .switch-link { text-align: center; margin-top: 14px; font-size: 0.9rem; color: var(--muted); }
+  .switch-link a { color: var(--red); cursor: pointer; text-decoration: underline; }
+
+  .msg { padding: 9px 14px; margin-bottom: 14px; font-size: 0.9rem; border-left: 3px solid; }
+  .msg.error { border-color: var(--red); background: rgba(139,26,26,0.07); color: var(--red); }
+  .msg.success { border-color: var(--success); background: rgba(42,107,58,0.07); color: var(--success); }
+
+  /* ══ PROFILE PAGE ══ */
+  .profile-layout { display: grid; grid-template-columns: 180px 1fr; gap: 40px; align-items: start; }
+
+  .avatar-upload { text-align: center; }
+
+  .avatar-big {
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    border: 2px solid var(--divider);
+    margin: 0 auto 10px;
+    overflow: hidden;
+    background: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--parchment);
+    font-size: 2.8rem;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .avatar-big img { width: 100%; height: 100%; object-fit: cover; }
+  .avatar-upload input[type="file"] { display: none; }
+  .avatar-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); cursor: pointer; text-decoration: underline; transition: color 0.2s; }
+  .avatar-label:hover { color: var(--red); }
+
+  /* ══ CHAPTER READER ══ */
+  .chapter-content { font-size: 1.1rem; line-height: 2.05; }
+  .chapter-content p { margin-bottom: 22px; }
+
+  .chapter-nav-bar { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--divider); }
+
+  /* ══ CHAPTERS LIST ══ */
+  .chapters-list { list-style: none; }
+
+  .chapters-list li {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--divider);
+    transition: padding-left 0.2s;
+  }
+
+  .chapters-list li:hover { padding-left: 6px; }
+
+  .chapter-link { cursor: pointer; color: var(--ink); font-size: 1rem; flex: 1; transition: color 0.2s; }
+  .chapter-link:hover { color: var(--red); }
+  .chapter-date { font-size: 0.78rem; color: var(--muted); margin-left: 12px; flex-shrink: 0; }
+
+  /* ══ COMMENTS ══ */
+  .comments-wrap { border-top: 1px solid var(--divider); margin-top: 40px; padding-top: 30px; }
+
+  .comment { display: flex; gap: 14px; margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid rgba(139,26,26,0.1); }
+  .comment:last-child { border-bottom: none; }
+
+  .comment-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--parchment); font-size: 0.95rem; flex-shrink: 0; overflow: hidden;
+  }
+
+  .comment-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .comment-body { flex: 1; }
+  .comment-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+  .comment-author { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--red); }
+  .comment-author-admin { color: var(--gold) !important; }
+  .comment-admin-badge {
+    display: inline-block; font-size: 0.6rem; letter-spacing: 0.15em;
+    text-transform: uppercase; padding: 2px 7px;
+    border: 1px solid var(--gold); color: var(--gold);
+    vertical-align: middle; margin-left: 6px;
+  }
+  .comment-time { font-size: 0.75rem; color: var(--muted); }
+  .comment-del { margin-left: auto; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 0.75rem; transition: color 0.2s; }
+  .comment-del:hover { color: var(--red); }
+  .comment-text { font-size: 0.98rem; line-height: 1.7; }
+
+  /* ══ REPLY ══ */
+  .comment-reply-btn { background:none; border:none; color:var(--muted); font-size:0.78rem; cursor:pointer; padding:2px 0; font-family:'EB Garamond',serif; letter-spacing:0.05em; transition:color 0.2s; margin-top:4px; }
+  .comment-reply-btn:hover { color:var(--red); }
+  .comment-reply-quote { background:var(--parchment-dark); border-left:3px solid var(--red); padding:6px 12px; margin-bottom:8px; font-size:0.88rem; color:var(--muted); border-radius:0 4px 4px 0; }
+  .comment-reply-quote .rq-author { color:var(--red); font-size:0.8rem; margin-bottom:2px; }
+  .reply-form { margin-top:10px; padding:12px; background:var(--form-bg); border:1px solid var(--divider); border-radius:2px; }
+  .reply-cancel { background:none; border:none; color:var(--muted); font-size:0.82rem; cursor:pointer; margin-left:10px; font-family:'EB Garamond',serif; }
+
+  /* ══ УВЕДОМЛЕНИЯ АДМИНА ══ */
+  .admin-notif-dot { display:inline-block; width:8px; height:8px; background:var(--red); border-radius:50%; margin-left:5px; animation:pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+  .notif-source { font-size:0.75rem; color:var(--muted); background:var(--parchment-dark); padding:2px 8px; border-radius:10px; display:inline-block; margin-bottom:4px; }
+
+  /* ══ ТЕМА ══ */
+  .theme-btn { background:none; border:1px solid var(--divider); color:var(--ink); cursor:pointer; font-size:0.9rem; padding:5px 12px; font-family:'EB Garamond',serif; transition:all 0.2s; border-radius:2px; }
+  .theme-btn:hover { border-color:var(--gold); color:var(--gold); }
+
+  .locked-notice { padding: 18px; border: 1px dashed var(--divider); text-align: center; color: var(--muted); font-size: 0.92rem; margin-top: 20px; }
+  .locked-notice a { color: var(--red); cursor: pointer; text-decoration: underline; }
+
+
+  /* ══ FORUM ══ */
+  .forum-wrap { margin-top: 40px; }
+  .forum-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px; }
+  .forum-thread { border:1px solid var(--divider); margin-bottom:12px; background:var(--card-bg); transition:border-color 0.2s; cursor:pointer; }
+  .forum-thread:hover { border-color:var(--red); }
+  .forum-thread-head { padding:16px 20px; display:flex; align-items:flex-start; gap:14px; }
+  .forum-thread-avatar { width:36px; height:36px; border-radius:50%; background:var(--parchment-dark); border:1px solid var(--divider); display:flex; align-items:center; justify-content:center; font-size:1rem; color:var(--red); flex-shrink:0; overflow:hidden; }
+  .forum-thread-avatar img { width:100%; height:100%; object-fit:cover; }
+  .forum-thread-meta { flex:1; min-width:0; }
+  .forum-thread-title { font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--ink); margin-bottom:4px; }
+  .forum-thread-sub { font-size:0.78rem; color:var(--muted); display:flex; gap:10px; flex-wrap:wrap; }
+  .forum-thread-count { font-size:0.78rem; color:var(--muted); background:var(--parchment-dark); padding:3px 10px; border-radius:10px; flex-shrink:0; align-self:center; }
+  .forum-thread-new { background:var(--red); color:var(--parchment); font-size:0.65rem; padding:2px 7px; border-radius:10px; letter-spacing:0.05em; }
+
+  /* Страница треда */
+  .forum-post { display:flex; gap:14px; padding:16px 0; border-bottom:1px solid var(--divider); }
+  .forum-post-avatar { width:40px; height:40px; border-radius:50%; background:var(--parchment-dark); border:1px solid var(--divider); display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:var(--red); flex-shrink:0; overflow:hidden; }
+  .forum-post-avatar img { width:100%; height:100%; object-fit:cover; }
+  .forum-post-body { flex:1; min-width:0; }
+  .forum-post-meta { font-size:0.78rem; color:var(--muted); margin-bottom:6px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .forum-post-author { color:var(--red); font-size:0.9rem; }
+  .forum-post-admin-badge { font-size:0.65rem; padding:1px 6px; border:1px solid var(--gold); color:var(--gold); }
+  .forum-post-text { font-size:0.98rem; line-height:1.75; word-break:break-word; }
+  .forum-post-media { margin-top:10px; }
+  .forum-post-media img { max-width:100%; max-height:320px; object-fit:contain; border:1px solid var(--divider); cursor:pointer; }
+  .forum-post-media video { max-width:100%; max-height:280px; border:1px solid var(--divider); }
+  .forum-post-media a.file-link { display:inline-flex; align-items:center; gap:6px; font-size:0.85rem; color:var(--red); border:1px solid var(--divider); padding:6px 12px; text-decoration:none; }
+  .forum-post-media a.file-link:hover { border-color:var(--red); }
+  .forum-post-del { background:none; border:none; color:var(--muted); cursor:pointer; font-size:0.75rem; margin-left:auto; transition:color 0.2s; padding:0; }
+  .forum-post-del:hover { color:var(--red); }
+
+  /* Форма нового поста */
+  .forum-compose { margin-top:20px; padding:16px; background:var(--form-bg); border:1px solid var(--divider); }
+  .forum-compose textarea { width:100%; min-height:80px; background:transparent; border:1px solid var(--divider); color:var(--ink); font-family:'EB Garamond',serif; font-size:1rem; padding:10px; resize:vertical; outline:none; transition:border-color 0.2s; }
+  .forum-compose textarea:focus { border-color:var(--red); }
+  .forum-compose-actions { display:flex; gap:10px; align-items:center; margin-top:10px; flex-wrap:wrap; }
+  .forum-attach-btn { background:none; border:1px solid var(--divider); color:var(--muted); cursor:pointer; font-size:0.82rem; padding:6px 12px; font-family:'EB Garamond',serif; transition:all 0.2s; }
+  .forum-attach-btn:hover { border-color:var(--gold); color:var(--gold); }
+  .forum-attach-preview { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+  .forum-attach-item { position:relative; display:inline-block; }
+  .forum-attach-item img { width:64px; height:64px; object-fit:cover; border:1px solid var(--divider); }
+  .forum-attach-item .rm { position:absolute; top:-6px; right:-6px; background:var(--red); color:white; border:none; border-radius:50%; width:18px; height:18px; font-size:0.7rem; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .forum-upload-progress { font-size:0.8rem; color:var(--muted); margin-top:6px; }
+
+  /* Модал нового треда */
+  .forum-new-thread-modal .modal-box { max-width:520px; }
+
+  /* ══ SAVED ══ */
+  .saved-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 18px; }
+
+  .saved-card { border: 1px solid var(--divider); padding: 18px; position: relative; background: var(--saved-card-bg); }
+  .saved-remove { position: absolute; top: 9px; right: 9px; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 0.88rem; transition: color 0.2s; }
+  .saved-remove:hover { color: var(--red); }
+
+  /* ══ ADMIN ══ */
+  .admin-tabs { display: flex; border-bottom: 1px solid var(--divider); margin-bottom: 28px; flex-wrap: wrap; }
+  .admin-tab { padding: 11px 22px; cursor: pointer; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); border-bottom: 2px solid transparent; transition: all 0.2s; }
+  .admin-tab.active { color: var(--red); border-bottom-color: var(--red); }
+  .admin-tab:hover { color: var(--red); }
+
+  .admin-pane { display: none; }
+  .admin-pane.active { display: block; }
+
+  .ch-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 13px 0; border-bottom: 1px solid var(--divider);
+    gap: 12px;
+  }
+
+  .ch-row-title { font-size: 0.98rem; flex: 1; }
+  .ch-row-date { font-size: 0.78rem; color: var(--muted); flex-shrink: 0; }
+
+  .btn-sm {
+    font-size: 0.7rem; padding: 5px 12px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1px solid var(--divider);
+    background: transparent; color: var(--muted);
+    cursor: pointer; font-family: 'EB Garamond', serif; transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .btn-sm:hover { border-color: var(--red); color: var(--red); }
+  .btn-sm.danger:hover { background: var(--red); color: var(--parchment); border-color: var(--red); }
+
+  .books-admin-list li { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--divider); gap: 12px; list-style: none; }
+
+  .comment-admin { border: 1px solid var(--divider); padding: 14px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; background: var(--comment-admin-bg); }
+
+  /* ══ INLINE EDIT ══ */
+  .editable-field {
+    border: none; background: transparent; font-family: inherit; font-size: inherit;
+    color: inherit; width: 100%; outline: none;
+    border-bottom: 1px dashed transparent;
+    transition: border-color 0.2s;
+    padding: 0; cursor: default;
+  }
+
+  .edit-mode .editable-field { border-bottom-color: var(--gold); cursor: text; background: rgba(255,255,255,0.4); padding: 2px 4px; }
+
+  /* ══ FADE IN ══ */
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.7s, transform 0.7s; }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* ══ ANIMATIONS ══ */
+  @keyframes fadeDown  { from { transform: translateY(-14px); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes fadeLeft  { from { transform: translateX(-20px); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes fadeRight { from { transform: translateX(20px);  opacity: 0; } to { transform: none; opacity: 1; } }
+
+  /* ══ TG BANNER ══ */
+  .tg-banner {
+    position: relative; z-index: 1;
+    background: rgba(139,26,26,0.06);
+    border-top: 1px solid var(--divider);
+    border-bottom: 1px solid var(--divider);
+    padding: 28px 40px; text-align: center;
+  }
+
+  /* ══ DARK THEME TOGGLE ══ */
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--divider);
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    padding: 0 12px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s;
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-family: 'EB Garamond', serif;
+  }
+  .theme-toggle:hover { border-color: var(--gold); color: var(--gold); }
+
+  .theme-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    background: var(--modal-bg);
+    border: 1px solid var(--divider);
+    z-index: 500;
+    display: none;
+    min-width: 140px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .theme-dropdown.open { display: block; }
+  .theme-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.88rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    transition: background 0.2s, color 0.2s;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+  }
+  .theme-option:hover { background: rgba(139,26,26,0.06); color: var(--red); }
+  .theme-option.active { color: var(--red); }
+  .theme-option .theme-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 1px solid var(--divider);
+    flex-shrink: 0;
+  }
+
+  /* dark mode extra tweaks */
+  body.dark::before { opacity: 0.15; }
+  body.dark .tg-banner { background: rgba(201,86,74,0.08); }
+  body.dark .btn-auth.primary { background: var(--red); color: #1a1410; }
+  body.dark .btn-plain.filled { background: var(--red); color: #1a1410; }
+  body.dark .btn-plain.gold { color: #1a1410; }
+  body.dark .user-avatar { background: var(--red); color: #1a1410; }
+  body.dark .avatar-big { background: var(--red); color: #1a1410; }
+  body.dark .comment-avatar { background: var(--red); color: #1a1410; }
+
+  body.sepia::before { opacity: 0.3; }
+  body.sepia .tg-banner { background: rgba(122,59,30,0.07); }
+
+  body.gray::before { opacity: 0.2; }
+  body.gray .tg-banner { background: rgba(100,100,100,0.06); }
+
+  body.night::before { opacity: 0.1; }
+  body.night .tg-banner { background: rgba(91,141,217,0.08); }
+  body.night .btn-auth.primary { background: var(--red); color: #0f1520; }
+  body.night .btn-plain.filled { background: var(--red); color: #0f1520; }
+  body.night .user-avatar { background: var(--red); color: #0f1520; }
+  body.night .avatar-big { background: var(--red); color: #0f1520; }
+  body.night .comment-avatar { background: var(--red); color: #0f1520; }
+
+  /* ══ LOADING SCREEN ══ */
+  /* CSS-автоскрытие: работает без JS, через 6с загрузчик уходит сам */
+  @keyframes lsAutoHide {
+    0%, 85% { opacity: 1; pointer-events: all; }
+    100%    { opacity: 0; pointer-events: none; }
+  }
+  #loading-screen {
+    position: fixed; inset: 0;
+    background: var(--parchment);
+    z-index: 9999;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    width: 100%;
+    gap: 16px;
+    animation: lsAutoHide 6.5s ease forwards;
+    overflow: hidden;
+  }
+  /* Фоновые иероглифы */
+  #loading-screen::before {
+    content: '故 事 開 始 了 書 山 有 路 勤 為 徑';
+    position: absolute;
+    font-size: 5rem;
+    color: var(--red);
+    opacity: 0.03;
+    letter-spacing: 0.3em;
+    line-height: 1.2;
+    word-spacing: 0.5em;
+    pointer-events: none;
+    user-select: none;
+    width: 200%;
+    text-align: center;
+  }
+  #loading-screen .ls-logo {
+    width: 100px; height: 100px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 20px rgba(139,26,26,0.4));
+    animation: lsLogoIn 0.9s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  @keyframes lsLogoIn {
+    from { transform: translateY(24px) scale(0.85); opacity: 0; }
+    to   { transform: translateY(0)    scale(1);    opacity: 1; }
+  }
+  #loading-screen.fade-out { opacity: 0; pointer-events: none; }
+  .ls-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; color: var(--red);
+    letter-spacing: 0.06em;
+    animation: lsLogoIn 0.9s 0.15s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .ls-ornament {
+    color: var(--gold); letter-spacing: 0.5em;
+    font-size: 0.9rem; opacity: 0.7;
+    animation: lsLogoIn 0.9s 0.25s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  /* Статус-текст с плавной сменой */
+  .ls-status {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    min-height: 1.4em;
+    transition: opacity 0.4s ease;
+    animation: lsLogoIn 0.9s 0.35s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  /* Прогресс-бар — CSS-анимация 5 секунд */
+  .ls-progress-wrap {
+    width: 200px;
+    height: 1px;
+    background: var(--divider);
+    position: relative;
+    overflow: hidden;
+    animation: lsLogoIn 0.9s 0.4s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .ls-progress-fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    background: var(--gold);
+    width: 0%;
+    animation: lsProgress 5s cubic-bezier(0.4,0,0.6,1) forwards;
+  }
+  @keyframes lsProgress {
+    0%   { width: 0%; }
+    20%  { width: 25%; }
+    50%  { width: 55%; }
+    80%  { width: 80%; }
+    100% { width: 100%; }
+  }
+  .ls-dots { display: flex; gap: 10px; animation: lsLogoIn 0.9s 0.45s cubic-bezier(0.22,1,0.36,1) both; }
+  .ls-dots span {
+    width: 7px; height: 7px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: lsDot 1.4s ease-in-out infinite;
+  }
+  .ls-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .ls-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes lsDot { 0%,80%,100%{transform:scale(0.5);opacity:0.3} 40%{transform:scale(1);opacity:1} }
+
+  /* ══ NEW CHAPTER BADGE ══ */
+  .badge-new {
+    display: inline-block; font-size: 0.58rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 2px 6px; background: var(--gold); color: var(--ink);
+    margin-left: 7px; vertical-align: middle;
+    font-family: 'EB Garamond', serif;
+    animation: badgePop 0.3s ease;
+  }
+  @keyframes badgePop{from{transform:scale(0.7);opacity:0}to{transform:scale(1);opacity:1}}
+
+  /* ══ PROGRESS BAR ══ */
+  .prog-bar { height: 2px; background: var(--divider); margin-top: 8px; overflow: hidden; }
+  .prog-fill { height: 100%; background: var(--gold); transition: width 0.4s; }
+  .prog-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.08em; margin-top: 3px; }
+
+  /* ══ READER SETTINGS ══ */
+  .reader-toolbar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0; margin-bottom: 20px;
+    border-bottom: 1px solid var(--divider);
+    flex-wrap: wrap;
+  }
+  .rtb-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .rtb-group { display: flex; align-items: center; gap: 6px; }
+  .rtb-btn {
+    background: none; border: 1px solid var(--divider);
+    color: var(--muted); cursor: pointer;
+    font-family: 'EB Garamond', serif;
+    padding: 3px 10px; font-size: 0.82rem;
+    transition: all 0.2s; white-space: nowrap;
+  }
+  .rtb-btn:hover { border-color: var(--red); color: var(--red); }
+  .rtb-btn.on { border-color: var(--gold); color: var(--ink); background: rgba(196,154,42,0.08); }
+  .rtb-val { font-size: 0.8rem; color: var(--ink); min-width: 30px; text-align: center; }
+
+  /* ══ SCROLL TOP ══ */
+  #btn-top {
+    position: fixed; bottom: 28px; right: 28px;
+    width: 38px; height: 38px;
+    background: var(--parchment); border: 1px solid var(--divider);
+    color: var(--muted); font-size: 1rem; cursor: pointer;
+    z-index: 100; display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: all 0.3s;
+  }
+  #btn-top.show { opacity: 1; pointer-events: all; }
+  #btn-top:hover { border-color: var(--red); color: var(--red); }
+
+  /* ══ IMAGE IN CHAPTER ══ */
+  .chapter-img { max-width: 100%; margin: 20px auto; display: block; border: 1px solid var(--divider); }
+
+  /* ══ BURGER ══ */
+  .burger {
+    display: none; flex-direction: column; justify-content: center;
+    gap: 5px; width: 40px; height: 40px;
+    background: none; border: 1px solid var(--divider);
+    cursor: pointer; padding: 8px; flex-shrink: 0;
+    transition: border-color 0.2s;
+  }
+  .burger:hover { border-color: var(--red); }
+  .burger span { display: block; height: 1px; background: var(--ink); transition: all 0.3s; transform-origin: center; }
+  .burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .burger.open span:nth-child(2) { opacity: 0; }
+  .burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  /* ══ RESPONSIVE ══ */
+  @media (max-width: 720px) {
+    header { padding: 32px 20px 22px; }
+    .brand-text h1 { font-size: 1.7rem; }
+    .ornament { margin-top: 14px; font-size: 0.85rem; }
+    nav { flex-direction: column; align-items: stretch; }
+    .nav-mobile-top { display: flex !important; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--divider); }
+    .burger { display: flex; }
+    .nav-main { flex-direction: column; border-right: none; max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .nav-main.open { max-height: 400px; }
+    .nav-main a { border-right: none; border-left: none !important; border-bottom: 1px solid var(--divider); padding: 15px 20px; font-size: 1rem; }
+    #nav-auth-area { display: none !important; }
+    .section { padding: 36px 18px; }
+    .hero { grid-template-columns: 1fr; gap: 20px; }
+    .hero-visual { display: none; }
+    .works-grid { grid-template-columns: 1fr; gap: 16px; }
+    .work-card { padding: 18px; }
+    .blog-post { grid-template-columns: 60px 1fr; gap: 14px; }
+    .blog-date .day { font-size: 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 28px; }
+    .profile-layout { grid-template-columns: 1fr; text-align: center; }
+    .avatar-upload { margin-bottom: 20px; }
+    .modal-box { padding: 28px 20px; }
+    .modal-box.wide { max-width: 100%; }
+    .modal-actions { flex-direction: column; }
+    .modal-actions button { width: 100%; }
+    .ch-row { flex-wrap: wrap; gap: 8px; }
+    .ch-row-date { display: none; }
+    .admin-tabs { overflow-x: auto; flex-wrap: nowrap; }
+    .admin-tab { white-space: nowrap; padding: 10px 14px; font-size: 0.72rem; }
+    .chapters-list li { flex-wrap: wrap; gap: 6px; }
+    .chapter-date { display: none; }
+    .chapter-nav-bar { flex-direction: column; gap: 10px; }
+    .chapter-nav-bar button, .chapter-nav-bar span { width: 100%; text-align: center; }
+    footer { flex-direction: column; text-align: center; gap: 12px; padding: 28px 20px; }
+    .footer-links { flex-wrap: wrap; justify-content: center; gap: 14px; }
+    .tg-banner { padding: 24px 18px; }
+    body::after { display: none; }
+    #btn-top { bottom: 16px; right: 14px; }
+    .reader-toolbar { gap: 8px; }
+    #admin-pane-books > div[style*='grid-template-columns:1fr 1fr'] { grid-template-columns: 1fr !important; }
+    .works-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 420px) {
+    .brand-text h1 { font-size: 1.4rem; }
+    .section { padding: 28px 14px; }
+    h2 { font-size: 1.6rem; }
+    .saved-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="global-err" style="display:none;position:fixed;top:0;left:0;right:0;z-index:99998;background:#8b1a1a;color:#f5ead6;padding:14px 20px;text-align:center;font-family:'EB Garamond',serif;font-size:1rem">Упс... натарабарщили! Обновите страницу или попробуйте позже.</div>
+<div id="loading-screen">
+  <img class="ls-logo" src="data:image/webp;base64,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" alt="Логотип">
+  <div class="ls-title">Китайская тарабарщина</div>
+  <div class="ls-ornament">❧ &nbsp; 故事已开始 &nbsp; ❧</div>
+  <div class="ls-status" id="ls-status-text">Открываем свиток...</div>
+  <div class="ls-progress-wrap"><div class="ls-progress-fill"></div></div>
+  <div class="ls-dots"><span></span><span></span><span></span></div>
+</div>
+
+<!-- SCROLL TOP -->
+<button id="btn-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Наверх">↑</button>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header>
+  <div class="logo-wrap">
+    <div class="logo-icon" aria-hidden="true">
+      <img src="data:image/webp;base64,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" alt="Логотип" style="width:80px;height:80px;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(139,26,26,0.3));">
+    </div>
+    <div class="brand-text">
+      <h1 id="site-title">Китайская<br>тарабарщина</h1>
+      <p id="site-subtitle">Любительские переводы китайских новелл</p>
+    </div>
+  </div>
+  <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+</header>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav>
+  <div class="nav-mobile-top" style="display:none">
+    <button class="burger" id="burger-btn" onclick="toggleBurger()" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+    <div id="nav-auth-mobile" style="display:flex;gap:8px;align-items:center;"></div>
+  </div>
+  <div class="nav-main" id="nav-main-links">
+    <a onclick="showSection('home');closeBurger()"  id="nav-home"  class="active">Главная</a>
+    <a onclick="showSection('works');closeBurger()" id="nav-works">Переводы</a>
+    <a onclick="showSection('blog');closeBurger()"  id="nav-blog">Блог</a>
+    <a onclick="showSection('about');closeBurger()" id="nav-about">О проекте</a>
+    <a onclick="showSection('saved');closeBurger()" id="nav-saved">Сохранённое</a>
+    <a onclick="showSection('forum');closeBurger()" id="nav-forum">Форум</a>
+  </div>
+  <div class="nav-right" id="nav-auth-area"></div>
+</nav>
+<div id="search-bar-wrap" style="position:relative;z-index:9;border-bottom:1px solid var(--divider);background:var(--parchment);padding:0 40px;">
+  <div style="max-width:860px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 0;">
+    <span style="color:var(--muted);font-size:1rem">🔍</span>
+    <input id="search-input" type="text" placeholder="Поиск по книгам, главам, блогу…"
+      style="flex:1;border:none;background:transparent;font-family:'EB Garamond',serif;font-size:1rem;color:var(--ink);outline:none;"
+      oninput="doSearch(this.value)">
+    <button id="search-clear" onclick="clearSearch()" style="display:none;border:none;background:none;color:var(--muted);cursor:pointer;font-size:1rem">✕</button>
+  </div>
+  <div id="search-results" style="display:none;position:absolute;left:0;right:0;top:100%;background:var(--parchment);border:1px solid var(--divider);border-top:none;max-height:360px;overflow-y:auto;z-index:100;box-shadow:0 8px 24px rgba(0,0,0,0.12)"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MAIN SITE (scrollable sections)
+══════════════════════════════════════ -->
+<div class="page active" id="page-main">
+
+  <!-- HERO -->
+  <section class="section" id="sec-home">
+    <div class="hero">
+      <div class="hero-text fade-in">
+        <div class="section-tag">О сайте</div>
+        <h2>Китайская литература<br><em>без купюр и спешки</em></h2>
+        <p class="hero-quote" id="home-quote">«Если тебе трудно читать — значит, переводчик плохо поработал»</p>
+        <p id="home-desc">Здесь я публикую любительские переводы китайских новелл — романтика, исторические драмы, приключения. Переводы делаются с душой, без дедлайнов и совершенно бесплатно.</p>
+        <div id="home-admin-bar" style="display:none;margin-top:16px">
+          <button class="btn-plain" onclick="openEditText('home')">✎ Редактировать текст главной</button>
+        </div>
+        <a href="https://ficbook.net/authors/6404725" class="btn" target="_blank">Читать на Фикбуке →</a>
+      </div>
+      <div class="hero-visual fade-in">
+        <div class="chinese-chars">山<br>水<br>情</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section class="section" id="sec-works">
+    <div class="fade-in">
+      <div class="section-tag">Портфолио</div>
+      <h2>Переводы</h2>
+      <p>Все работы опубликованы на Фикбуке. Нажми на карточку, чтобы узнать подробнее. Главы также доступны в <a href="https://t.me/tarabarshinachina" target="_blank" style="color:var(--red);text-decoration:none;">Telegram-канале</a>.</p>
+
+      <div class="works-grid" id="works-grid"></div>
+
+      <a href="https://ficbook.net/authors/6404725" class="btn" target="_blank" style="margin-top:32px;">Все переводы на Фикбуке →</a>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section class="section" id="sec-blog">
+    <div class="fade-in">
+      <div class="section-tag">Записки переводчика</div>
+      <h2>Блог</h2>
+      <p>Мысли о переводе, китайской литературе, трудностях и находках. Без соцсетей — просто текст.</p>
+      <div class="blog-posts" id="blog-posts-list"></div>
+      <div id="blog-admin-bar" style="display:none;margin-top:20px">
+        <button class="btn-plain" onclick="openAddBlogPost()">+ Новая запись</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="sec-about">
+    <div class="fade-in">
+      <div class="section-tag">О проекте</div>
+      <h2>Кто за этим стоит</h2>
+      <div class="about-grid">
+        <div>
+          <p id="about-p1">Привет! Я — автор проекта «Китайская тарабарщина». Занимаюсь любительскими переводами китайских новелл просто потому, что люблю эту литературу и хочу делиться ею с русскоязычными читателями.</p>
+          <p id="about-p2">Перевожу новеллы любимых авторов и стараюсь таким образом распространить и поддержать их творчество. Все переводы бесплатны и публикуются на платформе Фикбук.</p>
+          <div id="about-admin-bar" style="display:none;margin-top:14px">
+            <button class="btn-plain" onclick="openEditText('about')">✎ Редактировать</button>
+          </div>
+        </div>
+        <div class="about-aside">
+          <div class="aside-title">Жанры</div>
+          <div class="tag-list" style="margin-bottom:20px;">
+            <span class="tag">Романтика</span><span class="tag">Исторические</span>
+            <span class="tag">Фэнтези</span><span class="tag">Уся</span>
+            <span class="tag">Дорама</span><span class="tag">Сянься</span>
+          </div>
+          <div class="aside-title" style="margin-top:20px;">Ссылки</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <a href="https://ficbook.net/authors/6404725" class="btn" target="_blank" style="margin:0;text-align:center;display:block;">Фикбук</a>
+            <a href="https://t.me/tarabarshinachina" class="btn" target="_blank" style="margin:0;text-align:center;display:block;">Telegram-канал</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAVED -->
+  <section class="section" id="sec-saved">
+    <div class="fade-in">
+      <div class="section-tag">Личная библиотека</div>
+      <h2>Сохранённое</h2>
+      <div id="saved-content"></div>
+    </div>
+  </section>
+
+  <!-- FORUM -->
+  <section class="section" id="sec-forum">
+    <div class="fade-in">
+      <div class="forum-header">
+        <div>
+          <div class="section-tag">Сообщество</div>
+          <h2 style="margin-bottom:0">Форум</h2>
+          <p style="color:var(--muted);font-size:0.95rem;margin-top:8px;margin-bottom:0">Обсуждайте переводы, делитесь впечатлениями.</p>
+        </div>
+        <button class="btn-plain filled" id="forum-new-btn" onclick="openNewThreadModal()" style="display:none">+ Новая тема</button>
+      </div>
+      <div id="forum-threads-list"><p style="color:var(--muted)">Загрузка...</p></div>
+    </div>
+  </section>
+
+  <!-- MODAL: новая тема -->
+  <div class="modal-overlay forum-new-thread-modal" id="forum-thread-modal" onclick="if(event.target===this)closeNewThreadModal()">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeNewThreadModal()">✕</button>
+      <div class="section-tag">Новая тема</div>
+      <div class="form-group" style="margin-top:16px"><label>Название темы</label><input type="text" id="forum-thread-title-inp" placeholder="О чём хотите поговорить?"></div>
+      <div class="form-group"><label>Первое сообщение</label><textarea id="forum-thread-text-inp" style="min-height:100px" placeholder="Напишите что-нибудь..."></textarea></div>
+      <div id="forum-new-attach-preview" class="forum-attach-preview"></div>
+      <div class="forum-compose-actions">
+        <label class="forum-attach-btn" style="cursor:pointer">📎 Прикрепить
+          <input type="file" id="forum-new-file-inp" multiple accept="image/*,.pdf,.doc,.docx" style="display:none" onchange="forumPreviewAttach('new',event)">
+        </label>
+        <span id="forum-new-upload-progress" class="forum-upload-progress"></span>
+      </div>
+      <div id="forum-new-thread-msg" style="margin-top:12px"></div>
+      <button class="btn-plain filled" onclick="submitNewThread()" style="margin-top:16px;width:100%">Создать тему</button>
+    </div>
+  </div>
+
+  <!-- TG BANNER -->
+  <div class="tg-banner">
+    <div style="font-size:0.75rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Telegram-канал</div>
+    <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--red);margin-bottom:12px;">Читай главы первым</div>
+    <p style="font-size:0.95rem;color:var(--muted);margin-bottom:16px;">Свежие главы, обновления и новости переводов — всё в одном месте.</p>
+    <a href="https://t.me/tarabarshinachina" class="btn" target="_blank">Подписаться на канал →</a>
+  </div>
+
+  <footer>
+    <div style="width:100%;text-align:center;margin-bottom:12px;font-size:0.78rem;color:var(--muted);opacity:0.7;letter-spacing:0.05em;">
+      Автор не проживает в Российской Федерации. Законы данной страны на меня не распространяются.
+    </div>
+    <p>© 2026 Китайская тарабарщина</p>
+    <div class="footer-links">
+      <a href="https://ficbook.net/authors/6404725" target="_blank">Фикбук</a>
+      <a href="https://t.me/tarabarshinachina" target="_blank">Telegram</a>
+      <a onclick="showSection('blog')">Блог</a>
+      <a onclick="showSection('about')">О проекте</a>
+      <a onclick="showSection('forum')">Форум</a>
+      <a onclick="showSection('saved')">Сохранённое</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: FORUM THREAD
+══════════════════════════════════════ -->
+<div class="page" id="page-forum-thread">
+  <div class="section" style="max-width:760px">
+    <div id="forum-thread-header"></div>
+    <div id="forum-thread-posts"></div>
+    <div id="forum-thread-compose"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: BOOK DETAIL
+══════════════════════════════════════ -->
+<div class="page" id="page-book">
+  <div class="section">
+    <div id="book-detail-header"></div>
+    <div class="section-tag" style="margin-top:32px">Главы</div>
+    <ul class="chapters-list" id="chapters-list"></ul>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: CHAPTER READER
+══════════════════════════════════════ -->
+<div class="page" id="page-chapter">
+  <div class="section">
+    <div id="chapter-header"></div>
+    <div class="chapter-content" id="chapter-content" style="margin-top:28px"></div>
+    <div class="chapter-nav-bar" id="chapter-nav"></div>
+    <div id="chapter-reactions" style="margin:24px 0;display:flex;gap:10px;flex-wrap:wrap;align-items:center"></div>
+    <div class="comments-wrap" id="chapter-comments"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: PROFILE
+══════════════════════════════════════ -->
+<div class="page" id="page-profile">
+  <div class="section">
+    <div class="section-tag">Аккаунт</div>
+    <h2>Мой профиль</h2>
+    <div class="profile-layout">
+      <div class="avatar-upload">
+        <div class="avatar-big" id="profile-avatar-big"></div>
+        <label class="avatar-label" for="avatar-input">Изменить фото</label>
+        <input type="file" id="avatar-input" accept="image/*" onchange="handleAvatarUpload(event)">
+      </div>
+      <div>
+        <div id="profile-msg"></div>
+        <div class="form-group"><label>Никнейм</label><input type="text" id="profile-nickname"></div>
+        <div class="form-group"><label>Email</label><input type="email" id="profile-email" readonly style="opacity:0.6;cursor:default"></div>
+        <div class="form-group"><label>Новый пароль (оставьте пустым, чтобы не менять)</label><input type="password" id="profile-password" placeholder="••••••••"></div>
+        <div style="display:flex;gap:12px;margin-top:6px;flex-wrap:wrap">
+          <button class="btn-plain filled" onclick="saveProfile()">Сохранить</button>
+          <button class="btn-plain" onclick="logout()">Выйти</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE: ADMIN
+══════════════════════════════════════ -->
+<div class="page" id="page-admin">
+  <div class="section" style="max-width:1000px">
+    <div class="section-tag">Только для администратора</div>
+    <h2>Панель управления</h2>
+
+    <div class="admin-tabs">
+      <div class="admin-tab active" onclick="switchAdminTab('chapters')">Главы</div>
+      <div class="admin-tab" onclick="switchAdminTab('books')">Произведения</div>
+      <div class="admin-tab" onclick="switchAdminTab('blog')">Блог</div>
+      <div class="admin-tab" onclick="switchAdminTab('texts')">Тексты сайта</div>
+      <div class="admin-tab" onclick="switchAdminTab('comments')">Комментарии</div>
+      <div class="admin-tab" onclick="switchAdminTab('users')">Пользователи</div>
+    </div>
+
+    <!-- CHAPTERS -->
+    <div class="admin-pane active" id="admin-pane-chapters">
+      <div class="section-tag">Добавить / редактировать главу</div>
+
+
+      <div class="form-group"><label>Произведение</label><select id="admin-chapter-book" onchange="renderAdminChapters()"></select></div>
+      <div class="form-group"><label>Название главы</label><input type="text" id="admin-chapter-title" placeholder="Глава 1. Название"></div>
+      <div class="form-group"><label>Текст главы</label><textarea id="admin-chapter-text" style="min-height:260px;font-size:0.95rem" placeholder="Вставьте полный текст главы здесь..."></textarea></div>
+      <div class="form-group"><label>Изображение к главе (URL, необязательно)</label><input type="text" id="admin-chapter-img" placeholder="https://..."></div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <button class="btn-plain filled" onclick="adminSaveChapter()">Сохранить главу</button>
+        <button class="btn-plain" onclick="adminCancelEdit()" id="btn-cancel-edit" style="display:none">Отмена</button>
+        <span id="editing-label" style="font-size:0.82rem;color:var(--muted)"></span>
+      </div>
+      <div id="admin-chapters-msg" style="margin-top:12px"></div>
+
+      <!-- DOCX IMPORT -->
+      <div style="margin-top:36px;padding-top:28px;border-top:1px solid var(--divider)">
+        <div class="section-tag">Импорт из Word (.docx)</div>
+        <p style="font-size:0.9rem;color:var(--muted);margin-bottom:16px">Загрузите .docx файл — заголовки (H1/H2/H3) автоматически станут названиями глав, текст под ними — содержимым.</p>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+          <label class="btn-plain" style="cursor:pointer;display:inline-flex;align-items:center;gap:8px">
+            📄 Выбрать .docx файл
+            <input type="file" id="docx-import-input" accept=".docx" style="display:none" onchange="previewDocxImport(event)">
+          </label>
+          <span id="docx-filename" style="font-size:0.85rem;color:var(--muted)"></span>
+        </div>
+        <div id="docx-preview-wrap" style="display:none">
+          <div style="font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:10px">Найденные главы для импорта:</div>
+          <div id="docx-chapters-preview" style="max-height:320px;overflow-y:auto;border:1px solid var(--divider);padding:12px;background:var(--form-bg);font-size:0.88rem"></div>
+          <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+            <button class="btn-plain filled" onclick="importDocxChapters()">✓ Импортировать все главы</button>
+            <button class="btn-plain" onclick="cancelDocxImport()">Отмена</button>
+          </div>
+          <div id="docx-import-msg" style="margin-top:10px"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:36px">
+        <div class="section-tag">Опубликованные главы</div>
+        <div id="admin-chapters-list"></div>
+      </div>
+    </div>
+
+    <!-- BOOKS -->
+    <div class="admin-pane" id="admin-pane-books">
+      <div class="section-tag">Добавить произведение</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="form-group"><label>Тип (ГЕТ / СЛЕШ)</label><input type="text" id="admin-book-badge" placeholder="СЛЕШ"></div>
+        <div class="form-group"><label>Название</label><input type="text" id="admin-book-title" placeholder="Название"></div>
+        <div class="form-group"><label>Автор</label><input type="text" id="admin-book-author" placeholder="Автор"></div>
+        <div class="form-group"><label>Жанры (одной строкой)</label><input type="text" id="admin-book-genre" placeholder="Романтика · Уся"></div>
+        <div class="form-group"><label>Метаданные</label><input type="text" id="admin-book-meta" placeholder="736 стр. · 84 части"></div>
+        <div class="form-group"><label>Теги (через запятую)</label><input type="text" id="admin-book-tags" placeholder="Романтика, Уся"></div>
+      </div>
+      <div class="form-group"><label>Описание</label><textarea id="admin-book-desc" style="min-height:100px" placeholder="Описание для модального окна..."></textarea></div>
+      <div class="form-group"><label>Обложка (URL изображения, необязательно)</label><input type="text" id="admin-book-cover" placeholder="https://..."></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn-plain filled" onclick="adminSaveBook()">Сохранить произведение</button>
+        <button class="btn-plain" onclick="adminCancelBookEdit()" id="btn-cancel-book-edit" style="display:none">Отмена</button>
+        <span id="editing-book-label" style="font-size:0.82rem;color:var(--muted)"></span>
+      </div>
+      <div id="admin-books-msg" style="margin-top:12px"></div>
+      <div style="margin-top:32px"><div class="section-tag">Список</div><ul class="books-admin-list" id="admin-books-list" style="list-style:none"></ul></div>
+    </div>
+
+    <!-- BLOG ADMIN -->
+    <div class="admin-pane" id="admin-pane-blog">
+      <div class="section-tag">Добавить / редактировать запись</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="form-group"><label>Число</label><input type="text" id="admin-blog-day" placeholder="29"></div>
+        <div class="form-group"><label>Месяц год</label><input type="text" id="admin-blog-month" placeholder="Мар 2026"></div>
+      </div>
+      <div class="form-group"><label>Заголовок</label><input type="text" id="admin-blog-title" placeholder="Заголовок записи"></div>
+      <div class="form-group"><label>Текст</label><textarea id="admin-blog-text" style="min-height:160px" placeholder="Текст записи..."></textarea></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn-plain filled" onclick="adminSaveBlogPost()">Сохранить</button>
+        <button class="btn-plain" onclick="adminCancelBlogEdit()" id="btn-cancel-blog-edit" style="display:none">Отмена</button>
+        <span id="editing-blog-label" style="font-size:0.82rem;color:var(--muted)"></span>
+      </div>
+      <div id="admin-blog-msg" style="margin-top:12px"></div>
+      <div style="margin-top:32px"><div class="section-tag">Записи</div><div id="admin-blog-list"></div></div>
+    </div>
+
+    <!-- TEXTS ADMIN -->
+    <div class="admin-pane" id="admin-pane-texts">
+      <div class="section-tag">Тексты главной страницы</div>
+      <div class="form-group"><label>Цитата (курсив под заголовком)</label><input type="text" id="admin-home-quote"></div>
+      <div class="form-group"><label>Абзац на главной</label><textarea id="admin-home-desc" style="min-height:90px"></textarea></div>
+      <div class="section-tag" style="margin-top:24px">О проекте</div>
+      <div class="form-group"><label>Первый абзац</label><textarea id="admin-about-p1" style="min-height:100px"></textarea></div>
+      <div class="form-group"><label>Второй абзац</label><textarea id="admin-about-p2" style="min-height:100px"></textarea></div>
+      <button class="btn-plain filled" onclick="adminSaveTexts()" style="margin-top:8px">Сохранить тексты</button>
+      <div id="admin-texts-msg" style="margin-top:12px"></div>
+    </div>
+
+    <!-- COMMENTS -->
+    <div class="admin-pane" id="admin-pane-comments">
+      <div class="section-tag">Все комментарии</div>
+      <div id="admin-comments-list"></div>
+    </div>
+
+    <!-- USERS -->
+    <div class="admin-pane" id="admin-pane-users">
+      <div class="section-tag">Зарегистрированные пользователи <span id="admin-users-count" style="color:var(--muted);font-size:0.85rem"></span></div>
+      <div id="admin-users-list"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ BOOK MODAL ══════════════ -->
+<div class="modal-overlay" id="book-modal" onclick="if(event.target===this)closeBookModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeBookModal()">✕</button>
+    <div id="book-modal-content"></div>
+  </div>
+</div>
+
+<!-- ══════════════ AUTH MODAL ══════════════ -->
+<div class="modal-overlay" id="auth-modal" onclick="if(event.target===this)closeAuthModal()">
+  <div class="modal-box" style="max-width:440px">
+    <button class="modal-close" onclick="closeAuthModal()">✕</button>
+
+    <div id="login-form">
+      <div class="section-tag">Вход</div>
+      <h2 style="font-size:1.6rem;margin-bottom:18px">С возвращением</h2>
+      <div id="login-msg"></div>
+      <div class="form-group"><label>Email</label><input type="email" id="login-email" placeholder="your@email.com"></div>
+      <div class="form-group"><label>Пароль</label><input type="password" id="login-password" placeholder="••••••••"></div>
+      <div class="remember-row"><input type="checkbox" id="login-remember" checked><label for="login-remember">Запомнить меня</label></div>
+      <button class="btn-plain filled" onclick="doLogin()" style="width:100%">Войти</button>
+      <div id="forgot-msg" style="margin-top:10px"></div>
+      <div class="switch-link">Забыли пароль? <a onclick="doForgotPassword()">Сбросить</a></div>
+      <div class="switch-link">Нет аккаунта? <a onclick="switchAuthTo('register')">Зарегистрироваться</a></div>
+    </div>
+
+    <div id="register-form" style="display:none">
+      <div class="section-tag">Регистрация</div>
+      <h2 style="font-size:1.6rem;margin-bottom:18px">Создать аккаунт</h2>
+      <div id="register-msg"></div>
+      <div class="form-group"><label>Никнейм</label><input type="text" id="reg-nickname" placeholder="Ваш никнейм"></div>
+      <div class="form-group"><label>Email</label><input type="email" id="reg-email" placeholder="your@email.com"></div>
+      <div class="form-group"><label>Пароль (мин. 6 символов)</label><input type="password" id="reg-password" placeholder="••••••••"></div>
+      <button class="btn-plain filled" onclick="doRegister()" style="width:100%">Создать аккаунт</button>
+      <div class="switch-link">Есть аккаунт? <a onclick="switchAuthTo('login')">Войти</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ GENERIC TEXT EDIT MODAL ══════════════ -->
+<div class="modal-overlay" id="text-edit-modal" onclick="if(event.target===this)closeTextEditModal()">
+  <div class="modal-box wide">
+    <button class="modal-close" onclick="closeTextEditModal()">✕</button>
+    <div id="text-edit-content"></div>
+  </div>
+</div>
+
+<!-- Supabase SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
+<script>
+// ══════════════════════════════════════════════════════════
+// КОНФИГ SUPABASE — вставь свои значения из Settings → API
+// ══════════════════════════════════════════════════════════
+const SUPABASE_URL = 'https://dytcthyberbwhnyyiadg.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR5dGN0aHliZXJid2hueXlpYWRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMDY0MjIsImV4cCI6MjA5MTY4MjQyMn0.kvEl7LTjx0YEsZ0BYaZSOKjyig8JaByqE7KRe6Fv9BM';
+const ADMIN_EMAIL = 'admin@tarabarshina.ru'; // email аккаунта-администратора
+/* ═══════════════════════════════════════════════════════════════
+   ОБЯЗАТЕЛЬНЫЕ RLS ПОЛИТИКИ В SUPABASE (SQL Editor):
+
+   -- Все могут читать книги и главы (незарегистрированные тоже)
+   ALTER TABLE chapters ENABLE ROW LEVEL SECURITY;
+   ALTER TABLE books ENABLE ROW LEVEL SECURITY;
+
+   DROP POLICY IF EXISTS "chapters_select_all" ON chapters;
+   CREATE POLICY "chapters_select_all" ON chapters FOR SELECT USING (true);
+
+   DROP POLICY IF EXISTS "books_select_all" ON books;
+   CREATE POLICY "books_select_all" ON books FOR SELECT USING (true);
+
+   -- Только авторизованные могут добавлять/редактировать главы
+   DROP POLICY IF EXISTS "chapters_insert_auth" ON chapters;
+   CREATE POLICY "chapters_insert_auth" ON chapters FOR INSERT
+     WITH CHECK (auth.uid() IS NOT NULL);
+
+   DROP POLICY IF EXISTS "chapters_update_auth" ON chapters;
+   CREATE POLICY "chapters_update_auth" ON chapters FOR UPDATE
+     USING (auth.uid() IS NOT NULL);
+
+   DROP POLICY IF EXISTS "chapters_delete_auth" ON chapters;
+   CREATE POLICY "chapters_delete_auth" ON chapters FOR DELETE
+     USING (auth.uid() IS NOT NULL);
+
+   -- blog_posts, site_texts — все читают
+   DROP POLICY IF EXISTS "blog_posts_select_all" ON blog_posts;
+   CREATE POLICY "blog_posts_select_all" ON blog_posts FOR SELECT USING (true);
+
+   DROP POLICY IF EXISTS "site_texts_select_all" ON site_texts;
+   CREATE POLICY "site_texts_select_all" ON site_texts FOR SELECT USING (true);
+   ═══════════════════════════════════════════════════════════════ */
+// ══════════════════════════════════════════════════════════
+
+const { createClient } = window.supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+});
+// Сбрасываем старый кэш если ключ изменился
+try {
+  const savedKey = localStorage.getItem('_sbKey');
+  if (savedKey !== SUPABASE_ANON_KEY.slice(-16)) {
+    localStorage.removeItem('_siteCache');
+    localStorage.setItem('_sbKey', SUPABASE_ANON_KEY.slice(-16));
+  }
+} catch(_) {}
+
+// ═══ ТГ-СОВМЕСТИМЫЕ ДИАЛОГИ ══════════════════
+(function(){
+  const tg = window.Telegram && window.Telegram.WebApp;
+  if(!tg) return;
+  window._tgAlert = function(msg){ try{ tg.showAlert(msg); }catch(e){ console.warn(msg); } };
+  window._tgConfirm = function(msg, cb){ try{ tg.showConfirm(msg, cb); }catch(e){ cb(window.confirm(msg)); } };
+})();
+function _alert(msg){ if(window._tgAlert){ window._tgAlert(msg); } else { alert(msg); } }
+function _confirm(msg){ return window.confirm(msg); }
+function _confirmAsync(msg, cb){
+  if(window._tgConfirm){ window._tgConfirm(msg, cb); }
+  else { cb(confirm(msg)); }
+}
+
+// ═══ СОСТОЯНИЕ ════════════════════════════════
+const _cache={comments:{},users:{}};
+let currentUser=null, currentBookId=null, currentChapIdx=0;
+let editingChapterId=null, editingBookId=null, editingBlogId=null;
+const _navStack=[];
+
+// ═══ НАСТРОЙКИ РИДЕРА ════════════════════════
+let RS={ fontSize:18, lineHeight:2.05, fontFamily:'serif' };
+try{ const s=JSON.parse((localStorage.getItem('rs'))||'{}'); Object.assign(RS,s); }catch(e){}
+
+// ═══ УТИЛИТЫ ═════════════════════════════════
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function showMsg(el,txt,type){if(!el)return;el.innerHTML='<div class="msg '+type+'">'+txt+'</div>';setTimeout(()=>{if(el)el.innerHTML=''},4000);}
+function getData(k,d){return(k in _cache)?_cache[k]:d;}
+
+function getChapters(bookId){
+  const chapters=getData('chapters',[]);
+  const arr=chapters.filter(c=>String(c.book_id)===String(bookId));
+  return arr.sort((a,b)=>(a.order||0)-(b.order||0));
+}
+
+// ═══ ЗАГРУЗКА ДАННЫХ ═════════════════════════
+let _firstLoad=true;
+async function loadSiteData(){
+  // Показываем кэш мгновенно если есть
+  try {
+    const cached = localStorage.getItem('_siteCache');
+    if(cached){
+      const val = JSON.parse(cached);
+      if(val && val.books){
+        Object.assign(_cache, val);
+        renderWorksGrid(); renderBlogPosts(); applyTexts();
+        hideLoading();
+      }
+    }
+  } catch(_){ try{localStorage.removeItem('_siteCache');}catch(__){} }
+
+  // Всегда грузим свежее из Supabase
+  // ВАЖНО: RLS на таблице chapters должна разрешать SELECT для anon (все могут читать главы)
+  try {
+    const [booksRes, chaptersRes, postsRes] = await Promise.all([
+      sb.from('books').select('*').order('id'),
+      sb.from('chapters').select('id,book_id,title,img,order,date').order('order'),
+      sb.from('blog_posts').select('*').order('id', {ascending:false})
+    ]);
+
+    if(booksRes.data) _cache['books'] = booksRes.data;
+    if(chaptersRes.data) _cache['chapters'] = chaptersRes.data;
+    if(postsRes.data) _cache['blog_posts'] = postsRes.data;
+
+    const textsRes = await sb.from('site_texts').select('*').limit(1).maybeSingle();
+    if(textsRes.data){
+      _cache['home_quote'] = textsRes.data.home_quote || '«Если тебе трудно читать — значит, переводчик плохо поработал»';
+      _cache['home_desc'] = textsRes.data.home_desc || 'Здесь я публикую любительские переводы китайских новелл.';
+      _cache['about_p1'] = textsRes.data.about_p1 || 'Привет! Я — автор проекта «Китайская тарабарщина».';
+      _cache['about_p2'] = textsRes.data.about_p2 || 'Перевожу новеллы любимых авторов. Все переводы бесплатны.';
+    }
+
+    try{ localStorage.setItem('_siteCache', JSON.stringify({
+      books:_cache['books']||[], chapters:_cache['chapters']||[], blog_posts:_cache['blog_posts']||[],
+      home_quote:_cache['home_quote']||'', home_desc:_cache['home_desc']||'',
+      about_p1:_cache['about_p1']||'', about_p2:_cache['about_p2']||''
+    })); }catch(_){}
+
+    renderWorksGrid(); renderBlogPosts(); applyTexts(); renderSaved();
+    if(document.getElementById('page-admin').classList.contains('active')){
+      renderAdminChapters();renderAdminBooks();renderAdminBlogList();renderAdminComments();
+    }
+    if(document.getElementById('page-book').classList.contains('active')&&currentBookId!==null){
+      renderChaptersList(currentBookId);
+    }
+  } catch(err){
+    console.error('Supabase load error:', err);
+  }
+
+  if(_firstLoad){ _firstLoad=false; hideLoading(); }
+  if(!_cache['comments']) _cache['comments']={};
+  if(!_cache['users']) _cache['users']={};
+}
+
+// ═══ ЗАГРУЗКА ЭКРАНА ══════════════════════════
+const _loadStart = Date.now();
+function hideLoading(){
+  const el=document.getElementById('loading-screen');
+  if(!el||el._hiding)return;
+  el._hiding=true;
+  el.style.animation='none';
+  const elapsed=Date.now()-_loadStart;
+  const delay=Math.max(0,300-elapsed);
+  setTimeout(()=>{
+    if(!el)return;
+    el.style.transition='opacity 0.5s ease';
+    el.style.opacity='0';
+    el.style.pointerEvents='none';
+    setTimeout(()=>{ if(el.parentNode) el.parentNode.removeChild(el); },550);
+  },delay);
+}
+(function(){
+  const phrases = ['Открываем свиток...','Листаем страницы...','Загружаем переводы...','Почти готово...','故事已开始...'];
+  let i = 0;
+  const iv = setInterval(()=>{
+    i++;
+    const el = document.getElementById('ls-status-text');
+    if(!el){ clearInterval(iv); return; }
+    if(i < phrases.length){
+      el.style.opacity='0';
+      setTimeout(()=>{ el.textContent = phrases[i]; el.style.opacity='1'; }, 200);
+    } else { clearInterval(iv); }
+  }, 1100);
+})();
+
+// ═══ AUTH ══════════════════════════════════════
+async function doLogin(){
+  const email=document.getElementById('login-email').value.trim();
+  const pass=document.getElementById('login-password').value;
+  const msg=document.getElementById('login-msg');
+  if(!email||!pass){showMsg(msg,'Заполните все поля.','error');return;}
+  const {error} = await sb.auth.signInWithPassword({email, password:pass});
+  if(error){
+    console.error('login error:', error);
+    let msg_text = 'Ошибка: '+error.message;
+    if(error.message.includes('Invalid') || error.message.includes('invalid') || error.message.includes('credentials')) msg_text='Неверный email или пароль.';
+    if(error.message.includes('Email not confirmed')) msg_text='Email не подтверждён. Проверьте почту или обратитесь к администратору.';
+    if(error.message.includes('Too many')) msg_text='Слишком много попыток. Подождите минуту.';
+    showMsg(msg, msg_text, 'error');
+  }
+}
+async function doForgotPassword(){
+  const email = document.getElementById('login-email').value.trim();
+  const msg = document.getElementById('forgot-msg');
+  if (!email) { msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Введите email выше.</span>'; return; }
+  const {error} = await sb.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.origin + window.location.pathname + '?mode=resetPassword'
+  });
+  if(error) msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Ошибка: '+error.message+'</span>';
+  else msg.innerHTML='<span style="color:var(--success);font-size:0.88rem">Письмо отправлено! Проверьте почту.</span>';
+}
+async function doRegister(){
+  const nick=document.getElementById('reg-nickname').value.trim();
+  const email=document.getElementById('reg-email').value.trim();
+  const pass=document.getElementById('reg-password').value;
+  const msg=document.getElementById('register-msg');
+  if(!nick||!email||!pass){showMsg(msg,'Заполните все поля.','error');return;}
+  if(pass.length<6){showMsg(msg,'Пароль — минимум 6 символов.','error');return;}
+  const {data, error} = await sb.auth.signUp({email, password:pass, options:{data:{nickname:nick}}});
+  if(error){
+    showMsg(msg,error.message.includes('already')? 'Email уже зарегистрирован.':'Ошибка: '+error.message,'error');
+    return;
+  }
+  if(data.user){
+    // Если email confirmation выключен — user уже активен, входим сразу
+    // Upsert только если у нас есть реальный пользователь
+    const {error:upsertErr} = await sb.from('users').upsert({id:data.user.id, email, nickname:nick, role:'user', banned:false});
+    if(upsertErr) console.warn('users upsert warning:', upsertErr.message);
+    if(data.session){
+      // Уже вошли — закрываем модал
+      showMsg(msg,'Добро пожаловать!','success');
+    } else {
+      // Email confirmation включён — просим подтвердить
+      showMsg(msg,'Аккаунт создан! Проверьте почту и перейдите по ссылке, затем войдите.','success');
+    }
+  } else if(!error){
+    showMsg(msg,'Что-то пошло не так. Попробуйте ещё раз.','error');
+  }
+}
+async function logout(){
+  // Закрываем все Realtime каналы перед выходом
+  if(_commentsChannel){try{sb.removeChannel(_commentsChannel);}catch(_){} _commentsChannel=null;}
+  if(_forumChannel){try{sb.removeChannel(_forumChannel);}catch(_){} _forumChannel=null;}
+  if(typeof _chaptersNotifChannel!=='undefined'&&_chaptersNotifChannel){try{sb.removeChannel(_chaptersNotifChannel);}catch(_){} _chaptersNotifChannel=null;}
+  await sb.auth.signOut();
+  currentUser=null; renderNav(); showAdminBars(false); renderSaved();
+  const fbtn=document.getElementById('forum-new-btn'); if(fbtn)fbtn.style.display='none';
+  showPage('main'); showSection('home');
+}
+
+// Слушаем изменения сессии
+sb.auth.onAuthStateChange(async (event, session) => {
+  // TOKEN_REFRESHED — токен просто обновился, пользователь уже залогинен, ничего не делаем
+  if(event === 'TOKEN_REFRESHED') return;
+
+  if(session && session.user){
+    // При INITIAL_SESSION если currentUser уже установлен — не перерисовываем лишний раз
+    if(event === 'INITIAL_SESSION' && currentUser && currentUser.uid === session.user.id) return;
+
+    const u = session.user;
+    let {data:profile} = await sb.from('users').select('*').eq('id', u.id).maybeSingle();
+    // Если профиля нет — создаём (первый вход после регистрации)
+    if(!profile){
+      const nick = u.user_metadata?.nickname || u.email.split('@')[0];
+      await sb.from('users').upsert({id:u.id, email:u.email, nickname:nick, role:'user', banned:false});
+      const res = await sb.from('users').select('*').eq('id', u.id).maybeSingle();
+      profile = res.data;
+    }
+    if(profile && profile.banned){ await sb.auth.signOut(); _alert('Ваш аккаунт заблокирован.'); return; }
+    const isAdmin = u.email === ADMIN_EMAIL || (profile && profile.role === 'admin');
+    currentUser = {
+      uid: u.id,
+      email: u.email,
+      nickname: profile ? profile.nickname : (u.user_metadata?.nickname || u.email),
+      role: isAdmin ? 'admin' : (profile ? profile.role : 'user'),
+      avatar: profile ? profile.avatar : null
+    };
+    if(profile && profile.saved) _cache['saved_'+currentUser.uid] = profile.saved || [];
+    if(profile && profile.read_progress) _cache['rp'] = profile.read_progress || {};
+    closeAuthModal(); renderNav(); showAdminBars(currentUser.role==='admin');
+    renderWorksGrid(); renderBlogPosts(); renderSaved();
+    loadNotifs(); if(!_chaptersNotifChannel) subscribeChapterNotifs();
+    const fbtn = document.getElementById('forum-new-btn');
+    if(fbtn) fbtn.style.display = '';
+  } else {
+    currentUser=null; renderNav(); showAdminBars(false);
+    renderWorksGrid(); renderBlogPosts(); renderSaved();
+    const fbtn = document.getElementById('forum-new-btn');
+    if(fbtn) fbtn.style.display = 'none';
+  }
+});
+
+// ═══ ПРОГРЕСС ЧТЕНИЯ ══════════════════════════
+function getRP(){ return _cache['rp']||{}; }
+async function markRead(bookId,chapIdx){
+  if(!currentUser)return;
+  const rp=getRP();
+  if(!rp[bookId]||rp[bookId]<chapIdx+1) rp[bookId]=chapIdx+1;
+  _cache['rp']=rp;
+  await sb.from('users').update({read_progress:rp}).eq('id', currentUser.uid);
+}
+function bookProgress(bookId){
+  const total=getChapters(bookId).length;
+  const read=Math.min(getRP()[bookId]||0, total);
+  const done=read;
+  return {done,read,total,pct:total?Math.round(read/total*100):0};
+}
+
+// ═══ БЕЙДЖ «НОВАЯ» ═══════════════════════════
+function isNew(ch){
+  if(!ch||!ch.date)return false;
+  const mo={'января':0,'февраля':1,'марта':2,'апреля':3,'мая':4,'июня':5,
+    'июля':6,'августа':7,'сентября':8,'октября':9,'ноября':10,'декабря':11};
+  const p=ch.date.trim().split(' ');
+  if(p.length<3)return false;
+  const d=new Date(+p[2],mo[p[1]],+p[0]);
+  return !isNaN(d)&&(Date.now()-d)<7*24*3600*1000;
+}
+
+// ═══ АВАТАРКИ ════════════════════════════════
+async function loadUserAvatar(uid){
+  if(!uid) return null;
+  if(_cache['users'][uid]) return _cache['users'][uid].avatar||null;
+  const {data} = await sb.from('users').select('avatar').eq('id',uid).maybeSingle();
+  const av = data ? data.avatar : null;
+  _cache['users'][uid]={avatar:av};
+  return av;
+}
+
+// ═══ ПРОФИЛЬ ══════════════════════════════════
+function renderProfile(){
+  if(!currentUser){showPage('main');return;}
+  document.getElementById('profile-email').value=currentUser.email;
+  document.getElementById('profile-nickname').value=currentUser.nickname||'';
+  document.getElementById('profile-password').value='';
+  const big=document.getElementById('profile-avatar-big');
+  big.innerHTML=currentUser.avatar?'<img src="'+currentUser.avatar+'">':(currentUser.nickname||currentUser.email)[0].toUpperCase();
+}
+async function saveProfile(){
+  const nick=document.getElementById('profile-nickname').value.trim();
+  const pass=document.getElementById('profile-password').value;
+  const msg=document.getElementById('profile-msg');
+  if(!nick){showMsg(msg,'Никнейм не может быть пустым.','error');return;}
+  currentUser.nickname=nick;
+  const {error} = await sb.from('users').update({nickname:nick}).eq('id', currentUser.uid);
+  if(error){showMsg(msg,'Ошибка: '+error.message,'error');return;}
+  if(pass){
+    if(pass.length<6){showMsg(msg,'Минимум 6 символов.','error');return;}
+    const {error:pe} = await sb.auth.updateUser({password:pass});
+    if(pe){showMsg(msg,'Ошибка смены пароля: '+pe.message,'error');return;}
+  }
+  renderNav(); showMsg(msg,'Сохранено!','success');
+}
+async function handleAvatarUpload(e){
+  const f=e.target.files[0]; if(!f)return;
+  if(!currentUser) return;
+  // Сброс input — чтобы повторный выбор того же файла тоже срабатывал
+  e.target.value='';
+  try {
+    // Сжимаем картинку перед загрузкой (макс 256x256, всегда jpeg)
+    const compressed = await compressImage(f, 256);
+    // Путь всегда одинаковый — upsert заменит старый файл без ошибок
+    const path = currentUser.uid + '/avatar.jpg';
+    const {error: upErr} = await sb.storage.from('avatars').upload(path, compressed, {upsert: true, contentType: 'image/jpeg'});
+    if(upErr) throw upErr;
+    const {data: urlData} = sb.storage.from('avatars').getPublicUrl(path);
+    const avatarUrl = urlData.publicUrl + '?t=' + Date.now(); // cache bust
+    currentUser.avatar = avatarUrl;
+    // Инвалидируем кэш аватара для этого пользователя
+    if(_cache['users'] && _cache['users'][currentUser.uid]) {
+      _cache['users'][currentUser.uid].avatar = avatarUrl;
+    }
+    await sb.from('users').update({avatar: avatarUrl}).eq('id', currentUser.uid);
+    renderProfile(); renderNav();
+  } catch(err) {
+    alert('Ошибка загрузки аватара: ' + err.message);
+  }
+}
+
+function compressImage(file, maxSize){
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Не удалось прочитать изображение')); };
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      let w = img.width, h = img.height;
+      if(w > h){ if(w > maxSize){ h = Math.round(h*(maxSize/w)); w = maxSize; } }
+      else { if(h > maxSize){ w = Math.round(w*(maxSize/h)); h = maxSize; } }
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      URL.revokeObjectURL(url);
+      canvas.toBlob(blob => { if(blob) resolve(blob); else reject(new Error('canvas.toBlob вернул null')); }, 'image/jpeg', 0.85);
+    };
+    img.src = url;
+  });
+}
+
+// ═══ ТЕКСТЫ САЙТА ═════════════════════════════
+function applyTexts(){
+  const s=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  s('home-quote',getData('home_quote','«Если тебе трудно читать — значит, переводчик плохо поработал»'));
+  s('home-desc',getData('home_desc','Здесь я публикую любительские переводы китайских новелл — романтика, исторические драмы, приключения.'));
+  s('about-p1',getData('about_p1','Привет! Я — автор проекта «Китайская тарабарщина».'));
+  s('about-p2',getData('about_p2','Перевожу новеллы любимых авторов. Все переводы бесплатны и публикуются на Фикбуке.'));
+}
+
+// ═══ AUTH MODAL ═══════════════════════════════
+function openAuthModal(tab){ switchAuthTo(tab); document.getElementById('auth-modal').classList.add('active'); }
+function closeAuthModal(){ document.getElementById('auth-modal').classList.remove('active'); }
+function switchAuthTo(tab){
+  document.getElementById('login-form').style.display=tab==='login'?'':'none';
+  document.getElementById('register-form').style.display=tab==='register'?'':'none';
+}
+
+// ═══ ТЕМА ═════════════════════════════════════
+const THEMES = [
+  { id: 'light',  label: 'Светлая',     dot: '#f5ead6', icon: '☀' },
+  { id: 'sepia',  label: 'Сепия',       dot: '#d4a870', icon: '📜' },
+  { id: 'gray',   label: 'Серая',       dot: '#e0e0e0', icon: '🌫' },
+  { id: 'dark',   label: 'Тёмная',      dot: '#1a1410', icon: '🌙' },
+  { id: 'night',  label: 'Ночная синяя',dot: '#0f1520', icon: '✦' },
+];
+let _currentTheme = 'light';
+function applyTheme(id) {
+  THEMES.forEach(t => document.body.classList.remove(t.id));
+  if (id !== 'light') document.body.classList.add(id);
+  _currentTheme = id;
+  try{localStorage.setItem('theme', id);}catch(_){}
+}
+function toggleTheme(ddId) {
+  ddId = ddId || 'theme-dropdown';
+  const el = document.getElementById(ddId);
+  if (el) el.classList.toggle('open');
+}
+function setTheme(id) {
+  applyTheme(id);
+  document.querySelectorAll('.theme-dropdown').forEach(el => el.classList.remove('open'));
+  renderNav();
+}
+document.addEventListener('click', e => {
+  if (e.target.closest('.theme-toggle') || e.target.closest('.theme-dropdown')) return;
+  document.querySelectorAll('.theme-dropdown').forEach(el => el.classList.remove('open'));
+});
+
+// ═══ БУРГЕР ═══════════════════════════════════
+function toggleBurger(){
+  document.getElementById('burger-btn').classList.toggle('open');
+  document.getElementById('nav-main-links').classList.toggle('open');
+}
+function closeBurger(){
+  const b=document.getElementById('burger-btn'),l=document.getElementById('nav-main-links');
+  if(b)b.classList.remove('open'); if(l)l.classList.remove('open');
+}
+
+// ═══ BOOK MODAL ═══════════════════════════════
+function openBookModal(id){
+  const b=getData('books',[]).find(x=>x.id===id); if(!b)return;
+  const saved=isSavedBook(id);
+  const isAdmin=currentUser&&currentUser.role==='admin';
+  const prog=bookProgress(id);
+  const progHtml=prog.total&&currentUser?
+    '<div style="margin:12px 0 16px">'+
+      '<div class="prog-bar"><div class="prog-fill" style="width:'+prog.pct+'%"></div></div>'+
+      '<div class="prog-label">'+prog.done+' / '+prog.total+' глав ('+prog.pct+'%)</div>'+
+    '</div>':'';
+  const tags = typeof b.tags === 'string' ? b.tags.split(',').map(t=>t.trim()).filter(Boolean) : (b.tags||[]);
+  const coverHtml=b.cover?'<img src="'+esc(b.cover)+'" style="max-width:100%;max-height:200px;object-fit:cover;margin-bottom:14px;border:1px solid var(--divider)">':'';
+  document.getElementById('book-modal-content').innerHTML=
+    coverHtml+
+    '<div class="modal-badge">'+esc(b.badge)+'</div>'+
+    '<div class="modal-title">'+esc(b.title)+'</div>'+
+    '<div class="modal-author">'+esc(b.author)+'</div>'+
+    '<div class="modal-meta">'+esc(b.meta||'')+'</div>'+
+    '<div class="modal-tags">'+tags.map(t=>'<span class="modal-tag">'+esc(t)+'</span>').join('')+'</div>'+
+    '<div class="modal-desc">'+esc(b.desc||'')+'</div>'+
+    progHtml+
+    '<div class="modal-actions">'+
+      '<button class="btn-plain filled" onclick="openBookDetail('+b.id+');closeBookModal()">Читать главы</button>'+
+      '<button class="btn-plain" onclick="toggleSave('+b.id+');closeBookModal()">'+(saved?'✕ Убрать':'+ Сохранить')+'</button>'+
+      (isAdmin?'<button class="btn-plain" onclick="adminEditBookForm('+b.id+');closeBookModal()">✎ Ред.</button>':'')+
+    '</div>';
+  document.getElementById('book-modal').classList.add('active');
+}
+function closeBookModal(){ document.getElementById('book-modal').classList.remove('active'); }
+
+// ═══ BOOK DETAIL ══════════════════════════════
+function openBookDetail(bookId){
+  currentBookId=bookId;
+  const b=getData('books',[]).find(x=>x.id===bookId); if(!b)return;
+  const isAdmin=currentUser&&currentUser.role==='admin';
+  document.getElementById('book-detail-header').innerHTML=
+    '<button class="btn-plain" onclick="goBack()" style="margin-bottom:16px">← Назад</button>'+
+    '<div class="section-tag">Произведение</div><h2>'+esc(b.title)+'</h2>'+
+    '<p style="color:var(--muted);font-style:italic">'+esc(b.author)+'</p>'+
+    (isAdmin?'<button class="btn-plain" style="margin-top:10px" onclick="showPage(\'admin\');initAdminPage();switchAdminTab(\'chapters\')">+ Добавить главу</button>':'');
+  renderChaptersList(bookId);
+  _navStack.push({type:'main'});
+  try{history.pushState({page:'book',bookId},'');}catch(_){}
+  showPageRaw('book');
+}
+
+function renderChaptersList(bookId){
+  const chs=getChapters(bookId);
+  const isAdmin=currentUser&&currentUser.role==='admin';
+  const readCount=getRP()[bookId]||0;
+  const list=document.getElementById('chapters-list');
+  if(!chs.length){list.innerHTML='<li style="color:var(--muted);padding:20px 0">Глав пока нет.</li>';return;}
+  list.innerHTML=chs.map((ch,idx)=>
+    '<li>'+
+      '<span class="chapter-link" onclick="openChapter('+bookId+','+idx+')" style="'+(idx<readCount?'color:var(--muted)':'')+'">' +
+        esc(ch.title)+
+        (isNew(ch)?'<span class="badge-new">Новая</span>':'')+
+        (idx<readCount?' <span style="color:var(--gold);font-size:0.75rem">✓</span>':'')+
+      '</span>'+
+      '<span class="chapter-date">'+(ch.date||'')+'</span>'+
+      (isAdmin?'<button class="btn-sm" onclick="adminEditChapterFromReader('+bookId+','+idx+')">✎</button>'+
+               '<button class="btn-sm danger" onclick="adminDeleteChapter('+bookId+',\''+ch.id+'\')">✕</button>':'')+
+    '</li>').join('');
+}
+
+// ═══ READER SETTINGS ══════════════════════════
+function applyRS(){
+  const c=document.getElementById('chapter-content'); if(!c)return;
+  c.style.fontSize=RS.fontSize+'px';
+  c.style.lineHeight=RS.lineHeight;
+  c.style.fontFamily=RS.fontFamily==='sans'?'Arial,Helvetica,sans-serif':'EB Garamond,Georgia,serif';
+  c.querySelectorAll('p').forEach(p=>{ p.style.fontSize=RS.fontSize+'px'; p.style.lineHeight=RS.lineHeight; });
+  try{localStorage.setItem('rs',JSON.stringify(RS));}catch(_){}
+  document.querySelectorAll('[data-rs-lh]').forEach(b=>b.classList.toggle('on',parseFloat(b.getAttribute('data-rs-lh'))===RS.lineHeight));
+  document.querySelectorAll('[data-rs-ff]').forEach(b=>b.classList.toggle('on',b.getAttribute('data-rs-ff')===RS.fontFamily));
+  const fv=document.getElementById('rs-fv'); if(fv)fv.textContent=RS.fontSize+'px';
+}
+function rsSize(d){ RS.fontSize=Math.min(36,Math.max(14,RS.fontSize+d)); applyRS(); }
+function rsLH(v){ RS.lineHeight=v; applyRS(); }
+function rsFF(v){ RS.fontFamily=v; applyRS(); }
+
+// ═══ CHAPTER READER ═══════════════════════════
+async function openChapter(bookId,chapIdx){
+  currentBookId=bookId; currentChapIdx=chapIdx;
+  const b=getData('books',[]).find(x=>x.id===bookId);
+  const chs=getChapters(bookId);
+  const ch=chs[chapIdx]; if(!ch)return;
+  const isAdmin=currentUser&&currentUser.role==='admin';
+
+  markRead(bookId,chapIdx);
+
+  document.getElementById('chapter-header').innerHTML=
+    '<button class="btn-plain" onclick="goBack()" style="margin-bottom:16px">← К списку глав</button>'+
+    '<div class="section-tag">'+esc(b?b.title:'')+'</div>'+
+    '<h2>'+esc(ch.title)+'</h2>'+
+    '<p style="font-size:0.82rem;color:var(--muted)">'+(ch.date||'')+'</p>'+
+    (isAdmin?'<button class="btn-plain" style="margin-top:8px" onclick="adminEditChapterFromReader('+bookId+','+chapIdx+')">✎ Редактировать</button>':'')+
+    '<div class="reader-toolbar">'+
+      '<span class="rtb-label">Шрифт</span>'+
+      '<div class="rtb-group">'+
+        '<button class="rtb-btn" onclick="rsSize(-1)">A−</button>'+
+        '<span class="rtb-val" id="rs-fv">'+RS.fontSize+'px</span>'+
+        '<button class="rtb-btn" onclick="rsSize(+1)">A+</button>'+
+      '</div>'+
+      '<div class="rtb-group">'+
+        '<button class="rtb-btn" data-rs-ff="serif" onclick="rsFF(\'serif\')">С засечками</button>'+
+        '<button class="rtb-btn" data-rs-ff="sans" onclick="rsFF(\'sans\')">Без засечек</button>'+
+      '</div>'+
+      '<span class="rtb-label">Интервал</span>'+
+      '<div class="rtb-group">'+
+        '<button class="rtb-btn" data-rs-lh="1.6" onclick="rsLH(1.6)">Сжатый</button>'+
+        '<button class="rtb-btn" data-rs-lh="2.05" onclick="rsLH(2.05)">Обычный</button>'+
+        '<button class="rtb-btn" data-rs-lh="2.5" onclick="rsLH(2.5)">Широкий</button>'+
+      '</div>'+
+    '</div>';
+
+  // Загружаем полный текст главы (доступно всем — anon RLS должна разрешать SELECT)
+  document.getElementById('chapter-content').innerHTML='<p style="color:var(--muted)">Загрузка...</p>';
+  const {data:chFull,error:chErr} = await sb.from('chapters').select('text,img').eq('id', ch.id).maybeSingle();
+  if(chErr){
+    console.error('chapter text load error:', chErr);
+    // Если RLS блокирует — предлагаем войти, иначе показываем ошибку
+    if(chErr.code === 'PGRST301' || chErr.message?.includes('policy') || chErr.message?.includes('permission')){
+      document.getElementById('chapter-content').innerHTML=
+        '<div class="locked-notice" style="margin-top:0">'+
+          'Для чтения глав необходимо <a onclick="openAuthModal(\'login\')">войти</a> или '+
+          '<a onclick="openAuthModal(\'register\')">зарегистрироваться</a>.'+
+        '</div>';
+    } else {
+      document.getElementById('chapter-content').innerHTML='<p style="color:var(--red)">Ошибка загрузки главы: '+esc(chErr.message)+'</p>';
+    }
+    showPageRaw('chapter');
+    return;
+  }
+  // Если текст не вернулся
+  if(!chFull || !chFull.text){
+    // Проверяем: может RLS блокирует — пробуем перезапросить напрямую по id
+    document.getElementById('chapter-content').innerHTML='<p style="color:var(--muted)">Текст главы пока не добавлен.</p>';
+    applyRS();
+    showPageRaw('chapter');
+    return;
+  }
+  const fullText = chFull.text;
+  const imgHtml = chFull.img ? '<img src="'+esc(chFull.img)+'" class="chapter-img" alt="">' : '';
+  const chapterHtml=(fullText||'').split('\n\n').map(p=>{
+    const trimmed=p.trim();
+    if(!trimmed) return '';
+    return '<p>'+esc(trimmed).replace(/\n/g,'<br>')+'</p>';
+  }).filter(Boolean).join('');
+  document.getElementById('chapter-content').innerHTML=imgHtml+chapterHtml;
+  applyRS();
+
+  const nav=document.getElementById('chapter-nav');
+  nav.innerHTML=
+    (chapIdx>0?'<button class="btn-plain" onclick="openChapter('+bookId+','+(chapIdx-1)+')">← Предыдущая</button>':'<span></span>')+
+    (chapIdx<chs.length-1?'<button class="btn-plain filled" onclick="openChapter('+bookId+','+(chapIdx+1)+')">Следующая →</button>':'');
+
+  const key=bookId+'_'+ch.id;
+  loadCommentsForChapter(key, bookId, ch.id);
+  renderReactions(String(ch.id));
+  const chPage=document.getElementById('page-chapter');
+  if(!chPage||!chPage.classList.contains('active')){
+    _navStack.push({type:'book',bookId});
+  }
+  try{history.pushState({page:'chapter',bookId,chapIdx},'');}catch(_){}
+  showPageRaw('chapter');
+}
+
+// ═══ НАВИГАЦИЯ ════════════════════════════════
+let _appReady=false;
+function showPageRaw(name){
+  // Уходим со страницы главы — закрываем канал комментариев
+  if(name !== 'chapter' && _commentsChannel){
+    try{sb.removeChannel(_commentsChannel);}catch(_){}
+    _commentsChannel=null;
+    _commentsRealtimeBusy=false;
+  }
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  window.scrollTo(0,0); closeBurger();
+  if(_appReady && name!=='chapter' && name!=='book' && name!=='forum-thread') try{history.pushState({page:name,idx:_navStack.length},'');}catch(_){}
+}
+function showPage(name){
+  _navStack.length=0;
+  showPageRaw(name);
+  try{history.pushState({page:name,idx:0},'');}catch(_){}
+}
+function goBack(){
+  const prev=_navStack.pop();
+  if(!prev){ showPage('main'); return; }
+  if(prev.type==='saved'){
+    unsubForumPosts();
+    showPageRaw('main');
+    showSection('forum');
+    return;
+  }
+  if(prev.type==='main'){
+    showPageRaw('main');
+  } else if(prev.type==='book'){
+    const bookId=prev.bookId||currentBookId;
+    const b=getData('books',[]).find(x=>x.id===bookId); if(!b)return showPageRaw('main');
+    const isAdmin=currentUser&&currentUser.role==='admin';
+    document.getElementById('book-detail-header').innerHTML=
+      '<button class="btn-plain" onclick="goBack()" style="margin-bottom:16px">← Назад</button>'+
+      '<div class="section-tag">Произведение</div><h2>'+esc(b.title)+'</h2>'+
+      '<p style="color:var(--muted);font-style:italic">'+esc(b.author)+'</p>'+
+      (isAdmin?'<button class="btn-plain" style="margin-top:10px" onclick="showPage(\'admin\');initAdminPage();switchAdminTab(\'chapters\')">+ Добавить главу</button>':'');
+    renderChaptersList(bookId);
+    showPageRaw('book');
+  } else {
+    showPageRaw('main');
+  }
+}
+function showSection(sec){
+  _navStack.length=0;
+  showPageRaw('main');
+  document.querySelectorAll('#nav-main-links a').forEach(a=>a.classList.remove('active'));
+  const el=document.getElementById('nav-'+sec); if(el)el.classList.add('active');
+  const target=document.getElementById('sec-'+sec);
+  if(target)setTimeout(()=>{try{target.scrollIntoView({behavior:'smooth'});}catch(_){target.scrollIntoView();}},50);
+  if(sec==='forum') renderForumThreads();
+}
+
+// ═══ NAV RENDER ═══════════════════════════════
+function renderNav(){
+  const area=document.getElementById('nav-auth-area');
+  const mob=document.getElementById('nav-auth-mobile');
+  const cur=THEMES.find(t=>t.id===_currentTheme)||THEMES[0];
+  const ddOptions=THEMES.map(t=>
+    '<button class="theme-option'+(t.id===_currentTheme?' active':'')+'" onclick="setTheme(\''+t.id+'\')">'+
+      '<span class="theme-dot" style="background:'+t.dot+'"></span>'+t.label+
+    '</button>').join('');
+  const tb='<div style="position:relative">'+
+    '<button class="theme-toggle" onclick="toggleTheme(\'theme-dropdown\')">'+cur.icon+' Тема</button>'+
+    '<div class="theme-dropdown" id="theme-dropdown">'+ddOptions+'</div>'+
+  '</div>';
+  const tbm='<div style="position:relative">'+
+    '<button class="theme-toggle" onclick="toggleTheme(\'theme-dropdown-mob\')">'+cur.icon+' Тема</button>'+
+    '<div class="theme-dropdown" id="theme-dropdown-mob">'+ddOptions+'</div>'+
+  '</div>';
+  let h='',hm='';
+  if(!currentUser){
+    h=tb+'<button class="btn-auth" onclick="openAuthModal(\'login\')">Войти</button>'+
+      '<button class="btn-auth primary" onclick="openAuthModal(\'register\')">Регистрация</button>';
+    hm=tbm+'<button class="btn-auth" onclick="openAuthModal(\'login\');closeBurger()">Войти</button>'+
+      '<button class="btn-auth primary" onclick="openAuthModal(\'register\');closeBurger()">Рег.</button>';
+  } else {
+    const av=currentUser.avatar?'<img src="'+currentUser.avatar+'">':(currentUser.nickname||currentUser.email)[0].toUpperCase();
+    const adm=currentUser.role==='admin'?'<button class="btn-auth gold-btn" onclick="showPage(\'admin\');initAdminPage()">Админ</button>':'';
+    const bell='<button class="btn-auth" onclick="openNotifModal()" style="position:relative;font-size:1.1rem;padding:7px 12px;" title="Уведомления">🔔<span id="notif-badge" style="display:none;position:absolute;top:2px;right:2px;background:var(--red);color:#fff;font-size:0.6rem;border-radius:50%;width:14px;height:14px;line-height:14px;text-align:center"></span></button>';
+    const stats='<button class="btn-auth" onclick="openStatsModal()" style="font-size:1.1rem;padding:7px 12px;" title="Статистика">📊</button>';
+    const chip='<div class="user-chip" onclick="showPage(\'profile\');renderProfile();closeBurger()">'+
+      '<div class="user-avatar">'+av+'</div>'+
+      '<span class="user-chip-name">'+esc(currentUser.nickname||currentUser.email)+'</span></div>';
+    h=tb+adm+bell+stats+chip; hm=tbm+adm+bell+stats+chip;
+  }
+  area.innerHTML=h; if(mob)mob.innerHTML=hm;
+}
+
+// ═══ WORKS GRID ═══════════════════════════════
+function renderWorksGrid(){
+  const books=getData('books',[]);
+  const isAdmin=currentUser&&currentUser.role==='admin';
+  const grid=document.getElementById('works-grid'); if(!grid)return;
+  const cards=books.map(b=>{
+    const prog=bookProgress(b.id);
+    const hasNew=getChapters(b.id).some(isNew);
+    const coverStyle=b.cover?'background:url(\''+esc(b.cover)+'\') center/cover no-repeat;':'';
+    return '<div class="work-card" onclick="openBookModal('+b.id+')" style="'+coverStyle+(b.cover?'position:relative':'')+'">'+(b.cover?'<div style="position:absolute;inset:0;background:rgba(245,234,214,0.88)"></div><div style="position:relative">':'')+
+      (isAdmin?'<button class="card-edit-btn" onclick="event.stopPropagation();adminEditBookForm('+b.id+')">✎</button>':'')+
+      '<div class="work-badge">'+esc(b.badge)+(hasNew?'<span class="badge-new">Новая</span>':'')+'</div>'+
+      '<div class="work-genre">'+esc(b.genre||'')+'</div>'+
+      '<div class="work-title">'+esc(b.title)+'</div>'+
+      '<div class="work-author">'+esc(b.author)+'</div>'+
+      '<p class="work-desc">'+esc(b.meta||'')+'</p>'+
+      (prog.total&&currentUser?'<div class="prog-bar" style="margin-top:10px"><div class="prog-fill" style="width:'+prog.pct+'%"></div></div><div class="prog-label">'+prog.done+'/'+prog.total+' гл.</div>':'')+
+      (b.cover?'</div>':'')+'</div>';
+  });
+  cards.push('<div class="work-card" style="display:flex;align-items:center;justify-content:center;border-style:dashed;opacity:0.5;cursor:default">'+
+    '<div style="text-align:center"><div style="font-size:2rem;color:var(--gold);margin-bottom:8px">＋</div>'+
+    '<div style="font-size:0.85rem;color:var(--muted)">Скоро новый перевод</div></div></div>');
+  grid.innerHTML=cards.join('');
+}
+
+// ═══ BLOG ══════════════════════════════════════
+function renderBlogPosts(){
+  const posts=getData('blog_posts',[]);
+  if(!posts.length){const list=document.getElementById('blog-posts-list');if(list)list.innerHTML='<p style="color:var(--muted)">Записей пока нет.</p>';return;}
+  const isAdmin=currentUser&&currentUser.role==='admin';
+  const list=document.getElementById('blog-posts-list'); if(!list)return;
+  list.innerHTML=posts.map(p=>
+    '<div class="blog-post">'+
+    '<div class="blog-date"><div class="day">'+esc(p.day||'')+'</div><div class="month">'+esc(p.month||'')+'</div></div>'+
+    '<div><div class="blog-title">'+esc(p.title)+'</div><p class="blog-excerpt">'+esc(p.text)+'</p></div>'+
+    (isAdmin?'<div class="blog-post-actions"><button class="btn-sm" onclick="adminEditBlogForm(\''+p.id+'\')">✎</button><button class="btn-sm danger" onclick="adminDeleteBlog(\''+p.id+'\')">✕</button></div>':'')+
+    '</div>').join('');
+}
+
+// ═══ КОММЕНТАРИИ ══════════════════════════════
+let _replyTo=null;
+let _commentsChannel=null;
+
+function renderComments(bookId,chapId){
+  const key=bookId+'_'+chapId;
+  const isAdmin=currentUser&&currentUser.role==='admin';
+  const wrap=document.getElementById('chapter-comments');
+  const coms=getData('comments',{})[key]||[];
+  let html='<div class="section-tag" style="margin-bottom:16px">Комментарии</div>';
+  html+=coms.length?coms.map(c=>{
+    const isComAdmin=(c.is_admin===true);
+    const comAvatar = c.avatar || (_cache['users']&&c.uid&&_cache['users'][c.uid]&&_cache['users'][c.uid].avatar)||null;
+    const replyHtml=c.reply_to_nickname?
+      '<div class="comment-reply-quote"><div class="rq-author">↩ '+esc(c.reply_to_nickname)+'</div><div>'+esc((c.reply_to_text||'').slice(0,80))+((c.reply_to_text||'').length>80?'…':'')+'</div></div>':'';
+    const canDel=isAdmin||(currentUser&&currentUser.uid===c.uid);
+    const replyBtn=currentUser?'<button class="comment-reply-btn" onclick="startReply(\''+key+'\',\''+c.id+'\',\''+encodeURIComponent(c.nickname)+'\',\''+encodeURIComponent(c.text.slice(0,80))+'\')">↩ Ответить</button>':'';
+    return '<div class="comment" id="com-'+c.id+'">'+
+      '<div class="comment-avatar">'+(comAvatar?'<img src="'+esc(comAvatar)+'">':esc((c.nickname||'?')[0]))+'</div>'+
+      '<div class="comment-body"><div class="comment-meta">'+
+        '<span class="comment-author'+(isComAdmin?' comment-author-admin':'')+'">' +esc(c.nickname||'Аноним')+'</span>'+
+        (isComAdmin?'<span class="comment-admin-badge">Админ</span>':'')+
+        '<span class="comment-time">'+(c.date||'')+'</span>'+
+        (canDel?'<button class="comment-del" onclick="deleteComment(\''+key+'\',\''+c.id+'\')">✕</button>':'')+
+      '</div>'+replyHtml+'<div class="comment-text">'+esc(c.text)+'</div>'+replyBtn+'</div></div>';
+  }).join(''):'<p style="color:var(--muted);margin-bottom:20px">Комментариев пока нет.</p>';
+  if(currentUser){
+    html+='<div style="margin-top:20px" id="comment-form-wrap">'+
+      '<div id="reply-indicator" style="display:none" class="reply-form">'+
+        '<span style="font-size:0.85rem;color:var(--muted)">Ответ: <strong id="reply-to-name"></strong></span>'+
+        '<button class="reply-cancel" onclick="cancelReply()">✕ Отмена</button>'+
+      '</div>'+
+      '<div class="form-group"><label>Комментарий</label><textarea id="comment-input" style="min-height:80px" placeholder="Напишите что-нибудь..."></textarea></div>'+
+      '<button class="btn-plain filled" onclick="postComment(\''+key+'\')">Отправить</button></div>';
+  } else {
+    html+='<div class="locked-notice">Чтобы комментировать, <a onclick="openAuthModal(\'login\')">войдите</a> или <a onclick="openAuthModal(\'register\')">зарегистрируйтесь</a>.</div>';
+  }
+  wrap.innerHTML=html;
+}
+
+let _commentsLoadId = 0;
+let _commentsRealtimeBusy = false;
+async function loadCommentsForChapter(key, bookId, chapId){
+  // Отписываемся от предыдущего канала
+  if(_commentsChannel){
+    try{sb.removeChannel(_commentsChannel);}catch(_){}
+    _commentsChannel=null;
+  }
+  _commentsRealtimeBusy = false;
+  if(!_cache['comments']) _cache['comments']={};
+  // Защита от гонки: если функция вызвана повторно до завершения запроса
+  const myLoadId = ++_commentsLoadId;
+  const {data} = await sb.from('comments').select('*').eq('chapter_key',key).order('created_at');
+  if(myLoadId !== _commentsLoadId) return; // устаревший вызов — выходим
+  _cache['comments'][key] = data||[];
+  renderComments(bookId, chapId);
+  // Realtime — уникальное имя канала с timestamp чтобы избежать AbortError
+  try{
+    _commentsChannel = sb.channel('comments-'+key+'-'+Date.now())
+      .on('postgres_changes',{event:'*',schema:'public',table:'comments',filter:'chapter_key=eq.'+key},
+        async ()=>{
+          if(_commentsRealtimeBusy) return;
+          _commentsRealtimeBusy = true;
+          try{
+            const {data:fresh}=await sb.from('comments').select('*').eq('chapter_key',key).order('created_at');
+            _cache['comments'][key]=fresh||[];
+            renderComments(bookId,chapId);
+          }finally{
+            setTimeout(()=>{ _commentsRealtimeBusy=false; }, 800);
+          }
+        }
+      ).subscribe();
+  }catch(e){ console.warn('comments channel error:', e); }
+}
+function startReply(key,comId,encNick,encText){
+  _replyTo={id:comId,nickname:decodeURIComponent(encNick),text:decodeURIComponent(encText)};
+  const ind=document.getElementById('reply-indicator');
+  const nm=document.getElementById('reply-to-name');
+  if(ind){ind.style.display='';}
+  if(nm) nm.textContent=_replyTo.nickname;
+  var _ci=document.getElementById('comment-input'); if(_ci) _ci.focus();
+  var _cfw=document.getElementById('comment-form-wrap'); if(_cfw) try{_cfw.scrollIntoView({behavior:'smooth'});}catch(_){}
+}
+function cancelReply(){
+  _replyTo=null;
+  const ind=document.getElementById('reply-indicator');
+  if(ind) ind.style.display='none';
+}
+async function postComment(key){
+  const inp=document.getElementById('comment-input');
+  const text=(inp?inp.value:'').trim();
+  if(!text||!currentUser)return;
+  // Блокируем кнопку чтобы не отправить дважды
+  const btn=document.querySelector('#comment-form-wrap .btn-plain.filled');
+  if(btn) btn.disabled=true;
+  if(inp)inp.value='';
+  cancelReply();
+  const [bid,chid]=key.split('_');
+  try{
+    await sb.from('comments').insert({
+      chapter_key:key, book_id:bid, chapter_id:chid,
+      uid:currentUser.uid, nickname:currentUser.nickname||currentUser.email,
+      avatar:currentUser.avatar||null,
+      is_admin:currentUser.role==='admin',
+      seen_by_admin:false,
+      reply_to_nickname:_replyTo?_replyTo.nickname:null,
+      reply_to_text:_replyTo?_replyTo.text:null,
+      text,
+      created_at:new Date().toISOString(),
+      date:new Date().toLocaleDateString('ru-RU',{day:'2-digit',month:'long',year:'numeric'})
+    });
+    // Рендер сделает Realtime — не вызываем renderComments вручную
+  }catch(e){ console.error('postComment error:', e); }
+  finally{ if(btn) btn.disabled=false; }
+}
+async function deleteComment(key,cid){
+  await sb.from('comments').delete().eq('id',cid);
+  // Рендер обновит Realtime — вручную не вызываем
+}
+
+// ═══ СОХРАНЁННОЕ ══════════════════════════════
+function isSavedBook(id){ return currentUser&&getData('saved_'+currentUser.uid,[]).some(x=>x.id===id); }
+async function toggleSave(id){
+  if(!currentUser){openAuthModal('login');return;}
+  const key='saved_'+currentUser.uid;
+  let saved=getData(key,[]);
+  if(saved.some(x=>x.id===id)) saved=saved.filter(x=>x.id!==id);
+  else{ const b=getData('books',[]).find(x=>x.id===id); if(b)saved.push({id:b.id,title:b.title,author:b.author,badge:b.badge}); }
+  _cache[key]=saved;
+  await sb.from('users').update({saved:saved}).eq('id', currentUser.uid);
+  renderSaved();
+}
+function renderSaved(){
+  const cont=document.getElementById('saved-content');
+  if(!currentUser){
+    cont.innerHTML='<div class="locked-notice"><a onclick="openAuthModal(\'login\')" style="color:var(--red);cursor:pointer;text-decoration:underline">Войдите</a> или <a onclick="openAuthModal(\'register\')" style="color:var(--red);cursor:pointer;text-decoration:underline">зарегистрируйтесь</a>, чтобы сохранять произведения.</div>';
+    return;
+  }
+  const saved=getData('saved_'+currentUser.uid,[]);
+  if(!saved.length){cont.innerHTML='<p style="color:var(--muted)">Вы ещё ничего не сохранили.</p>';return;}
+  cont.innerHTML='<div class="saved-grid">'+saved.map(b=>{
+    const prog=bookProgress(b.id);
+    return '<div class="saved-card">'+
+      '<button class="saved-remove" onclick="toggleSave('+b.id+')" title="Убрать">✕</button>'+
+      '<div class="work-badge" style="margin-bottom:8px">'+esc(b.badge||'')+'</div>'+
+      '<div class="work-title" style="margin-bottom:4px">'+esc(b.title)+'</div>'+
+      '<div class="work-author" style="margin-bottom:6px">'+esc(b.author||'')+'</div>'+
+      (prog.total?'<div class="prog-bar" style="margin-bottom:4px"><div class="prog-fill" style="width:'+prog.pct+'%"></div></div><div class="prog-label" style="margin-bottom:8px">'+prog.done+'/'+prog.total+' гл.</div>':'')+
+      '<button class="btn-plain" onclick="openBookDetail('+b.id+')">Читать →</button></div>';
+  }).join('')+'</div>';
+}
+
+// ═══ TEXT EDIT MODAL ══════════════════════════
+function openEditText(section){
+  if(!currentUser||currentUser.role!=='admin')return;
+  let html='';
+  if(section==='home') html=
+    '<div class="section-tag">Редактировать главную</div>'+
+    '<div class="form-group"><label>Цитата</label><input type="text" id="te-q" value="'+esc(getData('home_quote',''))+'"></div>'+
+    '<div class="form-group"><label>Текст</label><textarea id="te-d" style="min-height:100px">'+esc(getData('home_desc',''))+'</textarea></div>'+
+    '<button class="btn-plain filled" onclick="saveEditText(\'home\')">Сохранить</button><div id="te-msg" style="margin-top:12px"></div>';
+  else html=
+    '<div class="section-tag">Редактировать «О проекте»</div>'+
+    '<div class="form-group"><label>Абзац 1</label><textarea id="te-p1" style="min-height:100px">'+esc(getData('about_p1',''))+'</textarea></div>'+
+    '<div class="form-group"><label>Абзац 2</label><textarea id="te-p2" style="min-height:100px">'+esc(getData('about_p2',''))+'</textarea></div>'+
+    '<button class="btn-plain filled" onclick="saveEditText(\'about\')">Сохранить</button><div id="te-msg" style="margin-top:12px"></div>';
+  document.getElementById('text-edit-content').innerHTML=html;
+  document.getElementById('text-edit-modal').classList.add('active');
+}
+async function saveEditText(s){
+  const updates={};
+  if(s==='home'){
+    updates.home_quote=document.getElementById('te-q').value;
+    updates.home_desc=document.getElementById('te-d').value;
+    _cache['home_quote']=updates.home_quote;
+    _cache['home_desc']=updates.home_desc;
+  } else {
+    updates.about_p1=document.getElementById('te-p1').value;
+    updates.about_p2=document.getElementById('te-p2').value;
+    _cache['about_p1']=updates.about_p1;
+    _cache['about_p2']=updates.about_p2;
+  }
+  const {error} = await sb.from('site_texts').upsert({id:1,...updates},{onConflict:'id'});
+  const msgEl = document.getElementById('te-msg');
+  if(error){
+    console.error('saveEditText error:', error);
+    if(msgEl) showMsg(msgEl,'Ошибка сохранения: '+error.message,'error');
+    return;
+  }
+  applyTexts();
+  if(msgEl) showMsg(msgEl,'Сохранено!','success');
+}
+function closeTextEditModal(){ document.getElementById('text-edit-modal').classList.remove('active'); }
+function openAddBlogPost(){ showPage('admin'); initAdminPage(); switchAdminTab('blog'); }
+
+// ═══ ADMIN ════════════════════════════════════
+function showAdminBars(on){
+  ['home-admin-bar','blog-admin-bar','about-admin-bar'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display=on?'':'none';});
+}
+async function initAdminPage(){
+  if(!currentUser||currentUser.role!=='admin'){showPage('main');return;}
+  populateAdminBookSelect(); renderAdminChapters(); renderAdminBooks();
+  renderAdminBlogList(); renderAdminComments(); renderAdminUsers(); loadAdminTexts();
+}
+function switchAdminTab(tab){
+  ['chapters','books','blog','texts','comments','users'].forEach((t,i)=>{
+    document.querySelectorAll('.admin-tab')[i].classList.toggle('active',t===tab);
+  });
+  document.querySelectorAll('.admin-pane').forEach(p=>p.classList.remove('active'));
+  const pane=document.getElementById('admin-pane-'+tab); if(pane)pane.classList.add('active');
+  if(tab==='users')renderAdminUsers();
+}
+
+// — Главы
+function populateAdminBookSelect(forceBookId){
+  const sel=document.getElementById('admin-chapter-book');
+  const prev=forceBookId!=null?String(forceBookId):sel.value;
+  sel.innerHTML=getData('books',[]).map(b=>'<option value="'+b.id+'">'+esc(b.title)+'</option>').join('');
+  if(prev&&[...sel.options].some(o=>o.value===prev)) sel.value=prev;
+  renderAdminChapters();
+}
+async function adminSaveChapter(){
+  const bookId=parseInt(document.getElementById('admin-chapter-book').value);
+  if(!bookId||isNaN(bookId)){_alert('⚠ Сначала выберите произведение!');return;}
+  const title=document.getElementById('admin-chapter-title').value.trim();
+  const text=document.getElementById('admin-chapter-text').value.trim();
+  const img=document.getElementById('admin-chapter-img').value.trim();
+  const msg=document.getElementById('admin-chapters-msg');
+  if(!title||!text){showMsg(msg,'Заполните название и текст.','error');return;}
+  if(editingChapterId){
+    const {error}=await sb.from('chapters').update({title,text,img:img||null}).eq('id',editingChapterId);
+    if(!error){
+      const chs=getData('chapters',[]);
+      const i=chs.findIndex(c=>String(c.id)===String(editingChapterId));
+      if(i!==-1){chs[i]={...chs[i],title,img:img||null};_cache['chapters']=chs;}
+      showMsg(msg,'Глава обновлена!','success');
+      adminCancelEdit(); renderAdminChapters();
+      if(currentBookId===bookId) renderChaptersList(bookId);
+    } else {
+      console.error('adminSaveChapter update error:', error);
+      showMsg(msg,'Ошибка обновления: '+error.message,'error');
+    }
+    return;
+  } else {
+    const existing=getChapters(bookId);
+    const maxOrder=existing.length?Math.max(...existing.map(c=>c.order||0)):0;
+    // Родительный падеж для isNew() парсера
+    const moGen=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+    const now=new Date();
+    const dateStr=now.getDate()+' '+moGen[now.getMonth()]+' '+now.getFullYear();
+    const newChap={book_id:bookId,title,text,img:img||null,order:maxOrder+1,date:dateStr};
+    // created_by для RLS политики INSERT
+    if(currentUser && currentUser.uid) newChap.created_by = currentUser.uid;
+    showMsg(msg,'Сохранение...','success');
+    const {data:inserted,error}=await sb.from('chapters').insert(newChap).select('id,book_id,title,img,order,date').single();
+    if(!error && inserted){
+      const chs=getData('chapters',[]); chs.push(inserted); _cache['chapters']=chs;
+      showMsg(msg,'Глава опубликована!','success');
+      adminCancelEdit(); renderAdminChapters();
+      if(currentBookId===bookId) renderChaptersList(bookId);
+    } else {
+      console.error('adminSaveChapter insert error:', error);
+      showMsg(msg,'Ошибка публикации: '+(error?error.message:'нет данных'),'error');
+    }
+  }
+}
+async function adminEditChapterFromReader(bookId,chapIdx){
+  const chapters=getChapters(bookId);
+  const ch=chapters[chapIdx]; if(!ch)return;
+  showPage('admin');
+  populateAdminBookSelect(bookId);
+  renderAdminBooks(); renderAdminBlogList(); renderAdminComments(); renderAdminUsers(); loadAdminTexts();
+  switchAdminTab('chapters');
+  document.getElementById('admin-chapter-title').value=ch.title;
+  document.getElementById('admin-chapter-img').value=ch.img||'';
+  editingChapterId=ch.id;
+  document.getElementById('btn-cancel-edit').style.display='';
+  document.getElementById('editing-label').textContent='Редактирование: «'+ch.title+'»';
+  // Загружаем текст отдельно — в кэше его нет
+  const textEl=document.getElementById('admin-chapter-text');
+  textEl.value='Загрузка текста...';
+  const {data,error}=await sb.from('chapters').select('text').eq('id',ch.id).maybeSingle();
+  textEl.value=data?data.text||'':'';
+  if(error) textEl.value='';
+}
+async function adminEditChapter(bookId,chapId){
+  const ch=getChapters(bookId).find(c=>c.id===chapId); if(!ch)return;
+  const sel=document.getElementById('admin-chapter-book');
+  sel.value=String(bookId);
+  renderAdminChapters();
+  document.getElementById('admin-chapter-title').value=ch.title;
+  document.getElementById('admin-chapter-img').value=ch.img||'';
+  editingChapterId=chapId;
+  document.getElementById('btn-cancel-edit').style.display='';
+  document.getElementById('editing-label').textContent='Редактирование: «'+ch.title+'»';
+  // Загружаем текст отдельно — в кэше его нет
+  const textEl=document.getElementById('admin-chapter-text');
+  textEl.value='Загрузка текста...';
+  const {data,error}=await sb.from('chapters').select('text').eq('id',chapId).maybeSingle();
+  textEl.value=data?data.text||'':'';
+  if(error) textEl.value='';
+  window.scrollTo(0,0);
+}
+function adminCancelEdit(){
+  editingChapterId=null;
+  ['admin-chapter-title','admin-chapter-text','admin-chapter-img'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('btn-cancel-edit').style.display='none';
+  document.getElementById('editing-label').textContent='';
+}
+
+// DOCX IMPORT
+let _docxParsed=[];
+function previewDocxImport(e){
+  const file=e.target.files[0]; if(!file)return;
+  document.getElementById('docx-filename').textContent=file.name;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    mammoth.convertToHtml({arrayBuffer:ev.target.result}).then(result=>{
+      const htmlDoc=result.value;
+      const tmp=document.createElement('div');
+      tmp.innerHTML=htmlDoc;
+      const nodes=[...tmp.childNodes];
+      _docxParsed=[];
+      let current=null;
+      nodes.forEach(node=>{
+        const tag=(node.tagName||'').toLowerCase();
+        if(tag==='h1'||tag==='h2'||tag==='h3'){
+          if(current&&current.text.trim())_docxParsed.push(current);
+          current={title:node.textContent.trim(),text:''};
+        } else if(current){
+          const clone=node.cloneNode(true);
+          clone.querySelectorAll&&clone.querySelectorAll('br').forEach(br=>br.replaceWith('\n'));
+          const t=clone.textContent.trim();
+          if(t) current.text+=(current.text?'\n\n':'')+t;
+        }
+      });
+      if(current&&current.text.trim())_docxParsed.push(current);
+      renderDocxPreview();
+    }).catch(err=>{document.getElementById('docx-filename').textContent='Ошибка: '+err.message;});
+  };
+  reader.readAsArrayBuffer(file);
+}
+function renderDocxPreview(){
+  const wrap=document.getElementById('docx-preview-wrap');
+  const preview=document.getElementById('docx-chapters-preview');
+  if(!_docxParsed.length){
+    preview.innerHTML='<p style="color:var(--muted)">Заголовков не найдено.</p>';
+  } else {
+    preview.innerHTML=_docxParsed.map((ch,i)=>
+      '<div style="padding:10px 0;border-bottom:1px solid var(--divider)">'+
+      '<div style="font-weight:bold;color:var(--red);margin-bottom:4px">Глава '+(i+1)+': '+esc(ch.title)+'</div>'+
+      '<div style="color:var(--muted);font-size:0.82rem;white-space:pre-wrap;max-height:80px;overflow:hidden">'+esc(ch.text.slice(0,200))+(ch.text.length>200?'…':'')+'</div>'+
+      '</div>').join('');
+  }
+  wrap.style.display=_docxParsed.length?'':'none';
+}
+async function importDocxChapters(){
+  if(!_docxParsed.length)return;
+  const bookSel=document.getElementById('admin-chapter-book');
+  const bookId=parseInt(bookSel.value);
+  const msg=document.getElementById('docx-import-msg');
+  if(!bookId||isNaN(bookId)){showMsg(msg,'⚠ Сначала выберите произведение!','error');return;}
+  const existing=getChapters(bookId);
+  const maxOrder=existing.length?Math.max(...existing.map(c=>c.order||0)):0;
+  const moGen=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  const now2=new Date();
+  const dateStr=now2.getDate()+' '+moGen[now2.getMonth()]+' '+now2.getFullYear();
+  const newChaps=_docxParsed.map((ch,i)=>({
+    book_id:bookId, title:ch.title, text:ch.text, img:null,
+    order:maxOrder+i+1, date:dateStr,
+    ...(currentUser && currentUser.uid ? {created_by: currentUser.uid} : {})
+  }));
+  const {data:insertedChaps,error}=await sb.from('chapters').insert(newChaps).select('id,book_id,title,img,order,date');
+  if(!error && insertedChaps){
+    const chs=getData('chapters',[]); _cache['chapters']=[...chs,...insertedChaps];
+    showMsg(msg,'Импортировано '+newChaps.length+' глав!','success');
+    renderAdminChapters();
+    if(currentBookId===bookId) renderChaptersList(bookId);
+    cancelDocxImport();
+  } else showMsg(msg,'Ошибка: '+error.message,'error');
+}
+function cancelDocxImport(){
+  _docxParsed=[];
+  document.getElementById('docx-preview-wrap').style.display='none';
+  document.getElementById('docx-filename').textContent='';
+  document.getElementById('docx-import-input').value='';
+}
+async function adminDeleteChapter(bookId,chapId){
+  _confirmAsync('Удалить главу?', async ok => { if(!ok) return;
+    await sb.from('chapters').delete().eq('id',chapId);
+    const chs=getData('chapters',[]); _cache['chapters']=chs.filter(c=>String(c.id)!==String(chapId));
+    renderAdminChapters();
+    if(currentBookId===bookId) renderChaptersList(bookId);
+  });
+}
+function renderAdminChapters(){
+  const bid=parseInt(document.getElementById('admin-chapter-book').value);
+  const chs=getChapters(bid);
+  const list=document.getElementById('admin-chapters-list');
+  list.innerHTML=chs.length?chs.map(ch=>
+    '<div class="ch-row"><span class="ch-row-title">'+esc(ch.title)+'</span>'+
+    '<span class="ch-row-date">'+(ch.date||'')+'</span>'+
+    '<button class="btn-sm" onclick="adminEditChapter('+bid+',\''+ch.id+'\')">✎ Ред.</button>'+
+    '<button class="btn-sm danger" onclick="adminDeleteChapter('+bid+',\''+ch.id+'\')">✕</button></div>').join('')
+    :'<p style="color:var(--muted);margin-top:8px">Глав ещё нет.</p>';
+}
+
+// — Книги
+async function adminSaveBook(){
+  const f=id=>document.getElementById(id).value.trim();
+  const badge=f('admin-book-badge'),title=f('admin-book-title'),author=f('admin-book-author');
+  const genre=f('admin-book-genre'),meta=f('admin-book-meta'),desc=f('admin-book-desc');
+  const cover=f('admin-book-cover');
+  const tags=f('admin-book-tags');
+  const msg=document.getElementById('admin-books-msg');
+  if(!title){showMsg(msg,'Введите название.','error');return;}
+  const books=getData('books',[]);
+  if(editingBookId){
+    await sb.from('books').update({badge,title,author,genre,meta,tags,desc,cover:cover||null}).eq('id',editingBookId);
+    const i=books.findIndex(b=>b.id===editingBookId);
+    if(i!==-1) books[i]={...books[i],badge,title,author,genre,meta,tags,desc,cover:cover||null};
+    showMsg(msg,'Обновлено!','success');
+  } else {
+    // Не передаём id — пусть БД сгенерирует его автоматически (serial/identity)
+    const {data:insertedBook,error}=await sb.from('books').insert({badge,title,author,genre,meta,tags,desc,cover:cover||null}).select('*').single();
+    if(!error && insertedBook){ books.push(insertedBook); showMsg(msg,'Добавлено!','success'); }
+    else { showMsg(msg,'Ошибка: '+(error?error.message:'нет данных'),'error'); return; }
+  }
+  _cache['books']=books; adminCancelBookEdit(); renderAdminBooks(); renderWorksGrid();
+}
+function adminEditBookForm(id){
+  const b=getData('books',[]).find(x=>x.id===id); if(!b)return;
+  document.getElementById('admin-book-badge').value=b.badge||'';
+  document.getElementById('admin-book-title').value=b.title||'';
+  document.getElementById('admin-book-author').value=b.author||'';
+  document.getElementById('admin-book-genre').value=b.genre||'';
+  document.getElementById('admin-book-meta').value=b.meta||'';
+  document.getElementById('admin-book-tags').value=typeof b.tags==='object'?(b.tags||[]).join(', '):(b.tags||'');
+  document.getElementById('admin-book-desc').value=b.desc||'';
+  document.getElementById('admin-book-cover').value=b.cover||'';
+  editingBookId=id;
+  document.getElementById('btn-cancel-book-edit').style.display='';
+  document.getElementById('editing-book-label').textContent='Редактирование: «'+b.title+'»';
+  showPage('admin'); initAdminPage(); switchAdminTab('books'); window.scrollTo(0,0);
+}
+function adminCancelBookEdit(){
+  editingBookId=null;
+  ['admin-book-badge','admin-book-title','admin-book-author','admin-book-genre','admin-book-meta','admin-book-tags','admin-book-desc','admin-book-cover']
+    .forEach(id=>document.getElementById(id).value='');
+  document.getElementById('btn-cancel-book-edit').style.display='none';
+  document.getElementById('editing-book-label').textContent='';
+}
+async function adminDeleteBook(id){
+  _confirmAsync('Удалить?', async ok => { if(!ok) return;
+    await sb.from('books').delete().eq('id',id);
+    _cache['books']=getData('books',[]).filter(b=>b.id!==id);
+    renderAdminBooks(); renderWorksGrid();
+  });
+}
+function renderAdminBooks(){
+  document.getElementById('admin-books-list').innerHTML=getData('books',[]).map(b=>
+    '<li><span style="flex:1">'+esc(b.title)+' <span style="color:var(--muted);font-size:0.8rem">· '+esc(b.author||'')+'</span></span>'+
+    '<div style="display:flex;gap:6px">'+
+    '<button class="btn-sm" onclick="adminEditBookForm('+b.id+')">✎</button>'+
+    '<button class="btn-sm danger" onclick="adminDeleteBook('+b.id+')">✕</button></div></li>').join('');
+}
+
+// — Блог
+async function adminSaveBlogPost(){
+  const day=document.getElementById('admin-blog-day').value.trim();
+  const month=document.getElementById('admin-blog-month').value.trim();
+  const title=document.getElementById('admin-blog-title').value.trim();
+  const text=document.getElementById('admin-blog-text').value.trim();
+  const msg=document.getElementById('admin-blog-msg');
+  if(!title||!text){showMsg(msg,'Заполните заголовок и текст.','error');return;}
+  const posts=getData('blog_posts',[]);
+  if(editingBlogId){
+    await sb.from('blog_posts').update({day,month,title,text}).eq('id',editingBlogId);
+    const i=posts.findIndex(p=>p.id===editingBlogId);
+    if(i!==-1) posts[i]={...posts[i],day,month,title,text};
+    showMsg(msg,'Обновлено!','success');
+  } else {
+    const newId='b'+Date.now();
+    await sb.from('blog_posts').insert({id:newId,day,month,title,text});
+    posts.unshift({id:newId,day,month,title,text});
+    showMsg(msg,'Добавлено!','success');
+  }
+  _cache['blog_posts']=posts; adminCancelBlogEdit(); renderAdminBlogList(); renderBlogPosts();
+}
+function adminEditBlogForm(id){
+  const p=getData('blog_posts',[]).find(x=>x.id===id); if(!p)return;
+  document.getElementById('admin-blog-day').value=p.day;
+  document.getElementById('admin-blog-month').value=p.month;
+  document.getElementById('admin-blog-title').value=p.title;
+  document.getElementById('admin-blog-text').value=p.text;
+  editingBlogId=id;
+  document.getElementById('btn-cancel-blog-edit').style.display='';
+  document.getElementById('editing-blog-label').textContent='Редактирование: «'+p.title+'»';
+  showPage('admin'); initAdminPage(); switchAdminTab('blog'); window.scrollTo(0,0);
+}
+function adminCancelBlogEdit(){
+  editingBlogId=null;
+  ['admin-blog-day','admin-blog-month','admin-blog-title','admin-blog-text'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('btn-cancel-blog-edit').style.display='none';
+  document.getElementById('editing-blog-label').textContent='';
+}
+async function adminDeleteBlog(id){
+  _confirmAsync('Удалить?', async ok => { if(!ok) return;
+    await sb.from('blog_posts').delete().eq('id',id);
+    _cache['blog_posts']=getData('blog_posts',[]).filter(p=>p.id!==id);
+    renderAdminBlogList(); renderBlogPosts();
+  });
+}
+function renderAdminBlogList(){
+  document.getElementById('admin-blog-list').innerHTML=getData('blog_posts',[]).map(p=>
+    '<div class="ch-row"><span class="ch-row-title">'+esc(p.day)+' '+esc(p.month)+' — '+esc(p.title)+'</span>'+
+    '<button class="btn-sm" onclick="adminEditBlogForm(\''+p.id+'\')">✎</button>'+
+    '<button class="btn-sm danger" onclick="adminDeleteBlog(\''+p.id+'\')">✕</button></div>').join('');
+}
+async function loadAdminTexts(){
+  document.getElementById('admin-home-quote').value=getData('home_quote','');
+  document.getElementById('admin-home-desc').value=getData('home_desc','');
+  document.getElementById('admin-about-p1').value=getData('about_p1','');
+  document.getElementById('admin-about-p2').value=getData('about_p2','');
+}
+async function adminSaveTexts(){
+  const updates={
+    home_quote:document.getElementById('admin-home-quote').value,
+    home_desc:document.getElementById('admin-home-desc').value,
+    about_p1:document.getElementById('admin-about-p1').value,
+    about_p2:document.getElementById('admin-about-p2').value,
+  };
+  Object.assign(_cache, updates);
+  const {error} = await sb.from('site_texts').upsert({id:1,...updates},{onConflict:'id'});
+  const msgEl = document.getElementById('admin-texts-msg');
+  if(error){
+    console.error('adminSaveTexts error:', error);
+    showMsg(msgEl,'Ошибка: '+error.message,'error');
+    return;
+  }
+  applyTexts(); showMsg(msgEl,'Сохранено!','success');
+}
+
+// — Комментарии (Админ)
+async function renderAdminComments(){
+  const {data:allComs,error:comErr}=await sb.from('comments').select('*').order('created_at',{ascending:false});
+  if(comErr) console.error('renderAdminComments:', comErr);
+  const list=document.getElementById('admin-comments-list');
+  if(!allComs||!allComs.length){
+    list.innerHTML='<p style="color:var(--muted)">Комментариев нет.</p>';
+    return;
+  }
+  let html='',newCount=0;
+  allComs.forEach(c=>{
+    const isNewC=!c.is_admin&&!c.seen_by_admin;
+    if(isNewC) newCount++;
+    const book=getData('books',[]).find(x=>String(x.id)===String(c.book_id));
+    const chap=getData('chapters',[]).find(x=>x.id===c.chapter_id);
+    const sourceTxt=(book?book.title:'Книга '+c.book_id)+(chap?' · '+chap.title:'');
+    const replyHtml=c.reply_to_nickname?
+      '<div style="font-size:0.78rem;color:var(--muted);border-left:2px solid var(--red);padding-left:8px;margin-bottom:4px">↩ '+esc(c.reply_to_nickname)+': '+esc((c.reply_to_text||'').slice(0,60))+'</div>':'';
+    html+='<div class="comment-admin"'+(isNewC?' style="border-color:var(--red);background:rgba(139,26,26,0.06)"':'')+'>'+
+      '<div style="flex:1">'+
+      (isNewC?'<div class="notif-source">🔔 Новый</div>':'')+
+      '<div class="notif-source">📖 '+esc(sourceTxt)+'</div>'+
+      '<div style="font-size:0.88rem;margin:4px 0"><strong>'+esc(c.nickname)+'</strong>'+(c.is_admin?' <span style="color:var(--gold);font-size:0.75rem">[Админ]</span>':'')+' · '+(c.date||'')+'</div>'+
+      replyHtml+'<div>'+esc(c.text)+'</div></div>'+
+      '<button class="btn-sm danger" onclick="adminDelComment(\''+c.id+'\')">✕</button></div>';
+  });
+  list.innerHTML=html;
+  const tabEl=document.querySelectorAll('.admin-tab')[4];
+  if(tabEl) tabEl.innerHTML='Комментарии'+(newCount?' <span class="admin-notif-dot"></span>':'')+' ('+allComs.length+')';
+}
+async function adminDelComment(cid){
+  await sb.from('comments').delete().eq('id',cid);
+  renderAdminComments();
+}
+
+// — Пользователи
+async function renderAdminUsers(){
+  const {data:users,error:usrErr}=await sb.from('users').select('*');
+  if(usrErr) console.error('renderAdminUsers:', usrErr);
+  const list=document.getElementById('admin-users-list');
+  const countEl=document.getElementById('admin-users-count');
+  if(!users||!users.length){
+    list.innerHTML=usrErr
+      ?'<p style="color:var(--red)">Ошибка: '+usrErr.message+'. Нужны RLS политики для таблицы users.</p>'
+      :'<p style="color:var(--muted)">Нет пользователей.</p>';
+    if(countEl)countEl.textContent='';
+    return;
+  }
+  const others=users.filter(u=>u.email!==ADMIN_EMAIL);
+  if(countEl)countEl.textContent='— '+others.length+' чел.';
+  const banned=others.filter(u=>u.banned).length;
+  let html='<div style="font-size:0.82rem;color:var(--muted);margin-bottom:14px">Активных: '+(others.length-banned)+' · Заблокированных: '+banned+'</div>';
+  others.forEach(u=>{
+    html+='<div class="ch-row" style="'+(u.banned?'opacity:0.6':'')+'">' +
+      '<div style="flex:1"><div style="font-size:0.95rem;font-weight:500">'+esc(u.nickname||'—')+'</div>'+
+      '<div style="font-size:0.78rem;color:var(--muted)">'+esc(u.email||u.id)+'</div></div>'+
+      '<span style="font-size:0.75rem;padding:3px 10px;border:1px solid '+(u.banned?'var(--red)':'var(--success)')+';color:'+(u.banned?'var(--red)':'var(--success)')+'">'+
+        (u.banned?'Заблокирован':'Активен')+'</span>'+
+      '<button class="btn-sm '+(u.banned?'':'danger')+'" onclick="toggleBan(\''+u.id+'\','+!!u.banned+')">'+
+        (u.banned?'Разбанить':'Забанить')+'</button></div>';
+  });
+  list.innerHTML=html;
+}
+async function toggleBan(uid,isBanned){
+  await sb.from('users').update({banned:!isBanned}).eq('id',uid);
+  renderAdminUsers();
+}
+
+// ═══ ФОРУМ ══════════════════════════════════════
+let _currentThreadId = null;
+let _forumAttachFiles = { new: [], reply: [] };
+let _forumChannel = null;
+
+function unsubForumThreads(){}
+function unsubForumPosts(){
+  if(_forumChannel){ sb.removeChannel(_forumChannel); _forumChannel=null; }
+}
+
+async function renderForumThreads(){
+  const list = document.getElementById('forum-threads-list');
+  const btn = document.getElementById('forum-new-btn');
+  if (!list) return;
+  if (btn) btn.style.display = currentUser ? '' : 'none';
+
+  const {data:threads} = await sb.from('forum_threads').select('*').order('last_at',{ascending:false});
+  if(!threads||!threads.length){
+    list.innerHTML = '<p style="color:var(--muted)">Тем пока нет. Создайте первую!</p>';
+    return;
+  }
+  list.innerHTML = '';
+  threads.forEach(t => {
+    const threadEl = document.createElement('div');
+    threadEl.className = 'forum-thread';
+    threadEl.onclick = () => openForumThread(t.id);
+    const av = t.author_avatar?'<img src="'+esc(t.author_avatar)+'">':esc((t.author_name||'?')[0]);
+    threadEl.innerHTML = '<div class="forum-thread-head">'+
+      '<div class="forum-thread-avatar">'+av+'</div>'+
+      '<div class="forum-thread-meta">'+
+        '<div class="forum-thread-title">'+esc(t.title||'')+'</div>'+
+        '<div class="forum-thread-sub"><span>'+esc(t.author_name||'')+'</span><span>'+esc(t.date||'')+'</span></div>'+
+      '</div>'+
+      '<div class="forum-thread-count">💬 '+(t.post_count||1)+'</div>'+
+    '</div>';
+    list.appendChild(threadEl);
+  });
+}
+
+function openForumThread(threadId){
+  _currentThreadId = threadId;
+  _navStack.push({ type: 'saved' });
+  try{history.pushState({page:'forum-thread',threadId},'');}catch(_){}
+  showPageRaw('forum-thread');
+  loadForumThread(threadId);
+}
+
+async function loadForumThread(threadId){
+  unsubForumPosts();
+  const header = document.getElementById('forum-thread-header');
+  const postsEl = document.getElementById('forum-thread-posts');
+  const composeEl = document.getElementById('forum-thread-compose');
+  header.innerHTML = '<button class="btn-plain" onclick="goBack()" style="margin-bottom:16px">← К форуму</button><div id="forum-thread-title-display" style="font-family:\'Playfair Display\',serif;font-size:1.4rem;color:var(--ink);margin-bottom:20px"></div>';
+  postsEl.innerHTML = '<p style="color:var(--muted)">Загрузка...</p>';
+
+  const {data:t} = await sb.from('forum_threads').select('title').eq('id',threadId).maybeSingle();
+  const titleEl = document.getElementById('forum-thread-title-display');
+  if(titleEl && t) titleEl.textContent = t.title||'';
+
+  async function loadPosts(){
+    const {data:posts} = await sb.from('forum_posts').select('*').eq('thread_id',threadId).order('created_at');
+    if(!posts||!posts.length){ postsEl.innerHTML='<p style="color:var(--muted)">Сообщений нет.</p>'; renderForumCompose(composeEl,threadId); return; }
+    const isAdmin = currentUser && currentUser.role === 'admin';
+    let html = '';
+    posts.forEach(p => {
+      const av = p.author_avatar ? '<img src="'+esc(p.author_avatar)+'">' : esc((p.author_name||'?')[0]);
+      const canDel = isAdmin || (currentUser && currentUser.uid === p.author_uid);
+      const media = p.media||[];
+      let mediaHtml='';
+      if(media.length) mediaHtml='<div class="forum-post-media">'+media.map(m=>m.type==='image'?'<img src="'+m.url+'" style="max-width:100%;max-height:280px;object-fit:contain;border:1px solid var(--divider)">':'<span>📄 '+esc(m.name||'Файл')+'</span>').join('')+'</div>';
+      html += '<div class="forum-post" id="fp-'+p.id+'">'+
+        '<div class="forum-post-avatar">'+av+'</div>'+
+        '<div class="forum-post-body">'+
+          '<div class="forum-post-meta">'+
+            '<span class="forum-post-author">'+esc(p.author_name)+'</span>'+
+            (p.is_admin?'<span class="forum-post-admin-badge">Админ</span>':'')+
+            '<span>'+(p.date||'')+'</span>'+
+            (canDel?'<button class="forum-post-del" onclick="deleteForumPost(\''+p.id+'\')">✕</button>':'')+
+          '</div>'+
+          '<div class="forum-post-text">'+esc(p.text)+'</div>'+
+          mediaHtml+
+        '</div></div>';
+    });
+    postsEl.innerHTML = html;
+    renderForumCompose(composeEl, threadId);
+  }
+  await loadPosts();
+  // Realtime
+  _forumChannel = sb.channel('forum-'+threadId)
+    .on('postgres_changes',{event:'*',schema:'public',table:'forum_posts',filter:'thread_id=eq.'+threadId},
+      ()=>loadPosts()).subscribe();
+}
+
+function renderForumCompose(el, threadId){
+  if(!currentUser){ el.innerHTML='<div class="locked-notice">Чтобы писать, <a onclick="openAuthModal(\'login\')">войдите</a>.</div>'; return; }
+  el.innerHTML='<div class="forum-compose">'+
+    '<textarea id="forum-reply-inp" placeholder="Написать сообщение..."></textarea>'+
+    '<div id="forum-reply-attach-preview" class="forum-attach-preview"></div>'+
+    '<div class="forum-compose-actions">'+
+      '<button class="btn-plain filled" onclick="submitForumPost(\''+threadId+'\')">Отправить</button>'+
+      '<label class="forum-attach-btn" style="cursor:pointer">📎 Прикрепить<input type="file" id="forum-reply-file-inp" multiple accept="image/*" style="display:none" onchange="forumPreviewAttach(\'reply\',event)"></label>'+
+    '</div></div>';
+}
+
+function forumPreviewAttach(slot, e){
+  const files=[...e.target.files];
+  _forumAttachFiles[slot]=(_forumAttachFiles[slot]||[]).concat(files);
+  const previewId=slot==='new'?'forum-new-attach-preview':'forum-reply-attach-preview';
+  const wrap=document.getElementById(previewId); if(!wrap)return;
+  wrap.innerHTML='';
+  _forumAttachFiles[slot].forEach((f,i)=>{
+    const item=document.createElement('div'); item.className='forum-attach-item';
+    if(f.type.startsWith('image/')){const img=document.createElement('img');img.src=URL.createObjectURL(f);item.appendChild(img);}
+    else{item.innerHTML='<div style="padding:8px;font-size:0.78rem;color:var(--muted)">'+esc(f.name)+'</div>';}
+    const rm=document.createElement('button'); rm.className='rm'; rm.textContent='✕';
+    rm.onclick=()=>{_forumAttachFiles[slot].splice(i,1);forumPreviewAttach(slot,{target:{files:[]}});};
+    item.appendChild(rm); wrap.appendChild(item);
+  });
+}
+function fileToBase64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej(new Error('Ошибка'));r.readAsDataURL(file);});}
+const MAX_FILE_MB=1.5;
+async function uploadForumFiles(slot){
+  const files=_forumAttachFiles[slot]||[];
+  if(!files.length) return [];
+  const media=[];
+  for(const f of files){
+    if(f.size>MAX_FILE_MB*1024*1024){_alert('Файл «'+f.name+'» слишком большой.');continue;}
+    const b64=await fileToBase64(f);
+    media.push({url:b64,type:f.type.startsWith('image/')?'image':'file',name:f.name});
+  }
+  _forumAttachFiles[slot]=[];
+  return media;
+}
+
+function openNewThreadModal(){if(!currentUser){openAuthModal('login');return;}document.getElementById('forum-thread-modal').classList.add('active');}
+function closeNewThreadModal(){
+  document.getElementById('forum-thread-modal').classList.remove('active');
+  document.getElementById('forum-thread-title-inp').value='';
+  document.getElementById('forum-thread-text-inp').value='';
+  _forumAttachFiles.new=[];
+  const p=document.getElementById('forum-new-attach-preview'); if(p)p.innerHTML='';
+}
+async function submitNewThread(){
+  if(!currentUser) return;
+  const title=document.getElementById('forum-thread-title-inp').value.trim();
+  const text=document.getElementById('forum-thread-text-inp').value.trim();
+  const msg=document.getElementById('forum-new-thread-msg');
+  if(!title||!text){showMsg(msg,'Заполните название и текст.','error');return;}
+  const btn=document.querySelector('#forum-thread-modal .btn-plain.filled');
+  if(btn) btn.disabled=true;
+  try{
+    const media=await uploadForumFiles('new');
+    const date=new Date().toLocaleDateString('ru-RU',{day:'2-digit',month:'long',year:'numeric'});
+    const {data:newThread,error:te}=await sb.from('forum_threads').insert({
+      title, author_uid:currentUser.uid, author_name:currentUser.nickname||currentUser.email,
+      author_avatar:currentUser.avatar||null, is_admin:currentUser.role==='admin',
+      date, created_at:new Date().toISOString(), last_at:new Date().toISOString(), post_count:1
+    }).select().maybeSingle();
+    if(te) throw te;
+    await sb.from('forum_posts').insert({
+      thread_id:newThread.id, text, media, author_uid:currentUser.uid,
+      author_name:currentUser.nickname||currentUser.email,
+      author_avatar:currentUser.avatar||null, is_admin:currentUser.role==='admin',
+      date, created_at:new Date().toISOString()
+    });
+    closeNewThreadModal(); renderForumThreads(); openForumThread(newThread.id);
+  } catch(e){showMsg(msg,'Ошибка: '+e.message,'error');}
+  finally{if(btn) btn.disabled=false;}
+}
+async function submitForumPost(threadId){
+  if(!currentUser) return;
+  const inp=document.getElementById('forum-reply-inp');
+  const text=(inp?inp.value:'').trim();
+  if(!text&&!_forumAttachFiles.reply.length) return;
+  const btn=document.querySelector('#forum-thread-compose .btn-plain.filled');
+  if(btn) btn.disabled=true;
+  try{
+    const media=await uploadForumFiles('reply');
+    const date=new Date().toLocaleDateString('ru-RU',{day:'2-digit',month:'long',year:'numeric'});
+    await sb.from('forum_posts').insert({
+      thread_id:threadId, text, media, author_uid:currentUser.uid,
+      author_name:currentUser.nickname||currentUser.email,
+      author_avatar:currentUser.avatar||null, is_admin:currentUser.role==='admin',
+      date, created_at:new Date().toISOString()
+    });
+    const {data:cur}=await sb.from('forum_threads').select('post_count').eq('id',threadId).maybeSingle();
+    await sb.from('forum_threads').update({last_at:new Date().toISOString(),post_count:(cur?cur.post_count:1)+1}).eq('id',threadId);
+    if(inp) inp.value='';
+    const pr=document.getElementById('forum-reply-attach-preview'); if(pr)pr.innerHTML='';
+  } catch(e){_alert('Ошибка при отправке: '+e.message);}
+  finally{if(btn) btn.disabled=false;}
+}
+async function deleteForumPost(postId){
+  _confirmAsync('Удалить сообщение?', async ok=>{
+    if(!ok) return;
+    await sb.from('forum_posts').delete().eq('id',postId);
+  });
+}
+
+// ═══ MISC ══════════════════════════════════════
+window.addEventListener('error', e => { console.warn('JS error:', e.message); });
+window.addEventListener('unhandledrejection', e => { console.warn('Unhandled rejection:', e.reason); });
+
+(function(){
+  let _tx=0,_ty=0;
+  document.addEventListener('touchstart',e=>{ if(e.touches.length!==1)return; _tx=e.touches[0].clientX; _ty=e.touches[0].clientY; },{passive:true});
+  document.addEventListener('touchend',e=>{
+    if(e.changedTouches.length!==1)return;
+    const dx=e.changedTouches[0].clientX-_tx;
+    const dy=e.changedTouches[0].clientY-_ty;
+    if(Math.abs(dx)<60||Math.abs(dx)<Math.abs(dy))return;
+    const chPage=document.getElementById('page-chapter');
+    if(!chPage||!chPage.classList.contains('active'))return;
+    const chs=getChapters(currentBookId);
+    if(dx<0){ if(currentChapIdx<chs.length-1) openChapter(currentBookId,currentChapIdx+1); }
+    else { if(currentChapIdx>0) openChapter(currentBookId,currentChapIdx-1); else goBack(); }
+  },{passive:true});
+})();
+window.addEventListener('popstate',e=>{
+  if(!_appReady) return;
+  e.preventDefault();
+  if(_navStack.length>0){ goBack(); } else { showPage('main'); }
+  try{history.pushState({idx:_navStack.length},'');}catch(_){}
+});
+
+(function(){
+  const tg = window.Telegram && window.Telegram.WebApp;
+  if(!tg) return;
+  tg.ready();
+  function updateTgBack(){ if(_navStack.length>0){ tg.BackButton.show(); } else { tg.BackButton.hide(); } }
+  tg.BackButton.onClick(function(){ if(_navStack.length>0){ goBack(); } else { tg.BackButton.hide(); } updateTgBack(); });
+  const _origShowPage=showPage, _origGoBack=goBack, _origShowPageRaw=showPageRaw;
+  window.showPage=function(n){ _origShowPage(n); updateTgBack(); };
+  window.goBack=function(){ _origGoBack(); updateTgBack(); };
+  window.showPageRaw=function(n){ _origShowPageRaw(n); updateTgBack(); };
+})();
+
+document.addEventListener('DOMContentLoaded',()=>{
+  let saved='light';
+  try{saved=localStorage.getItem('theme')||'light';}catch(_){}
+  applyTheme(saved);
+  window.addEventListener('scroll',()=>{ document.getElementById('btn-top').classList.toggle('show',window.scrollY>400); });
+  if(window.IntersectionObserver){
+    const obs=new IntersectionObserver(en=>en.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1});
+    document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+  } else { document.querySelectorAll('.fade-in').forEach(el=>el.classList.add('visible')); }
+  try{history.replaceState({page:'main'},'');}catch(_){}
+  loadSiteData();
+  renderNav();
+  renderForumThreads();
+  setTimeout(()=>{ _appReady = true; }, 300);
+  checkAuthAction();
+});
+
+// ═══ СБРОС ПАРОЛЯ ══════════════════════════════
+async function doResetPassword(){
+  const pwd = document.getElementById('reset-new-password').value.trim();
+  const msg = document.getElementById('reset-msg');
+  if(pwd.length < 6){ msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Минимум 6 символов.</span>'; return; }
+  const {error} = await sb.auth.updateUser({password:pwd});
+  if(error) msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Ошибка: '+error.message+'</span>';
+  else {
+    msg.innerHTML='<span style="color:var(--success);font-size:0.88rem">Пароль изменён! Войдите.</span>';
+    setTimeout(()=>{ document.getElementById('reset-password-modal').classList.remove('active'); openAuthModal('login'); }, 2000);
+  }
+}
+function checkAuthAction(){
+  const params = new URLSearchParams(window.location.search);
+  const mode = params.get('mode');
+  if(mode === 'resetPassword'){
+    document.getElementById('reset-password-modal').classList.add('active');
+    try{history.replaceState({}, '', window.location.pathname);}catch(_){}
+  }
+}
+
+// ═══ ПОИСК ═══════════════════════════════════════
+let _searchTimer=null;
+function doSearch(q){
+  q=q.trim();
+  const clear=document.getElementById('search-clear');
+  const res=document.getElementById('search-results');
+  if(clear) clear.style.display=q?'':'none';
+  clearTimeout(_searchTimer);
+  if(!q){ res.style.display='none'; return; }
+  _searchTimer=setTimeout(()=>{
+    const books=getData('books',[]);
+    const posts=getData('blog_posts',[]);
+    let items=[];
+    books.forEach(b=>{
+      if(b.title&&b.title.toLowerCase().includes(q.toLowerCase()))
+        items.push({type:'book',icon:'📖',label:b.title,sub:b.author||'',action:'openBookModal('+b.id+')'});
+      getChapters(b.id).forEach((ch,i)=>{
+        if(ch.title&&ch.title.toLowerCase().includes(q.toLowerCase()))
+          items.push({type:'chapter',icon:'📄',label:ch.title,sub:b.title,action:'openChapter('+b.id+','+i+')'});
+      });
+    });
+    posts.forEach(p=>{
+      if((p.title||'').toLowerCase().includes(q.toLowerCase())||(p.text||'').toLowerCase().includes(q.toLowerCase()))
+        items.push({type:'blog',icon:'✍️',label:p.title||'Без названия',sub:'Блог',action:'showSection(\'blog\')'});
+    });
+    if(!items.length){
+      res.innerHTML='<div style="padding:16px 20px;color:var(--muted);font-size:0.9rem">Ничего не найдено</div>';
+    } else {
+      res.innerHTML=items.slice(0,8).map(it=>
+        '<div onclick="'+it.action+';clearSearch()" style="display:flex;align-items:center;gap:12px;padding:12px 20px;cursor:pointer;border-bottom:1px solid var(--divider);transition:background 0.2s" onmouseover="this.style.background=\'rgba(139,26,26,0.05)\'" onmouseout="this.style.background=\'\'">'+
+        '<span style="font-size:1.2rem">'+it.icon+'</span>'+
+        '<div><div style="font-size:0.95rem;color:var(--ink)">'+esc(it.label)+'</div><div style="font-size:0.78rem;color:var(--muted)">'+esc(it.sub)+'</div></div></div>'
+      ).join('');
+    }
+    res.style.display='block';
+  },200);
+}
+function clearSearch(){
+  const inp=document.getElementById('search-input');
+  const res=document.getElementById('search-results');
+  const clear=document.getElementById('search-clear');
+  if(inp)inp.value='';
+  if(res)res.style.display='none';
+  if(clear)clear.style.display='none';
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('#search-bar-wrap')) clearSearch();
+});
+
+// ═══ РЕАКЦИИ ═════════════════════════════════════
+const REACTION_EMOJIS=['❤️','🔥','😭','😂','😮'];
+let _reactChapterId=null;
+async function renderReactions(chapterId){
+  _reactChapterId=String(chapterId);
+  const wrap=document.getElementById('chapter-reactions');
+  if(!wrap) return;
+  wrap.innerHTML='<span style="font-size:0.8rem;color:var(--muted)">Загрузка реакций…</span>';
+  const {data,error}=await sb.from('reactions').select('emoji,user_uid').eq('chapter_id',String(chapterId));
+  if(error){ wrap.innerHTML=''; return; }
+  const counts={};
+  const mine=new Set();
+  (data||[]).forEach(r=>{
+    counts[r.emoji]=(counts[r.emoji]||0)+1;
+    if(currentUser && String(r.user_uid)===String(currentUser.uid)) mine.add(r.emoji);
+  });
+  wrap.innerHTML='<span style="font-size:0.8rem;color:var(--muted);margin-right:4px">Реакция:</span>'+
+    REACTION_EMOJIS.map(em=>{
+      const cnt=counts[em]||0;
+      const active=mine.has(em);
+      return '<button onclick="toggleReaction(\''+em+'\')" style="border:1px solid '+(active?'var(--red)':'var(--divider)')+';background:'+(active?'rgba(139,26,26,0.08)':'transparent')+';border-radius:20px;padding:5px 12px;cursor:pointer;font-size:1rem;color:var(--ink);transition:all 0.2s">'+em+(cnt?' <span style="font-size:0.78rem;color:var(--muted)">'+cnt+'</span>':'')+'</button>';
+    }).join('');
+}
+async function toggleReaction(emoji){
+  if(!currentUser){openAuthModal('login');return;}
+  const cid=_reactChapterId; if(!cid)return;
+  const uid=String(currentUser.uid);
+  const {data:existing}=await sb.from('reactions').select('id').eq('chapter_id',cid).eq('user_uid',uid).eq('emoji',emoji).maybeSingle();
+  if(existing){ await sb.from('reactions').delete().eq('id',existing.id); }
+  else { await sb.from('reactions').insert({chapter_id:cid, user_uid:uid, emoji}); }
+  renderReactions(cid);
+}
+
+// ═══ СТАТИСТИКА ══════════════════════════════════
+async function openStatsModal(){
+  if(!currentUser){openAuthModal('login');return;}
+  document.getElementById('stats-modal').classList.add('active');
+  const modal=document.getElementById('stats-body');
+  modal.innerHTML='<div style="color:var(--muted);text-align:center;padding:24px">Загрузка…</div>';
+  const books=getData('books',[]);
+  let totalChaps=0,readChaps=0;
+  const bookRows=books.map(b=>{
+    const chs=getChapters(b.id);
+    const prog=bookProgress(b.id);
+    totalChaps+=chs.length; readChaps+=prog.read;
+    const pct=chs.length?Math.round(prog.read/chs.length*100):0;
+    return '<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;font-size:0.88rem;margin-bottom:4px"><span>'+esc(b.title)+'</span><span style="color:var(--muted)">'+prog.read+'/'+chs.length+'</span></div>'+
+      '<div style="height:6px;background:var(--divider);border-radius:3px"><div style="height:6px;background:var(--red);border-radius:3px;width:'+pct+'%"></div></div></div>';
+  }).join('');
+  modal.innerHTML=
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">'+
+    '<div style="background:var(--card-bg);border:1px solid var(--divider);padding:16px;text-align:center"><div style="font-size:2rem;font-weight:bold;color:var(--red)">'+readChaps+'</div><div style="font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">Глав прочитано</div></div>'+
+    '<div style="background:var(--card-bg);border:1px solid var(--divider);padding:16px;text-align:center"><div style="font-size:2rem;font-weight:bold;color:var(--red)">'+totalChaps+'</div><div style="font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">Глав всего</div></div>'+
+    '</div>'+
+    '<div style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Прогресс по книгам</div>'+
+    bookRows;
+}
+
+// ═══ УВЕДОМЛЕНИЯ ═════════════════════════════════
+let _notifs=[];
+async function loadNotifs(){
+  if(!currentUser)return;
+  try{
+    const {data}=await sb.from('chapters').select('id,title,book_id,date,order').order('order',{ascending:false}).limit(20);
+    if(!data)return;
+    _notifs=data;
+    // Считаем "новые" — главы, которые пользователь ещё не видел в уведомлениях
+    const seenKey='notif_seen_'+currentUser.uid;
+    const seenAt=parseInt(localStorage.getItem(seenKey)||'0');
+    // Если пользователь впервые — помечаем всё как прочитанное, не спамим
+    if(!seenAt){ localStorage.setItem(seenKey, Date.now()); return; }
+    // Считаем главы добавленные после последнего просмотра уведомлений
+    // Используем поле date (текстовое) — сравниваем с порядковым номером через разницу order
+    const lastSeenOrder=parseInt(localStorage.getItem('notif_last_order_'+currentUser.uid)||'0');
+    const newCount=data.filter(c=>(c.order||0)>lastSeenOrder).length;
+    const badge=document.getElementById('notif-badge');
+    if(badge){
+      if(newCount>0){ badge.textContent=newCount>9?'9+':newCount; badge.style.display='block'; }
+      else { badge.style.display='none'; }
+    }
+  }catch(e){ console.warn('loadNotifs error:', e); }
+}
+async function openNotifModal(){
+  if(!currentUser){ openAuthModal('login'); return; }
+  document.getElementById('notif-modal').classList.add('active');
+  // Запоминаем что видели и максимальный order
+  const maxOrder=_notifs.length?Math.max(..._notifs.map(c=>c.order||0)):0;
+  localStorage.setItem('notif_seen_'+currentUser.uid, Date.now());
+  localStorage.setItem('notif_last_order_'+currentUser.uid, maxOrder);
+  const badge=document.getElementById('notif-badge');
+  if(badge)badge.style.display='none';
+  const body=document.getElementById('notif-body');
+  const books=getData('books',[]);
+  if(!_notifs.length){body.innerHTML='<div style="color:var(--muted);padding:16px;text-align:center">Нет уведомлений</div>';return;}
+  body.innerHTML=_notifs.slice(0,15).map(c=>{
+    const b=books.find(bk=>bk.id==c.book_id)||{};
+    return '<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--divider);cursor:pointer" onclick="document.getElementById(\'notif-modal\').classList.remove(\'active\')">'+
+      '<span style="font-size:1.4rem">📖</span>'+
+      '<div style="flex:1"><div style="font-size:0.9rem;color:var(--ink)">'+esc(c.title||'Новая глава')+'</div><div style="font-size:0.78rem;color:var(--muted)">'+esc(b.title||'')+(c.date?' · '+esc(c.date):'')+'</div></div></div>';
+  }).join('');
+}
+// Realtime подписка на новые главы
+let _chaptersNotifChannel = null;
+function subscribeChapterNotifs(){
+  if(!currentUser)return;
+  // Закрываем старый канал перед созданием нового
+  if(_chaptersNotifChannel){ try{sb.removeChannel(_chaptersNotifChannel);}catch(_){} _chaptersNotifChannel=null; }
+  try{
+    _chaptersNotifChannel = sb.channel('chapters-notif-'+currentUser.uid)
+      .on('postgres_changes',{event:'INSERT',schema:'public',table:'chapters'},payload=>{
+        if(payload.new){ _notifs.unshift(payload.new); }
+        const badge=document.getElementById('notif-badge');
+        if(badge){
+          badge.style.display='block';
+          const cur=parseInt(badge.textContent||'0');
+          badge.textContent=cur+1>9?'9+':cur+1;
+        }
+      }).subscribe();
+  }catch(e){ console.warn('subscribeChapterNotifs error:', e); }
+}
+</script>
+
+<!-- ══════════════ STATS MODAL ══════════════ -->
+<div class="modal-overlay" id="stats-modal" onclick="if(event.target===this)this.classList.remove('active')">
+  <div class="modal-box" style="max-width:480px">
+    <button class="modal-close" onclick="document.getElementById('stats-modal').classList.remove('active')">✕</button>
+    <div class="section-tag">Личная статистика</div>
+    <h2 style="font-size:1.5rem;margin-bottom:20px">Мой прогресс</h2>
+    <div id="stats-body"></div>
+  </div>
+</div>
+
+<!-- ══════════════ NOTIF MODAL ══════════════ -->
+<div class="modal-overlay" id="notif-modal" onclick="if(event.target===this)this.classList.remove('active')">
+  <div class="modal-box" style="max-width:420px">
+    <button class="modal-close" onclick="document.getElementById('notif-modal').classList.remove('active')">✕</button>
+    <div class="section-tag">Обновления</div>
+    <h2 style="font-size:1.5rem;margin-bottom:20px">Новые главы</h2>
+    <div id="notif-body"></div>
+  </div>
+</div>
+
+<!-- ══════════════ RESET PASSWORD MODAL ══════════════ -->
+<div class="modal-overlay" id="reset-password-modal">
+  <div class="modal-box" style="max-width:440px">
+    <div class="section-tag">Сброс пароля</div>
+    <h2 style="font-size:1.6rem;margin-bottom:18px">Новый пароль</h2>
+    <div id="reset-msg"></div>
+    <div class="form-group"><label>Новый пароль (мин. 6 символов)</label><input type="password" id="reset-new-password" placeholder="••••••••"></div>
+    <button class="btn-plain filled" onclick="doResetPassword()" style="width:100%">Сохранить пароль</button>
+  </div>
+</div>
+</body>
+</html>

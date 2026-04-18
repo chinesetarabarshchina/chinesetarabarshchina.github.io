@@ -1777,7 +1777,7 @@ async function sbDelete(table, eqField, eqVal){
   return sbFetch(table+'?'+eqField+'=eq.'+encodeURIComponent(eqVal), {method:'DELETE'});
 }
 
-
+function getChapters(bookId){
   const chapters=getData('chapters',[]);
   const arr=chapters.filter(c=>String(c.book_id)===String(bookId));
   return arr.sort((a,b)=>(a.order||0)-(b.order||0));

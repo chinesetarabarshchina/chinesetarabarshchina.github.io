@@ -1733,9 +1733,24 @@ async function ensureSession(){
 }
 
 // ═══ ПРЯМЫЕ FETCH ЗАПРОСЫ К SUPABASE (обход Supabase JS клиента) ══════
+// Читает access_token из localStorage без сетевого запроса
+function _getStoredToken(){
+  try{
+    const key='sb-'+SUPABASE_URL.split('//')[1].split('.')[0]+'-auth-token';
+    const raw=localStorage.getItem(key)||sessionStorage.getItem(key);
+    if(!raw) return null;
+    const p=JSON.parse(raw);
+    const s=p.access_token?p:(p.session||null);
+    if(!s||!s.access_token) return null;
+    // Проверяем не истёк ли токен
+    if(s.expires_at&&s.expires_at*1000<Date.now()) return null;
+    return s.access_token;
+  }catch(_){ return null; }
+}
+
 async function sbFetch(path, options={}){
-  const session = await ensureSession();
-  const token = session ? session.access_token : SUPABASE_ANON_KEY;
+  // Сначала пробуем токен из storage (без сети)
+  let token = _getStoredToken() || SUPABASE_ANON_KEY;
   const url = SUPABASE_URL + '/rest/v1/' + path;
   const res = await fetch(url, {
     ...options,
@@ -1743,10 +1758,24 @@ async function sbFetch(path, options={}){
       'apikey': SUPABASE_ANON_KEY,
       'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json',
-      'Prefer': options.prefer||'',
       ...(options.headers||{})
     }
   });
+  // Если 401 — токен устарел, пробуем рефреш и повтор
+  if(res.status===401){
+    try{
+      const {data:d}=await sb.auth.refreshSession();
+      if(d&&d.session&&d.session.access_token){
+        token=d.session.access_token;
+        const res2=await fetch(url,{...options,headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+token,'Content-Type':'application/json',...(options.headers||{})}});
+        if(!res2.ok){const e=await res2.json().catch(()=>({message:res2.statusText}));return{data:null,error:{message:e.message,code:String(res2.status)}};}
+        const d2=res2.status===204?null:await res2.json().catch(()=>null);
+        return{data:d2,error:null};
+      }
+    }catch(_){}
+    const err=await res.json().catch(()=>({message:'Unauthorized',code:'401'}));
+    return{data:null,error:{message:err.message||'Unauthorized',code:'401'}};
+  }
   if(!res.ok){
     const err = await res.json().catch(()=>({message:res.statusText,code:String(res.status)}));
     return {data:null, error:{message:err.message||res.statusText, code:String(err.code||res.status)}};

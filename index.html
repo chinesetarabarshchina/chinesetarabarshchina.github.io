@@ -2750,9 +2750,8 @@ async function testSupabaseConnection(){
       }
       return;
     }
-    const exp=new Date(session.expires_at*1000);
-    addLine('✓ Шаг 1 OK: Сессия активна. Токен до: <b>'+exp.toLocaleTimeString('ru-RU')+'</b>');
-    addLine('✓ uid: <code>'+esc(session.user.id.slice(0,8))+'...</code>');
+    addLine('✓ Шаг 1 OK: Сессия активна (токен найден в storage)');
+    addLine('✓ uid: <code>'+esc((currentUser&&currentUser.uid||'').slice(0,8))+'...</code>');
 
     addLine('🔍 Шаг 2: SELECT chapters...');
     const t1=Date.now();

@@ -1699,37 +1699,12 @@ function showMsg(el,txt,type){if(!el)return;el.innerHTML='<div class="msg '+type
 function getData(k,d){return(k in _cache)?_cache[k]:d;}
 
 // ═══ ГАРАНТИЯ СЕССИИ перед запросами к БД ════════════════════
+// Только читает из storage — без сетевых запросов
 async function ensureSession(){
-  function withT(p,ms){return Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),ms))]);}
-  try{
-    const {data,error}=await withT(sb.auth.getSession(),7000);
-    let session=data&&data.session;
-    if(error||!session){
-      // Пробуем восстановить через refreshSession
-      try{
-        const {data:d3}=await withT(sb.auth.refreshSession(),10000);
-        if(d3&&d3.session) session=d3.session;
-        else return null;
-      }catch(_){ return null; }
-    }
-    const expiresIn=(session.expires_at||0)*1000-Date.now();
-    if(expiresIn<600000){
-      try{
-        const {data:d2,error:e2}=await withT(sb.auth.refreshSession(),10000);
-        if(!e2&&d2&&d2.session) session=d2.session;
-      }catch(_){}
-    }
-    try{
-      await withT(sb.auth.setSession({
-        access_token:session.access_token,
-        refresh_token:session.refresh_token
-      }),5000);
-    }catch(_){}
-    return session;
-  }catch(e){
-    console.warn('ensureSession error:',e);
-    return null;
-  }
+  const token = _getStoredToken();
+  if(!token) return null;
+  // Возвращаем минимальный объект сессии нужный для совместимости
+  return { access_token: token };
 }
 
 // ═══ ПРЯМЫЕ FETCH ЗАПРОСЫ К SUPABASE (обход Supabase JS клиента) ══════
@@ -3715,21 +3690,8 @@ async function openNotifModal(){
 // Realtime подписка на новые главы
 let _chaptersNotifChannel = null;
 function subscribeChapterNotifs(){
-  if(!currentUser)return;
-  // Закрываем старый канал перед созданием нового
-  if(_chaptersNotifChannel){ try{sb.removeChannel(_chaptersNotifChannel);}catch(_){} _chaptersNotifChannel=null; }
-  try{
-    _chaptersNotifChannel = sb.channel('chapters-notif-'+currentUser.uid)
-      .on('postgres_changes',{event:'INSERT',schema:'public',table:'chapters'},payload=>{
-        if(payload.new){ _notifs.unshift(payload.new); }
-        const badge=document.getElementById('notif-badge');
-        if(badge){
-          badge.style.display='block';
-          const cur=parseInt(badge.textContent||'0');
-          badge.textContent=cur+1>9?'9+':cur+1;
-        }
-      }).subscribe();
-  }catch(e){ console.warn('subscribeChapterNotifs error:', e); }
+  // Realtime WebSocket отключён — зависает на этом соединении
+  // Уведомления обновляются при открытии колокольчика через loadNotifs()
 }
 </script>
 

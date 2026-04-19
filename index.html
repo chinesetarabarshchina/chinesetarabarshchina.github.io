@@ -1606,6 +1606,23 @@
 const SUPABASE_URL = 'https://dytcthyberbwhnyyiadg.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR5dGN0aHliZXJid2hueXlpYWRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMDY0MjIsImV4cCI6MjA5MTY4MjQyMn0.kvEl7LTjx0YEsZ0BYaZSOKjyig8JaByqE7KRe6Fv9BM';
 const ADMIN_EMAIL = 'admin@tarabarshina.ru'; // email аккаунта-администратора
+
+// Сохраняем токены из хэша ДО того как Supabase их очистит
+let _recoveryToken = null;
+(function(){
+  try{
+    const h = new URLSearchParams(window.location.hash.replace('#',''));
+    const type = h.get('type');
+    const at = h.get('access_token');
+    const rt = h.get('refresh_token');
+    if((type==='recovery') && at){
+      _recoveryToken = at;
+      // Устанавливаем сессию сразу через fetch — без ожидания Supabase JS
+      sessionStorage.setItem('_recoveryAt', at);
+      sessionStorage.setItem('_recoveryRt', rt||'');
+    }
+  }catch(_){}
+})();
 /* ═══════════════════════════════════════════════════════════════
    ОБЯЗАТЕЛЬНЫЕ RLS ПОЛИТИКИ В SUPABASE (SQL Editor):
 
@@ -1961,12 +1978,13 @@ async function logout(){
 }
 
 // Слушаем изменения сессии
-let _recoveryToken = null;
-
 sb.auth.onAuthStateChange(async (event, session) => {
   // PASSWORD_RECOVERY — сохраняем токен в памяти для doResetPassword
   if(event === 'PASSWORD_RECOVERY') {
-    if(session && session.access_token) _recoveryToken = session.access_token;
+    if(session && session.access_token){
+      _recoveryToken = session.access_token;
+      sessionStorage.setItem('_recoveryAt', session.access_token);
+    }
     document.getElementById('reset-password-modal').classList.add('active');
     return;
   }
@@ -3525,7 +3543,7 @@ async function doResetPassword(){
   if(pwd.length < 6){ msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Минимум 6 символов.</span>'; return; }
 
   // Используем токен сохранённый при PASSWORD_RECOVERY — без getSession()
-  const token = _recoveryToken;
+  const token = _recoveryToken || sessionStorage.getItem('_recoveryAt');
   if(!token){
     msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Ошибка: сессия не найдена. Запроси новую ссылку.</span>';
     return;
@@ -3546,6 +3564,7 @@ async function doResetPassword(){
       msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Ошибка: '+(e.msg||e.message||res.statusText)+'</span>';
     } else {
       _recoveryToken = null;
+      try{sessionStorage.removeItem('_recoveryAt');sessionStorage.removeItem('_recoveryRt');}catch(_){}
       msg.innerHTML='<span style="color:var(--success);font-size:0.88rem">Пароль изменён! Войдите.</span>';
       setTimeout(()=>{ document.getElementById('reset-password-modal').classList.remove('active'); openAuthModal('login'); }, 2000);
     }

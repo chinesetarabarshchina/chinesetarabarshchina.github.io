@@ -1961,13 +1961,12 @@ async function logout(){
 }
 
 // Слушаем изменения сессии
+let _recoveryToken = null;
+
 sb.auth.onAuthStateChange(async (event, session) => {
-  // PASSWORD_RECOVERY — пользователь перешёл по ссылке сброса пароля
+  // PASSWORD_RECOVERY — сохраняем токен в памяти для doResetPassword
   if(event === 'PASSWORD_RECOVERY') {
-    // Сохраняем сессию — она нужна для updateUser
-    if(session) {
-      try{ await sb.auth.setSession({access_token:session.access_token, refresh_token:session.refresh_token}); }catch(_){}
-    }
+    if(session && session.access_token) _recoveryToken = session.access_token;
     document.getElementById('reset-password-modal').classList.add('active');
     return;
   }
@@ -3525,41 +3524,33 @@ async function doResetPassword(){
   const msg = document.getElementById('reset-msg');
   if(pwd.length < 6){ msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Минимум 6 символов.</span>'; return; }
 
-  // Берём токен из текущей сессии
-  let token = null;
-  try{
-    const {data} = await sb.auth.getSession();
-    token = data&&data.session&&data.session.access_token;
-  }catch(_){}
-
-  let error = null;
-  if(token){
-    // Прямой fetch — обходим зависающий Supabase JS клиент
-    try{
-      const res = await fetch(SUPABASE_URL+'/auth/v1/user', {
-        method: 'PUT',
-        headers: {
-          'apikey': SUPABASE_ANON_KEY,
-          'Authorization': 'Bearer '+token,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({password: pwd})
-      });
-      if(!res.ok){
-        const e = await res.json().catch(()=>({msg:'Ошибка'}));
-        error = {message: e.msg||e.message||res.statusText};
-      }
-    }catch(e){ error = {message: e.message}; }
-  } else {
-    // Fallback через Supabase JS
-    const result = await sb.auth.updateUser({password:pwd});
-    error = result.error;
+  // Используем токен сохранённый при PASSWORD_RECOVERY — без getSession()
+  const token = _recoveryToken;
+  if(!token){
+    msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Ошибка: сессия не найдена. Запроси новую ссылку.</span>';
+    return;
   }
 
-  if(error) msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Ошибка: '+error.message+'</span>';
-  else {
-    msg.innerHTML='<span style="color:var(--success);font-size:0.88rem">Пароль изменён! Войдите.</span>';
-    setTimeout(()=>{ document.getElementById('reset-password-modal').classList.remove('active'); openAuthModal('login'); }, 2000);
+  try{
+    const res = await fetch(SUPABASE_URL+'/auth/v1/user', {
+      method: 'PUT',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer '+token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({password: pwd})
+    });
+    if(!res.ok){
+      const e = await res.json().catch(()=>({message:res.statusText}));
+      msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Ошибка: '+(e.msg||e.message||res.statusText)+'</span>';
+    } else {
+      _recoveryToken = null;
+      msg.innerHTML='<span style="color:var(--success);font-size:0.88rem">Пароль изменён! Войдите.</span>';
+      setTimeout(()=>{ document.getElementById('reset-password-modal').classList.remove('active'); openAuthModal('login'); }, 2000);
+    }
+  }catch(e){
+    msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Ошибка: '+e.message+'</span>';
   }
 }
 function checkAuthAction(){

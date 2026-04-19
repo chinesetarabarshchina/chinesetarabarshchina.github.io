@@ -1964,6 +1964,10 @@ async function logout(){
 sb.auth.onAuthStateChange(async (event, session) => {
   // PASSWORD_RECOVERY — пользователь перешёл по ссылке сброса пароля
   if(event === 'PASSWORD_RECOVERY') {
+    // Сохраняем сессию — она нужна для updateUser
+    if(session) {
+      try{ await sb.auth.setSession({access_token:session.access_token, refresh_token:session.refresh_token}); }catch(_){}
+    }
     document.getElementById('reset-password-modal').classList.add('active');
     return;
   }
@@ -3520,7 +3524,38 @@ async function doResetPassword(){
   const pwd = document.getElementById('reset-new-password').value.trim();
   const msg = document.getElementById('reset-msg');
   if(pwd.length < 6){ msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Минимум 6 символов.</span>'; return; }
-  const {error} = await sb.auth.updateUser({password:pwd});
+
+  // Берём токен из текущей сессии
+  let token = null;
+  try{
+    const {data} = await sb.auth.getSession();
+    token = data&&data.session&&data.session.access_token;
+  }catch(_){}
+
+  let error = null;
+  if(token){
+    // Прямой fetch — обходим зависающий Supabase JS клиент
+    try{
+      const res = await fetch(SUPABASE_URL+'/auth/v1/user', {
+        method: 'PUT',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer '+token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({password: pwd})
+      });
+      if(!res.ok){
+        const e = await res.json().catch(()=>({msg:'Ошибка'}));
+        error = {message: e.msg||e.message||res.statusText};
+      }
+    }catch(e){ error = {message: e.message}; }
+  } else {
+    // Fallback через Supabase JS
+    const result = await sb.auth.updateUser({password:pwd});
+    error = result.error;
+  }
+
   if(error) msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Ошибка: '+error.message+'</span>';
   else {
     msg.innerHTML='<span style="color:var(--success);font-size:0.88rem">Пароль изменён! Войдите.</span>';
@@ -3532,9 +3567,22 @@ function checkAuthAction(){
   const hash = new URLSearchParams(window.location.hash.replace('#',''));
   const mode = params.get('mode');
   const type = hash.get('type');
-  // Supabase передаёт тип в хэше: #type=recovery
+  const accessToken = hash.get('access_token');
+  const refreshToken = hash.get('refresh_token');
+
   if(mode === 'resetPassword' || type === 'recovery'){
-    document.getElementById('reset-password-modal').classList.add('active');
+    // Если токены есть в хэше — устанавливаем сессию вручную
+    if(accessToken && refreshToken){
+      sb.auth.setSession({access_token: accessToken, refresh_token: refreshToken})
+        .then(()=>{
+          document.getElementById('reset-password-modal').classList.add('active');
+        })
+        .catch(()=>{
+          document.getElementById('reset-password-modal').classList.add('active');
+        });
+    } else {
+      document.getElementById('reset-password-modal').classList.add('active');
+    }
     try{history.replaceState({}, '', window.location.pathname);}catch(_){}
   }
 }

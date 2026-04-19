@@ -1698,58 +1698,68 @@ function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').
 function showMsg(el,txt,type){if(!el)return;el.innerHTML='<div class="msg '+type+'">'+txt+'</div>';if(type!=='error'){setTimeout(()=>{if(el)el.innerHTML=''},5000);}}
 function getData(k,d){return(k in _cache)?_cache[k]:d;}
 
+// ═══ ТОКЕН В ПАМЯТИ (сессия не пишется в localStorage) ══════
+let _cachedAccessToken = null;
+let _cachedRefreshToken = null;
+
 // ═══ ГАРАНТИЯ СЕССИИ перед запросами к БД ════════════════════
-// Только читает из storage — без сетевых запросов
 async function ensureSession(){
-  const token = _getStoredToken();
-  if(!token) return null;
-  // Возвращаем минимальный объект сессии нужный для совместимости
-  return { access_token: token };
+  if(_cachedAccessToken) return { access_token: _cachedAccessToken };
+  return null;
 }
 
-// ═══ ПРЯМЫЕ FETCH ЗАПРОСЫ К SUPABASE (обход Supabase JS клиента) ══════
-// Читает access_token из localStorage без сетевого запроса
+// Читает токен — сначала из кэша памяти, потом из storage
 function _getStoredToken(){
+  if(_cachedAccessToken) return _cachedAccessToken;
+  // Пробуем все возможные ключи в storage
   try{
-    const key='sb-'+SUPABASE_URL.split('//')[1].split('.')[0]+'-auth-token';
-    const raw=localStorage.getItem(key)||sessionStorage.getItem(key);
-    if(!raw) return null;
-    const p=JSON.parse(raw);
-    const s=p.access_token?p:(p.session||null);
-    if(!s||!s.access_token) return null;
-    // Проверяем не истёк ли токен
-    if(s.expires_at&&s.expires_at*1000<Date.now()) return null;
-    return s.access_token;
-  }catch(_){ return null; }
+    const keys=[
+      'sb-'+SUPABASE_URL.split('//')[1].split('.')[0]+'-auth-token',
+      'supabase.auth.token',
+      'sb-auth-token'
+    ];
+    for(const key of keys){
+      const raw=localStorage.getItem(key)||sessionStorage.getItem(key);
+      if(!raw) continue;
+      const p=JSON.parse(raw);
+      const s=p.access_token?p:(p.session||null);
+      if(s&&s.access_token) return s.access_token;
+    }
+  }catch(_){}
+  return null;
 }
 
 async function sbFetch(path, options={}){
-  // Сначала пробуем токен из storage (без сети)
   let token = _getStoredToken() || SUPABASE_ANON_KEY;
   const url = SUPABASE_URL + '/rest/v1/' + path;
-  const res = await fetch(url, {
+  const doFetch = (t) => fetch(url, {
     ...options,
     headers: {
       'apikey': SUPABASE_ANON_KEY,
-      'Authorization': 'Bearer ' + token,
+      'Authorization': 'Bearer ' + t,
       'Content-Type': 'application/json',
       ...(options.headers||{})
     }
   });
-  // Если 401 — токен устарел, пробуем рефреш и повтор
-  if(res.status===401){
+  let res = await doFetch(token);
+  // Если 401 — пробуем refresh через прямой fetch (без Supabase JS)
+  if(res.status===401 && _cachedRefreshToken){
     try{
-      const {data:d}=await sb.auth.refreshSession();
-      if(d&&d.session&&d.session.access_token){
-        token=d.session.access_token;
-        const res2=await fetch(url,{...options,headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+token,'Content-Type':'application/json',...(options.headers||{})}});
-        if(!res2.ok){const e=await res2.json().catch(()=>({message:res2.statusText}));return{data:null,error:{message:e.message,code:String(res2.status)}};}
-        const d2=res2.status===204?null:await res2.json().catch(()=>null);
-        return{data:d2,error:null};
+      const rr = await fetch(SUPABASE_URL+'/auth/v1/token?grant_type=refresh_token',{
+        method:'POST',
+        headers:{'apikey':SUPABASE_ANON_KEY,'Content-Type':'application/json'},
+        body:JSON.stringify({refresh_token:_cachedRefreshToken})
+      });
+      if(rr.ok){
+        const rd=await rr.json();
+        if(rd.access_token){
+          _cachedAccessToken=rd.access_token;
+          _cachedRefreshToken=rd.refresh_token||_cachedRefreshToken;
+          token=rd.access_token;
+          res=await doFetch(token);
+        }
       }
     }catch(_){}
-    const err=await res.json().catch(()=>({message:'Unauthorized',code:'401'}));
-    return{data:null,error:{message:err.message||'Unauthorized',code:'401'}};
   }
   if(!res.ok){
     const err = await res.json().catch(()=>({message:res.statusText,code:String(res.status)}));
@@ -1963,6 +1973,15 @@ async function logout(){
 // Слушаем изменения сессии
 let _passwordRecoveryMode = false;
 sb.auth.onAuthStateChange(async (event, session) => {
+  // Всегда кэшируем токен в памяти — localStorage может не работать
+  if(session && session.access_token){
+    _cachedAccessToken = session.access_token;
+    _cachedRefreshToken = session.refresh_token || _cachedRefreshToken;
+  } else if(event === 'SIGNED_OUT'){
+    _cachedAccessToken = null;
+    _cachedRefreshToken = null;
+  }
+
   // PASSWORD_RECOVERY — Supabase установил сессию из ссылки сброса пароля
   if(event === 'PASSWORD_RECOVERY') {
     _passwordRecoveryMode = true;

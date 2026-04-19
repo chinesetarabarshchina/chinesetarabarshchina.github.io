@@ -1,6 +1,25 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<script>
+// Перехватываем хэш ДО загрузки Supabase — он очищает хэш сразу
+(function(){
+  var h=window.location.hash;
+  if(h&&h.indexOf('access_token')!==-1){
+    try{
+      var p=new URLSearchParams(h.replace('#',''));
+      var at=p.get('access_token');
+      var rt=p.get('refresh_token');
+      var type=p.get('type');
+      if(at){
+        sessionStorage.setItem('_sbRecoveryAt',at);
+        sessionStorage.setItem('_sbRecoveryRt',rt||'');
+        sessionStorage.setItem('_sbRecoveryType',type||'');
+      }
+    }catch(e){}
+  }
+})();
+</script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -3543,7 +3562,7 @@ async function doResetPassword(){
   if(pwd.length < 6){ msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Минимум 6 символов.</span>'; return; }
 
   // Используем токен сохранённый при PASSWORD_RECOVERY — без getSession()
-  const token = _recoveryToken || sessionStorage.getItem('_recoveryAt');
+  const token = _recoveryToken || sessionStorage.getItem('_sbRecoveryAt') || sessionStorage.getItem('_recoveryAt');
   if(!token){
     msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Ошибка: сессия не найдена. Запроси новую ссылку.</span>';
     return;
@@ -3564,7 +3583,12 @@ async function doResetPassword(){
       msg.innerHTML='<span style="color:var(--red);font-size:0.88rem">Ошибка: '+(e.msg||e.message||res.statusText)+'</span>';
     } else {
       _recoveryToken = null;
-      try{sessionStorage.removeItem('_recoveryAt');sessionStorage.removeItem('_recoveryRt');}catch(_){}
+      try{
+        sessionStorage.removeItem('_sbRecoveryAt');
+        sessionStorage.removeItem('_sbRecoveryRt');
+        sessionStorage.removeItem('_sbRecoveryType');
+        sessionStorage.removeItem('_recoveryAt');
+      }catch(_){}
       msg.innerHTML='<span style="color:var(--success);font-size:0.88rem">Пароль изменён! Войдите.</span>';
       setTimeout(()=>{ document.getElementById('reset-password-modal').classList.remove('active'); openAuthModal('login'); }, 2000);
     }
@@ -3574,25 +3598,13 @@ async function doResetPassword(){
 }
 function checkAuthAction(){
   const params = new URLSearchParams(window.location.search);
-  const hash = new URLSearchParams(window.location.hash.replace('#',''));
   const mode = params.get('mode');
-  const type = hash.get('type');
-  const accessToken = hash.get('access_token');
-  const refreshToken = hash.get('refresh_token');
+  const savedType = sessionStorage.getItem('_sbRecoveryType');
+  const savedAt = sessionStorage.getItem('_sbRecoveryAt');
 
-  if(mode === 'resetPassword' || type === 'recovery'){
-    // Если токены есть в хэше — устанавливаем сессию вручную
-    if(accessToken && refreshToken){
-      sb.auth.setSession({access_token: accessToken, refresh_token: refreshToken})
-        .then(()=>{
-          document.getElementById('reset-password-modal').classList.add('active');
-        })
-        .catch(()=>{
-          document.getElementById('reset-password-modal').classList.add('active');
-        });
-    } else {
-      document.getElementById('reset-password-modal').classList.add('active');
-    }
+  if(mode === 'resetPassword' || savedType === 'recovery' || savedAt){
+    if(savedAt) _recoveryToken = savedAt;
+    document.getElementById('reset-password-modal').classList.add('active');
     try{history.replaceState({}, '', window.location.pathname);}catch(_){}
   }
 }

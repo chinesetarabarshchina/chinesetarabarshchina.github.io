@@ -2637,7 +2637,7 @@ async function postComment(key){
   cancelReply();
   const [bid,chid]=key.split('_');
   try{
-    await sb.from('comments').insert({
+    const newComment={
       chapter_key:key, book_id:bid, chapter_id:chid,
       uid:currentUser.uid, nickname:currentUser.nickname||currentUser.email,
       avatar:currentUser.avatar||null,
@@ -2648,14 +2648,21 @@ async function postComment(key){
       text,
       created_at:new Date().toISOString(),
       date:new Date().toLocaleDateString('ru-RU',{day:'2-digit',month:'long',year:'numeric'})
+    };
+    const {error}=await sbFetch('comments?select=id',{
+      method:'POST',
+      headers:{'Prefer':'return=representation'},
+      body:JSON.stringify(newComment)
     });
-    // Рендер сделает Realtime — не вызываем renderComments вручную
+    if(error) console.error('postComment error:', error);
+    // Рендерим сразу — не ждём Realtime который может зависнуть
+    renderComments(key);
   }catch(e){ console.error('postComment error:', e); }
   finally{ if(btn) btn.disabled=false; }
 }
 async function deleteComment(key,cid){
-  await sb.from('comments').delete().eq('id',cid);
-  // Рендер обновит Realtime — вручную не вызываем
+  await sbFetch('comments?id=eq.'+cid,{method:'DELETE'});
+  renderComments(key);
 }
 
 // ═══ СОХРАНЁННОЕ ══════════════════════════════
@@ -2905,7 +2912,8 @@ async function adminSaveChapter(){
         const {data:ords}=await sbSelect('chapters','select=order&book_id=eq.'+bookId);
         const maxOrder=(ords||[]).reduce((mx,c)=>Math.max(mx,c.order||0),0);
         const tryOrder=maxOrder+1;
-        const newChap={book_id:bookId,title,text,img:img||null,order:tryOrder,date:dateStr};
+        const chapterId='ch'+bookId+'-'+Date.now()+'-'+Math.random().toString(36).slice(2,7);
+        const newChap={id:chapterId,book_id:bookId,title,text,img:img||null,order:tryOrder,date:dateStr};
         const res=await sbInsert('chapters',newChap);
         // sbInsert возвращает массив — берём первый элемент
         const rowData=Array.isArray(res.data)?res.data[0]:res.data;
@@ -3102,15 +3110,20 @@ async function adminSaveBook(){
   if(!title){showMsg(msg,'Введите название.','error');return;}
   const books=getData('books',[]);
   if(editingBookId){
-    await sb.from('books').update({badge,title,author,genre,meta,tags,desc,cover:cover||null}).eq('id',editingBookId);
-    const i=books.findIndex(b=>b.id===editingBookId);
+    const {error}=await sbUpdate('books',{badge,title,author,genre,meta,tags,desc,cover:cover||null},'id',editingBookId);
+    if(error){showMsg(msg,'Ошибка: '+error.message,'error');return;}
+    const i=books.findIndex(b=>String(b.id)===String(editingBookId));
     if(i!==-1) books[i]={...books[i],badge,title,author,genre,meta,tags,desc,cover:cover||null};
     _cache['books']=books;
     try{const sc=JSON.parse(localStorage.getItem('_siteCache')||'{}');sc.books=books;localStorage.setItem('_siteCache',JSON.stringify(sc));}catch(_){}
     showMsg(msg,'Обновлено!','success');
   } else {
-    // Не передаём id — пусть БД сгенерирует его автоматически (serial/identity)
-    const {data:insertedBook,error}=await sb.from('books').insert({badge,title,author,genre,meta,tags,desc,cover:cover||null}).select('*').single();
+    const {data,error}=await sbFetch('books?select=*',{
+      method:'POST',
+      headers:{'Prefer':'return=representation'},
+      body:JSON.stringify({badge,title,author,genre,meta,tags,desc,cover:cover||null})
+    });
+    const insertedBook=Array.isArray(data)?data[0]:data;
     if(!error && insertedBook){ books.push(insertedBook); showMsg(msg,'Добавлено!','success'); }
     else { showMsg(msg,'Ошибка: '+(error?error.message:'нет данных'),'error'); return; }
   }

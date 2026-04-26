@@ -3118,10 +3118,13 @@ async function adminSaveBook(){
     try{const sc=JSON.parse(localStorage.getItem('_siteCache')||'{}');sc.books=books;localStorage.setItem('_siteCache',JSON.stringify(sc));}catch(_){}
     showMsg(msg,'Обновлено!','success');
   } else {
+    // Генерируем следующий id — берём максимальный существующий + 1
+    const maxId = books.reduce((mx,b)=>Math.max(mx,parseInt(b.id)||0),0);
+    const newId = maxId + 1;
     const {data,error}=await sbFetch('books?select=*',{
       method:'POST',
       headers:{'Prefer':'return=representation'},
-      body:JSON.stringify({badge,title,author,genre,meta,tags,desc,cover:cover||null})
+      body:JSON.stringify({id:newId,badge,title,author,genre,meta,tags,desc,cover:cover||null})
     });
     const insertedBook=Array.isArray(data)?data[0]:data;
     if(!error && insertedBook){ books.push(insertedBook); showMsg(msg,'Добавлено!','success'); }

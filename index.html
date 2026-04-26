@@ -1842,10 +1842,12 @@ async function loadSiteData(){
   // Всегда грузим свежее из Supabase
   // ВАЖНО: RLS на таблице chapters должна разрешать SELECT для anon (все могут читать главы)
   try {
+    const anon = SUPABASE_ANON_KEY;
+    const h = {'apikey':anon,'Authorization':'Bearer '+anon,'Content-Type':'application/json'};
     const [booksRes, chaptersRes, postsRes] = await Promise.all([
-      sb.from('books').select('*').order('id'),
-      sb.from('chapters').select('id,book_id,title,img,order,date').order('order'),
-      sb.from('blog_posts').select('*').order('id', {ascending:false})
+      fetch(SUPABASE_URL+'/rest/v1/books?select=*&order=id', {headers:h}).then(r=>r.json()).then(d=>({data:Array.isArray(d)?d:null,error:d.message?d:null})),
+      fetch(SUPABASE_URL+'/rest/v1/chapters?select=id,book_id,title,img,order,date&order=order', {headers:h}).then(r=>r.json()).then(d=>({data:Array.isArray(d)?d:null,error:d.message?d:null})),
+      fetch(SUPABASE_URL+'/rest/v1/blog_posts?select=*&order=id.desc', {headers:h}).then(r=>r.json()).then(d=>({data:Array.isArray(d)?d:null,error:d.message?d:null}))
     ]);
 
     if(booksRes.error) console.error('books load error:', booksRes.error);
@@ -1854,12 +1856,13 @@ async function loadSiteData(){
     if(chaptersRes.data) _cache['chapters'] = chaptersRes.data;
     if(postsRes.data) _cache['blog_posts'] = postsRes.data;
 
-    const textsRes = await sb.from('site_texts').select('*').limit(1).maybeSingle();
-    if(textsRes.data){
-      _cache['home_quote'] = textsRes.data.home_quote || '«Если тебе трудно читать — значит, переводчик плохо поработал»';
-      _cache['home_desc'] = textsRes.data.home_desc || 'Здесь я публикую любительские переводы китайских новелл.';
-      _cache['about_p1'] = textsRes.data.about_p1 || 'Привет! Я — автор проекта «Китайская тарабарщина».';
-      _cache['about_p2'] = textsRes.data.about_p2 || 'Перевожу новеллы любимых авторов. Все переводы бесплатны.';
+    const textsR = await fetch(SUPABASE_URL+'/rest/v1/site_texts?select=*&limit=1', {headers:h}).then(r=>r.json()).catch(()=>[]);
+    const textsData = Array.isArray(textsR)?textsR[0]:null;
+    if(textsData){
+      _cache['home_quote'] = textsData.home_quote || '«Если тебе трудно читать — значит, переводчик плохо поработал»';
+      _cache['home_desc'] = textsData.home_desc || 'Здесь я публикую любительские переводы китайских новелл.';
+      _cache['about_p1'] = textsData.about_p1 || 'Привет! Я — автор проекта «Китайская тарабарщина».';
+      _cache['about_p2'] = textsData.about_p2 || 'Перевожу новеллы любимых авторов. Все переводы бесплатны.';
     }
 
     try{ localStorage.setItem('_siteCache', JSON.stringify({

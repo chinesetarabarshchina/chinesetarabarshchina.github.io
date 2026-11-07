@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tarabarshchina.github.io/sitemap.xml
+Host: https://tarabarshchina.github.io
